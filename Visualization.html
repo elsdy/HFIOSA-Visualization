@@ -28,7 +28,9 @@
 		<span class="filter-count"> </span> selected out of <span class="total-count"> </span> records | <a href="javascript:dc.filterAll(); dc.renderAll();"> Reset All </a> 
 	</div>
 </div>
-<div class="row">
+<br>
+
+<div class="row" style="clear:both">
 	<div id="io-timeline-chart" class="dc-chart">
 		<h2>
 			<strong> Requested I/O </strong> 
@@ -79,11 +81,11 @@
 		<div class="clearfix">
 		</div>
 	</div>
-	<div id="io_category_ave_response_time_chart" class="dc-chart">
+	<div id="io_category_aver_response_time_chart" class="dc-chart">
 		<h2>
 			<strong> Average Response Time per IO categories </strong> 
 		</h2>
-		(x: # of I/O, y: categories) <a class="reset" href="javascript:IOCategoryChart.filterAll();dc.redrawAll();" style="display: none;"> reset </a> 
+		(x: Aver. Response Time, y: categories) <a class="reset" href="javascript:IOCategoryChart.filterAll();dc.redrawAll();" style="display: none;"> reset </a> 
 		<div class="clearfix">
 		</div>
 	</div>
@@ -100,17 +102,19 @@
 </div>
 <script>
 
+var IOTimeLineChart = dc.compositeChart("#io-timeline-chart");
+var IOVolumeChart = dc.barChart("#io-volume-chart");
 
 var ProcessBubbleChart = dc.bubbleChart("#process_bubble_chart");
 
 var ProcessNameChart = dc.pieChart("#process_chart");
 var TypeChart = dc.pieChart("#type_chart");
 
-var IOCategoryChart = dc.rowChart("#io_category_chart");
+var IOCategoryChart = dc.barChart("#io_category_chart");
+
 var FileChart = dc.rowChart("#file_chart");
 
-var IOTimeLineChart = dc.compositeChart("#io-timeline-chart");
-var IOVolumeChart = dc.barChart("#io-volume-chart");
+var IOCategoryAverRTChart = dc.rowChart("#io_category_aver_response_time_chart");
 
 d3.csv("../final_result.csv", function(error, data) {
 
@@ -134,8 +138,6 @@ d3.csv("../final_result.csv", function(error, data) {
   	d.iosize = +d.iosize;
   	// d.category
   	
-  	// testing for properly getting input
-/*   	document.write( d.processname + " " + d.pid + " " + d.sys + " " + d.vfs + " " + d.fs + " " + d.cache + " " + d.block + " " + d.driver + " " + d.storage + " " + d.journaling + " " + d.wait + " " + d.type + " " + d.filename + " " + d.starttime + " " + d.endtime + " " + d.iosize + " " + d.category + "<br>"); */
   });
   
   // feed it through crossfilter
@@ -150,7 +152,7 @@ d3.csv("../final_result.csv", function(error, data) {
                     //add
                     function (p, v) {
                         ++p.count;
-                        p.StartTime += parseFloat(v.starttime);
+                        p.StartTime += v.starttime;
                         p.TotalIoSize += +v.iosize;
                         p.AvgStartTime = p.StartTime / p.count;
                         p.AvgIoSize = p.TotalIoSize / p.count;
@@ -162,7 +164,7 @@ d3.csv("../final_result.csv", function(error, data) {
                     //remove
                     function (p, v) {
                         --p.count;
-                        p.StartTime -= parseFloat(v.starttime);
+                        p.StartTime -= v.starttime;
                         p.TotalIoSize -= +v.iosize;
                         p.AvgStartTime = p.StartTime / p.count;
                         p.AvgIoSize = p.TotalIoSize / p.count;
@@ -185,29 +187,19 @@ d3.csv("../final_result.csv", function(error, data) {
   var groupTypeDimension = TypeDimension.group();
   
   var IOCategoryDimension = ndx.dimension(function(d) {return d.class});
-  var groupIOCategoryDimension = IOCategoryDimension.group()
-/*
- 			.reduce(
+  var groupIOCategoryDimension = IOCategoryDimension.group();
+  
+  var IOCategoryAverRTDimension = ndx.dimension(function(d) {return d.class});
+  var groupIOCategoryAverRTDimension = IOCategoryAverRTDimension.group().reduce(
 			//add
   			function (p, v) {
   					++p.count;
-				  	p.total_sys += parseFloat(v.sys);
-				  	p.total_vfs += parseFloat(v.vfs);
-				  	p.total_fs += parseFloat(v.fs);
-				  	p.total_cache += parseFloat(v.cache);
-				  	p.total_block += parseFloat(v.block);
-				  	p.total_driver += parseFloat(v.driver);
-				  	p.total_storage += parseFloat(v.storage);
-				  	p.total_journaling += parseFloat(v.journaling);
-				  	p.total_wait += parseFloat(v.wait);
+				  	p.total_sys += v.sys; p.total_vfs += v.vfs; p.total_fs += v.fs; p.total_cache += v.cache;
+				  	p.total_block += v.block; p.total_driver += v.driver; p.total_storage += v.storage;
+				  	p.total_journaling += v.journaling; p.total_wait += v.wait;
 				  	
-				  	p.avg_sys = p.total_sys / p.count;
-				  	p.avg_vfs = p.total_vfs / p.count;
-				  	p.avg_fs = p.total_fs / p.count;
-				  	p.avg_cache = p.total_cache / p.count;
-				  	p.avg_block = p.total_block / p.count;
-				  	p.avg_driver = p.total_driver / p.count;
-				  	p.avg_storage = p.total_storage / p.count;
+				  	p.avg_sys = p.total_sys / p.count; p.avg_vfs = p.total_vfs / p.count; p.avg_fs = p.total_fs / p.count; p.avg_cache = p.total_cache / p.count;
+				  	p.avg_block = p.total_block / p.count; p.avg_driver = p.total_driver / p.count; p.avg_storage = p.total_storage / p.count; 
 				  	p.avg_journaling = p.total_journaling / p.count;
 				  	p.avg_wait = p.total_wait / p.count;			
 				  	
@@ -216,25 +208,13 @@ d3.csv("../final_result.csv", function(error, data) {
   			//remove
   			function (p, v) {
    					--p.count;
-				  	p.total_sys -= parseFloat(v.sys);
-				  	p.total_vfs -= parseFloat(v.vfs);
-				  	p.total_fs -= parseFloat(v.fs);
-				  	p.total_cache -= parseFloat(v.cache);
-				  	p.total_block -= parseFloat(v.block);
-				  	p.total_driver -= parseFloat(v.driver);
-				  	p.total_storage -= parseFloat(v.storage);
-				  	p.total_journaling -= parseFloat(v.journaling);
-				  	p.total_wait -= parseFloat(v.wait);
+				  	p.total_sys -= v.sys; p.total_vfs -= v.vfs; p.total_fs -= v.fs; p.total_cache -= v.cache;
+				  	p.total_block -= v.block; p.total_driver -= v.driver; p.total_storage -= v.storage;
+				  	p.total_journaling -= v.journaling; p.total_wait -= v.wait;
 				  	
-				  	p.avg_sys = p.total_sys / p.count;
-				  	p.avg_vfs = p.total_vfs / p.count;
-				  	p.avg_fs = p.total_fs / p.count;
-				  	p.avg_cache = p.total_cache / p.count;
-				  	p.avg_block = p.total_block / p.count;
-				  	p.avg_driver = p.total_driver / p.count;
-				  	p.avg_storage = p.total_storage / p.count;
-				  	p.avg_journaling = p.total_journaling / p.count;
-				  	p.avg_wait = p.total_wait / p.count;			
+				  	p.avg_sys = p.total_sys / p.count; p.avg_vfs = p.total_vfs / p.count; p.avg_fs = p.total_fs / p.count; p.avg_cache = p.total_cache / p.count;
+				  	p.avg_block = p.total_block / p.count; p.avg_driver = p.total_driver / p.count; p.avg_storage = p.total_storage / p.count;
+				  	p.avg_journaling = p.total_journaling / p.count; p.avg_wait = p.total_wait / p.count;			
 				  	
 				  	return p;	  	
   			},
@@ -242,36 +222,20 @@ d3.csv("../final_result.csv", function(error, data) {
   			function() { 
 				return {
 					count: 0,
-					total_sys: 0, 
-					total_vfs: 0, 
-					total_fs: 0, 
-					total_cache: 0, 
-					total_block: 0, 
-					total_driver: 0, 
-					total_storage: 0, 
-					total_journaling: 0, 
-					total_wait: 0,
+					total_sys: 0,  total_vfs: 0,  total_fs: 0,  total_cache: 0, 
+					total_block: 0,  total_driver: 0,  total_storage: 0, 
+					total_journaling: 0,  total_wait: 0,
 					
-					avg_sys: 0, 
-					avg_vfs: 0, 
-					avg_fs: 0, 
-					avg_cache: 0, 
-					avg_block: 0, 
-					avg_driver: 0, 
-					avg_storage: 0, 
-					avg_journaling: 0, 
-					avg_wait: 0
+					avg_sys: 0,  avg_vfs: 0,  avg_fs: 0,  avg_cache: 0, 
+					avg_block: 0,  avg_driver: 0,  avg_storage: 0, 
+					avg_journaling: 0,  avg_wait: 0
 				};
   			}
-  			)
-*/
-  			;
-
+  );
   
   var FileDimension = ndx.dimension(function(d) {return d.filename});
   var groupFileDimension = FileDimension.group();
   
-  // monthly index avg fluctuation in percentage
   var StartTimeDimension = ndx.dimension(function (d) {
     return d.starttime;
     });
@@ -388,15 +352,10 @@ d3.csv("../final_result.csv", function(error, data) {
                 .margins({top: 20, left: 10, right: 10, bottom: 20})
                 .dimension(IOCategoryDimension)
                 .group(groupIOCategoryDimension)
-                .colors(['#3182bd'])
+/*                 .colors(['#3182bd']) */
                 .label(function (d){
                     return d.key + ": #" + d.value;
                 })
-/*
-                .title(function (d){
-                    return d.key + ": " + d.value;
-                })
-*/
                 .xAxis().ticks(10);
                 
     FileChart.width(700)
@@ -406,14 +365,8 @@ d3.csv("../final_result.csv", function(error, data) {
                 .group(groupFileDimension)
                 .colors(['#3182bd'])
                 .label(function (d){
-/*                 	console.log(FileDimension); */
                     return d.key + ": #" + d.value;
                 })
-/*
-                .title(function (d){
-                    return d.key + ": " + d.value;
-                })
-*/
                 .xAxis().ticks(10);
                  
     IOTimeLineChart.width(1400)
@@ -426,8 +379,6 @@ d3.csv("../final_result.csv", function(error, data) {
             return 1;
         })
         .x(d3.scale.linear().domain([0, 100]))
-/*         .round(d3.time.month.round) */
-/*         .xUnits(d3.time.months) */
         .elasticY(true)
         .renderHorizontalGridLines(true)
         .brushOn(false)
@@ -454,8 +405,6 @@ d3.csv("../final_result.csv", function(error, data) {
             .centerBar(true)
             .gap(0)
             .x(d3.scale.linear().domain([0, 100]))
-/*             .round(d3.time.month.round) */
-/*             .xUnits(d3.time.second) */
             .renderlet(function (chart) {
                 chart.select("g.y").style("display", "none");
                 IOTimeLineChart.filter(chart.filter());
@@ -465,8 +414,30 @@ d3.csv("../final_result.csv", function(error, data) {
                     IOTimeLineChart.focus(chart.filter());
                 });
             });
-
-                                    
+            
+    IOCategoryAverRTChart.width(360)
+                .height(150)
+                .margins({top: 10, right: 50, bottom: 30, left: 60})
+                .dimension(groupIOCategoryDimension)
+                .group(groupIOCategoryAverRTDimension)
+                .valueAccessor(function(d) {
+                    return d.value.avg_sys;
+                })
+                .stack(crimeIncidentByYear, function(d){return d.value.avg_vfs;})
+                .x(d3.scale.linear().domain(["", "write_4", "read_4096", "write_32", "write_128", "read_16", "read_4", "read_8", "read_16", "read_32", "read_128", "read_1024", "read_4096", "read_40960" ]))
+                .xUnits(dc.units.ordinal)
+                .renderHorizontalGridLines(true)
+                .centerBar(true)
+                .elasticY(true)
+                .brushOn(false)
+/*
+                .title(function(d){
+                    return d.key
+                            + "\nViolent crime per 100k population: " + Math.round(d.value.violentCrimeAvg)
+                            + "\nNon-Violent crime per 100k population: " + Math.round(d.value.nonViolentCrimeAvg);
+                })
+*/
+                .xAxis().ticks(5);
                                             
     dc.dataCount(".dc-data-count")
                   .dimension(ndx)
@@ -478,6 +449,5 @@ d3.csv("../final_result.csv", function(error, data) {
 });
 </script>
 
-<!-- <script src="graph5.js"></script>  -->
 </body>
 </html>
