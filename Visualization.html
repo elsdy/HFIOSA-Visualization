@@ -415,6 +415,7 @@ d3.csv("../final_result.csv", function(error, data) {
                 });
             });
             
+/*
     IOCategoryAverRTChart.width(360)
                 .height(150)
                 .margins({top: 10, right: 50, bottom: 30, left: 60})
@@ -423,21 +424,20 @@ d3.csv("../final_result.csv", function(error, data) {
                 .valueAccessor(function(d) {
                     return d.value.avg_sys;
                 })
-                .stack(crimeIncidentByYear, function(d){return d.value.avg_vfs;})
+                .stack(groupIOCategoryAverRTDimension, function(d){return d.value.avg_vfs;})
                 .x(d3.scale.linear().domain(["", "write_4", "read_4096", "write_32", "write_128", "read_16", "read_4", "read_8", "read_16", "read_32", "read_128", "read_1024", "read_4096", "read_40960" ]))
                 .xUnits(dc.units.ordinal)
                 .renderHorizontalGridLines(true)
                 .centerBar(true)
                 .elasticY(true)
                 .brushOn(false)
-/*
                 .title(function(d){
                     return d.key
                             + "\nViolent crime per 100k population: " + Math.round(d.value.violentCrimeAvg)
                             + "\nNon-Violent crime per 100k population: " + Math.round(d.value.nonViolentCrimeAvg);
                 })
-*/
                 .xAxis().ticks(5);
+*/
                                             
     dc.dataCount(".dc-data-count")
                   .dimension(ndx)
