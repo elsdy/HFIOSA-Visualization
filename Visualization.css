@@ -274,7 +274,7 @@ display: block;
     font-size: 10px;
 }
 
-.clearfix { *zoom: 1; }
+.clearfix { *zoom: 100; }
 
 .clearfix:before,.clearfix:after
 {
