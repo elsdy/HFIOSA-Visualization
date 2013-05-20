@@ -20,25 +20,41 @@
 </script>
 <script type="text/javascript" >
 </script>
-
-<!-- data set counter -->
 <div class="graph_label" id="title" >
 	<h1>
 		Hierarchical Performance Results Visualisation 
 	</h1>
-	<div class="dc-data-count" >
-
+	<div class="dc-data-count" style="float:left; " >
+<!--
+		<input type="file" id="thefile" onchange="alertFilename()" />		
+		<br>
+		<br>
+-->
 		<span class="filter-count" > </span> selected out of <span class="total-count" > </span> records | <a href="javascript:dc.filterAll(); dc.renderAll();" > Reset All </a> 
 	</div>
 </div>
 <br>
-
-
+<!--
+<div class="row" style="clear:both">
+	<div id="io-timeline-chart" class="dc-chart">
+		<h2>
+			<strong> Requested I/Os with the Response Time </strong> 
+		</h2>
+		(x: time line, y: response time), select a time range to zoom in <a class="reset" href="javascript:IOVolumeChart.filterAll();dc.redrawAll();" style="display: none;"> reset </a> 
+		<div class="clearfix">
+		</div>
+	</div>
+</div>
+-->
+<!--
+<div class="row">
+	<div id="io-volume-chart">
+	</div>
+</div>
+-->
 <br>
-
-<!-- charts 1 set -->
 <div class="row" style="clear:both; " >
-	<div id="process_bubble_chart" class="dc-chart" > 
+	<div id="process_bubble_chart" class="dc-chart" style="" >
 		<h2>
 			<strong> The Processes at the moment where it's First I/O starts</strong> 
 		</h2>
@@ -63,8 +79,6 @@
 		</div>
 	</div>
 </div>
-
-<!-- charts 2 set -->
 <div class="row" >
 	<div id="io_category_aver_block_emmc_response_time_chart" class="dc-chart" >
 		<h2>
@@ -83,8 +97,6 @@
 		</div>
 	</div>
 </div>
-
-<!-- charts 3 set -->
 <div class="row" >
 	<div id="io_category_aver_response_time_chart" class="dc-chart" >
 		<h2>
@@ -102,26 +114,35 @@
 		<div class="clearfix" >
 		</div>
 	</div>
-</div>
 
-<!-- char 4 set -->
-<div class="row" style="clear:both; " >
-	<div id="io_timeline_chart" class="dc-chart" >
+	
+<!--
+	<div id="file_rt_chart">
 		<h2>
-			<strong> Requested I/Os with the Response Time </strong> 
+			<strong> The Accessed Files and Response Time</strong> 
 		</h2>
-		(x: time line, y: response time), select a time range to zoom in <a class="reset" href="javascript:IOVolumeChart.filterAll();dc.redrawAll();" style="display:none; " > reset </a> 
-		<div class="clearfix" >
+		(x: Response time, y: accessed file) <a class="reset" href="javascript:FileRTChart.filterAll();dc.redrawAll();" style="display: none;"> reset </a> 
+		<div class="clearfix">
 		</div>
 	</div>
+-->
+<!--
 </div>
-<div class="left" >
-	<div id="io-volume-chart" >
-	</div>
+<div id="#io_category_aver_4layer_response_time_chart" style="clear:left">
+	<h2>
+		<strong> Average eMMC, Block, Cache, FS Layer Response Time per each IO category</strong> ㄴㅊ
+	</h2>
+	(x: Aver. Response Time, y: categories (eMMC-blue, BLOCK-red, CACHE-green, FS-blue )) <a class="reset" href="javascript:IOCategoryAver4LayerRTChart.filterAll();dc.redrawAll();" style="display: none;"> reset </a> 
 </div>
-
+-->
 
 <script>
+
+
+/*
+var IOTimeLineChart = dc.compositeChart("#io-timeline-chart");
+var IOVolumeChart = dc.barChart("#io-volume-chart");
+*/
 
 var ProcessBubbleChart = dc.bubbleChart("#process_bubble_chart");
 
@@ -137,11 +158,6 @@ var IOCategoryAverBlockeMMCRTChart = dc.barChart("#io_category_aver_block_emmc_r
 var FileAccessCountChart = dc.rowChart("#file_count_chart");
 
 /* var FileRTChart = dc.barChart("#file_rt_chart"); */
-
-
-var IOTimeLineChart = dc.compositeChart("#io_timeline_chart");
-var IOVolumeChart = dc.barChart("#io-volume-chart");
-
 
 var Full_Width = 1600;
 var Default_Height = 180;
@@ -295,10 +311,9 @@ d3.csv("../final_result.csv", function(error, data) {
 			return p.value.avg_start_end_interval;
 		})
 		.radiusValueAccessor(function (p) {
-			return 1;
-/* 			return p.value.count / all.value()*10000; */
+			return p.value.count / all.value()*10000;
 		})
-/* 		.maxBubbleRelativeSize(1) */
+	/* 	.maxBubbleRelativeSize(30) */
 		.x(d3.scale.linear().domain([-1, 1000]))
 		.y(d3.scale.linear().domain([-100, 1000]))
 		.r(d3.scale.linear().domain([0, 7000]))
@@ -316,6 +331,7 @@ d3.csv("../final_result.csv", function(error, data) {
 		.title(function (p) {
 			return p.value.processname + "-" + p.key
 			+ "\nI/O #" + p.value.count 
+			+ "\n1st I/O at: " + p.value.StartTime
 			+ "\nAvg. RT: " + p.value.avg_start_end_interval.toFixed(8)
 			+ "\nStart time: " + p.value.StartTime.toFixed(8)
 			+ "\nEnd Time: " + p.value.EndTime.toFixed(8);
@@ -685,11 +701,7 @@ d3.csv("../final_result.csv", function(error, data) {
 		})
 		.xAxis().ticks(10);
 */
-
-	var moveChart = dc.compositeChart("#monthly-move-chart");
-var volumeChart = dc.barChart("#monthly-volume-chart");
-
-                              
+                                            
     dc.dataCount(".dc-data-count")
     	.dimension(ndx)
     	.group(all);
@@ -700,4 +712,4 @@ var volumeChart = dc.barChart("#monthly-volume-chart");
 </script>
 
 
-</body></html>
+</div></body></html>
