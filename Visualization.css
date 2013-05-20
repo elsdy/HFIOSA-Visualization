@@ -1,302 +1,291 @@
 body {
-  font: 10px Menlo;
+	font-style:normal;
+	font-variant:normal;
+	font-weight:normal;
+	font-size:10px;
+	line-height:normal;
+	font-family:Menlo;
 }
 
-#process1_load, #process2_load
-{
-width: 50%;
-float: left;
+#title {
+	width:100%;
+	clear:both;
 }
 
-#info1, #info2
-{
-width: 50%;
-float: left;
+div.graph_label, p.graph_label {
+	width:100%;
+	height:auto;
+	clear:both;
+	text-align:center;
+	font-family:sans-serif;
+	font-size:medium;
 }
 
-#process1_info, #process2_info
-{
-float: left;
-font-size: 90%;
-}
-
-#title
-{
-width: 100%;
-clear:both;
-}
-
-div.graph_label, p.graph_label
-{
-width: 100%;
-height: auto;
-clear:both;
-text-align: center;
-font-family:sans-serif;
-font-size: medium;
-}
-
-hr
-{
-clear: both;
-}
-
-#svgMain 
-{
-margin-left:auto; 
-margin-right: auto;
-display: block;
+hr {
+	clear:both;
 }
 
 .dc-chart {
-    float: left;
+	float:left;
 }
 
 .dc-chart rect.bar {
-    stroke: none;
-    fill: steelblue;
+	stroke:none;
+	fill:#4682b4;
 }
 
 .dc-chart rect.bar:hover {
-    fill-opacity: .5;
+	fill-opacity:0.5;
 }
 
 .dc-chart rect.stack1 {
-    stroke: none;
-    fill: red;
+	stroke:none;
+	fill:#ff0000;
 }
 
 .dc-chart rect.stack2 {
-    stroke: none;
-    fill: green;
+	stroke:none;
+	fill:#008000;
 }
 
 .dc-chart rect.deselected {
-    stroke: none;
-    fill: #ccc;
+	stroke:none;
+	fill:#cccccc;
 }
 
 .dc-chart .sub .bar {
-    stroke: none;
-    fill: #ccc;
+	stroke:none;
+	fill:#cccccc;
 }
 
 .dc-chart .pie-slice {
-    fill: black;
-    font-size: 12px;
-    cursor: pointer;
+	fill:#000000;
+	font-size:12px;
+	cursor:pointer;
 }
 
-.dc-chart .pie-slice :hover{
-    fill-opacity: .8;
+.dc-chart .pie-slice :hover {
+	fill-opacity:0.8;
 }
 
-.dc-chart .selected path{
-    stroke-width: 3;
-    stroke: #ccc;
-    fill-opacity: 1;
+.dc-chart .selected path {
+	stroke-width:3px;
+	stroke:#cccccc;
+	fill-opacity:1;
 }
 
-.dc-chart .deselected path{
-    strok: none;
-    fill-opacity: .5;
-    fill: #ccc;
+.dc-chart .deselected path {
+	fill-opacity:0.5;
+	fill:#cccccc;
 }
 
 .dc-chart .axis path, .axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
+	fill:none;
+	stroke:#000000;
+	shape-rendering:crispedges;
 }
 
 .dc-chart .axis text {
-    font: 10px sans-serif;
+	font-style:normal;
+	font-variant:normal;
+	font-weight:normal;
+	font-size:10px;
+	line-height:normal;
+	font-family:sans-serif;
 }
 
 .dc-chart .grid-line line {
-    fill: none;
-    stroke: #ccc;
-    opacity: .5;
-    shape-rendering: crispEdges;
+	fill:none;
+	stroke:#cccccc;
+	opacity:0.5;
+	shape-rendering:crispedges;
 }
 
 .dc-chart .brush rect.background {
-    z-index: -999;
+	z-index:-999;
 }
 
 .dc-chart .brush rect.extent {
-    fill: steelblue;
-    fill-opacity: .125;
+	fill:#4682b4;
+	fill-opacity:0.125;
 }
 
 .dc-chart .brush .resize path {
-    fill: #eee;
-    stroke: #666;
+	fill:#eeeeee;
+	stroke:#666666;
 }
 
 .dc-chart path.line {
-    fill: none;
-    stroke: steelblue;
-    stroke-width: 1.5px;
+	fill:none;
+	stroke:#4682b4;
+	stroke-width:1.5px;
 }
 
-.dc-chart circle.dot{
-    fill: steelblue;
+.dc-chart circle.dot {
+	fill:#4682b4;
 }
 
 .dc-chart g.stack1 path.line {
-    stroke: green;
+	stroke:#008000;
 }
 
-.dc-chart g.stack1 circle.dot{
-    fill: green;
+.dc-chart g.stack1 circle.dot {
+	fill:#008000;
 }
 
 .dc-chart g.stack2 path.line {
-    stroke: red;
+	stroke:#ff0000;
 }
 
-.dc-chart g.stack2 circle.dot{
-    fill: red;
+.dc-chart g.stack2 circle.dot {
+	fill:#ff0000;
 }
 
-.dc-chart g.dc-tooltip path{
-    fill: none;
-    stroke: grey;
-    stroke-opacity: .8;
+.dc-chart g.dc-tooltip path {
+	fill:none;
+	stroke:#808080;
+	stroke-opacity:0.8;
 }
 
 .dc-chart path.area {
-    fill: steelblue;
-    fill-opacity: .3;
-    stroke: none;
+	fill:#4682b4;
+	fill-opacity:0.3;
+	stroke:none;
 }
 
 .dc-chart g.stack1 path.area {
-    fill: green;
+	fill:#008000;
 }
 
 .dc-chart g.stack2 path.area {
-    fill: red;
+	fill:#ff0000;
 }
 
 .dc-chart .node {
-    font-size: 0.7em;
-    cursor: pointer;
+	font-size:0.7em;
+	cursor:pointer;
 }
 
-.dc-chart .node :hover{
-    fill-opacity: .8;
+.dc-chart .node :hover {
+	fill-opacity:0.8;
 }
 
 .dc-chart .selected circle {
-    stroke-width: 3;
-    stroke: #ccc;
-    fill-opacity: 1;
+	stroke-width:3px;
+	stroke:#cccccc;
+	fill-opacity:1;
 }
 
 .dc-chart .deselected circle {
-    strok: none;
-    fill-opacity: .5;
-    fill: #ccc;
+	fill-opacity:0.5;
+	fill:#cccccc;
 }
 
 .dc-chart .bubble {
-    stroke: none;
-    fill-opacity: 0.6;
+	stroke:none;
+	fill-opacity:0.6;
 }
 
 .dc-data-count {
-    float: right;
-    margin-top: 15px;
-    margin-right: 15px;
+	float:left;
+	margin-top:15px;
+	margin-right:15px;
 }
 
 .dc-data-count .filter-count {
-    color: #3182bd;
-    font-weight: bold;
+	color:#3182BD;
+	font-weight:bold;
 }
 
 .dc-data-count .total-count {
-    color: #3182bd;
-    font-weight: bold;
+	color:#3182BD;
+	font-weight:bold;
 }
 
-.dc-data-table {}
-
-.dc-chart g.state{
-    cursor: pointer;
+.dc-data-table {
 }
 
-.dc-chart g.state :hover{
-    fill-opacity: .8;
+.dc-chart g.state {
+	cursor:pointer;
+}
+
+.dc-chart g.state :hover {
+	fill-opacity:0.8;
 }
 
 .dc-chart g.state path {
-    stroke: black;
+	stroke:#000000;
 }
 
 .dc-chart g.selected path {
 }
 
 .dc-chart g.deselected path {
-    fill: grey;
+	fill:#808080;
 }
 
 .dc-chart g.selected text {
 }
 
 .dc-chart g.deselected text {
-    display: none;
+	display:none;
 }
 
 .dc-chart g.county path {
-    stroke: black;
-    fill: none;
+	stroke:#000000;
+	fill:none;
 }
 
-.dc-chart g.debug rect{
-    fill: blue;
-    fill-opacity: .2;
+.dc-chart g.debug rect {
+	fill:#0000ff;
+	fill-opacity:0.2;
 }
 
 .dc-chart g.row rect {
-    fill-opacity: 0.8;
-    cursor: pointer;
+	fill-opacity:0.8;
+	cursor:pointer;
 }
 
 .dc-chart g.row rect:hover {
-    fill-opacity: 0.6;
+	fill-opacity:0.6;
 }
 
 .dc-chart g.row text {
-    fill: black;
-    font-size: 10px;
+	fill:#000000;
+	font-size:10px;
 }
 
-.clearfix { *zoom: 100; }
-
-.clearfix:before,.clearfix:after
-{
-	display: table;
-	line-height: 0;
-	content: "";
+.clearfix {
 }
 
-.clearfix:after { clear: both; }
-
-.row
-{
-	*zoom: 1;
+.clearfix::before, .clearfix::after {
+	display:table;
+	line-height:0;
+	content:'';
 }
 
-.row:before,.row:after
-{
-	display: table;
-	line-height: 0;
-	content: "";
+.clearfix::after {
+	clear:both;
 }
 
-.row:after { clear: both; }
+.row {
+}
+
+.row::before, .row::after {
+	display:table;
+	line-height:0;
+	content:'';
+}
+
+.row::after {
+	clear:both;
+}
+
+.left {
+	clear:left;
+}
 
 
+.right {
+	clear:right;
+}
