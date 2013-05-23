@@ -307,7 +307,7 @@ d3.csv("../final_result.csv", function(error, data) {
 		.xUnits(d3.time.second)
 		.y(d3.scale.linear().domain([0, 0.0004]))
 		.elasticY(true)
-/* 		.yAxisPadding("-80%") */
+		.yAxisPadding("-80%")
 		.renderHorizontalGridLines(true)
 		.brushOn(false)
 		.compose([
