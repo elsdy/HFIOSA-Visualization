@@ -753,7 +753,30 @@ d3.csv("../final_result.csv", function(error, data) {
 		}
 	);
   
-	var groupVolumeStartTimeDimension = StartTimeDimension.group();
+	var groupVolumeStartTimeDimension = StartTimeDimension.group()
+		.reduce(
+			function (p, v) {
+				++p.count;
+				p.total_iosize += v.iosize;
+				p.total_responsetime += v.endtime - v.start;
+				p.throughput = p.total_iosize /  p.total_responsetime;
+			},
+			function (p, v) {
+				--p.count;
+				p.total_iosize -= v.iosize;
+				p.total_responsetime -= v.endtime - v.start;
+				p.throughput = p.count == 0 ? 0: p.total_iosize /  p.total_responsetime;
+			},
+			function() {
+				return {
+					count: 0,
+					total_iosize: 0,
+					total_responsetime: 0,
+					throughput: 0				
+				};
+			}			
+		)
+	;
 
 	IOTimeLineChart
 		.width(Full_Width)
@@ -762,11 +785,9 @@ d3.csv("../final_result.csv", function(error, data) {
 		.margins({top: 20, right: 50, bottom: 30, left: 70})
 		.dimension(StartTimeDimension)
 		.group(groupStartTimeDimension)
-/*
 		.valueAccessor(function (d) {
 			return d.value.avg_start_end_interval;
 		})
-*/
 		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
 /* 		.xUnits(d3.time.second) */
 /* 		.elasticX(true) */
@@ -802,7 +823,7 @@ d3.csv("../final_result.csv", function(error, data) {
 		.group(groupVolumeStartTimeDimension)
 /*
 		.valueAccessor(function (d) {
-				return d.value.avg_start_end_interval;
+				return d.value.throughput;
 		})
 */
 		.centerBar(true)
