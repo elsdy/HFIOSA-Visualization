@@ -42,13 +42,17 @@
 		<h2>
 			<strong> 시간별 요청 I/O 특징 (특정 부분 선택 가능)  </strong> 
 		</h2>
-		(x축: 시간축, y축: 평균 응답시간(위그래프), 처리량(아래그래프)) <a class="reset" href="javascript:IOVolumeChart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
+		(x축: 시간축, y축: 평균 응답시간(위그래프)) <a class="reset" href="javascript:IOVolumeChart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
 		<div class="clearfix" >
 		</div>
 	</div>
 </div>
 <div class="row" >
 	<div id="io-volume-chart" >
+		<h2>
+			<strong> 시간구간별 처리량  </strong> 
+		</h2>
+		(x축: 시간축, y축: 처리량(아래그래프)) <a class="reset" href="javascript:IOVolumeChart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a>
 	</div>
 </div>
 
@@ -76,6 +80,19 @@
 		(면적: I/O 요청 비율) <a class="reset" href="javascript:TypeChart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
 		<div class="clearfix" >
 		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div id="process_throughput_chart">
+		<h2>
+			<strong> 프로세스별 평균 처리량 </strong>
+		</h2>
+	</div>
+	<div id="pid_throughput_chart">
+		<h2>
+			<strong> PID별 평균 처리량 </strong>
+		</h2>
 	</div>
 </div>
 
@@ -158,6 +175,10 @@ var FileAccessCountChart = dc.rowChart("#file_count_chart");
 var IOTimeLineChart = dc.compositeChart("#io-timeline-chart");
 var IOVolumeChart = dc.barChart("#io-volume-chart");
 
+var ProcessThroughputChart = dc.rowChart("#process_throughput_chart");
+var PIDThroughputChart = dc.rowChart("#pid_throughput_chart");
+
+
 var Full_Width = 1600;
 var Default_Height = 180;
 
@@ -235,9 +256,289 @@ d3.csv("../final_result.csv", function(error, data) {
 
   	// define group all for counting
   	var all = ndx.groupAll();
+
+
+	var StartTimeDimension = ndx.dimension(function (d) {
+		return d.timeline_group;
+	});
+	var groupStartTimeDimension = StartTimeDimension.group().reduce(
+		function (p, v) {
+			++p.count;
+			
+			if(p.start_time > v.starttime) p.start_time = v.starttime;
+			
+		  	p.start_end_interval += v.endtime - v.starttime
+			p.total_iosize += v.iosize;
+			
+		  	p.avg_start_end_interval = p.start_end_interval / p.count;
+			p.throughput = (p.total_iosize /  p.start_end_interval) / (1024 *1024)  ;
+		  	
+		  	return p;		  
+		},
+	  	function (p, v) {
+		  	--p.count;
+
+		  	p.start_end_interval -= v.endtime - v.starttime;
+			p.total_iosize -= v.iosize;
+			
+		  	p.avg_start_end_interval = p.count == 0 ? 0: p.start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.start_end_interval) / (1024 *1024);
+			
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
+			  	
+			  	start_time: Number.MAX_VALUE,
+			  	
+			  	start_end_interval: 0, 
+				total_iosize: 0,
+
+			  	avg_start_end_interval: 0,
+				throughput: 0
+		  	};
+		}
+	);
+  
+/*
+	var groupVolumeStartTimeDimension = StartTimeDimension.group()
+		.reduce(
+			function (p, v) {
+				++p.count;
+
+
+			},
+			function (p, v) {
+				--p.count;
+
+				p.total_responsetime -= v.endtime - v.start;
+			},
+			function() {
+				return {
+					count: 0,
+				};
+			}			
+		)
+	;
+*/
+
+	IOTimeLineChart
+		.width(Full_Width)
+		.height(Default_Height)
+		.transitionDuration(transition_duration_delay)
+		.margins({top: 10, right: 50, bottom: 20, left: 70})
+		.dimension(StartTimeDimension)
+		.group(groupStartTimeDimension)
+		.valueAccessor(function (d) {
+			return d.value.avg_start_end_interval;
+		})
+		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
+/* 		.xUnits(d3.time.second) */
+/* 		.elasticX(true) */
+		.y(d3.scale.linear().domain([0, 0.0004]))
+		.elasticY(true)
+/* 		.yAxisPadding(100) */
+		.renderHorizontalGridLines(true)
+		.renderVerticalGridLines(true)
+		.brushOn(false)
+		.compose([
+			dc.lineChart(IOTimeLineChart)
+			.group(groupStartTimeDimension)
+			.valueAccessor(function (d) {
+				return d.value.avg_start_end_interval;
+			})
+			.renderArea(true)
+			.title(function (d) {
+				var ab_text = "";
+				var text = "start time: " + d.value.start_time + "\n" +
+ 				"finish_start_interval: " + d.value.avg_start_end_interval.toFixed(6) + "\n"
+					  ;
+
+				return ab_text + text;
+			})
+		])
+		.xAxis()
+		;
+
+	IOVolumeChart.width(Full_Width)
+		.height(Default_Height)
+		.transitionDuration(transition_duration_delay)
+		.margins({top: 10, right: 50, bottom: 20, left: 70})
+		.dimension(StartTimeDimension)
+		.group(groupStartTimeDimension)
+		.valueAccessor(function (d) {
+				return d.value.throughput;
+		})
+		.centerBar(true)
+		.gap(0)
+		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
+/* 		.xUnits(d3.time.second) */
+		.elasticX(true)
+		.y(d3.scale.linear().domain([0, 100]))
+		.elasticY(true)
+		.renderHorizontalGridLines(true)
+		.renderVerticalGridLines(true)
+		.renderlet(function (chart) {
+/* 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 */
+			IOTimeLineChart.filter(chart.filter());
+		})
+		.on("filtered", function (chart) {
+			dc.events.trigger(function () {
+				IOTimeLineChart.focus(chart.filter());
+			});
+		});
+
+  
+  	
+	var ProcessThroughputDimension = ndx.dimension(function (d) {
+		return d.processname;
+		});            
+
+	var groupProcessThroughputDimension = ProcessThroughputDimension.group().reduce(
+		function (p, v) {
+			++p.count;
+			
+			if(p.start_time > v.starttime) p.start_time = v.starttime;
+			
+		  	p.start_end_interval += v.endtime - v.starttime
+			p.total_iosize += v.iosize;
+			
+		  	p.avg_start_end_interval = p.start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.start_end_interval) / (1024 *1024);
+		  	
+		  	return p;		  
+		},
+	  	function (p, v) {
+		  	--p.count;
+
+		  	p.start_end_interval -= v.endtime - v.starttime;
+			p.total_iosize -= v.iosize;
+			
+		  	p.avg_start_end_interval = p.count == 0 ? 0: p.start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.start_end_interval) / (1024 *1024);
+			
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
+			  	
+			  	start_time: Number.MAX_VALUE,
+			  	
+			  	start_end_interval: 0, 
+				total_iosize: 0,
+
+			  	avg_start_end_interval: 0,
+				throughput: 0
+		  	};
+		}
+	);
+	
+	ProcessThroughputChart
+	    .width(Full_Width/2) // (optional) define chart width, :default = 200
+	    .height(groupProcessThroughputDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
+		.margins({top: 10, right: 50, bottom: 20, left: 70})
+	    .dimension(ProcessThroughputDimension) // set dimension
+	    .group(groupProcessThroughputDimension) // set group
+	    .valueAccessor(function (p) {
+			return p.value.throughput;
+		})
+	    // (optional) define margins
+	    .margins({top: 20, left: 10, right: 10, bottom: 20})
+	    // (optional) define color array for slices
+/* 	    .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb']) */
+	    // (optional) set gap between rows, default is 5
+	    .gap(7)
+	    // (optional) whether chart should render labels, :default = true
+	    .renderLabel(true)
+    	.label(function (p) {
+			return p.key + ": "+ p.value.throughput.toFixed(3) + " MB/s";
+		})
+	    // (optional) by default pie chart will use group.key and group.value as its title
+	    // you can overwrite it with a closure
+	    .title(function(d) { return d.value.throughput.toFixed(3) + " MB/s"; })
+	    // (optional) whether chart should render titles, :default = false
+	    .renderTitle(true)
+	    // (optional) specify the number of ticks for the X axis
+	    .xAxis().ticks(4);
+
+
     
-    
-            
+	var PIDThroughputDimension = ndx.dimension(function (d) {
+		return d.processname + "-" + d.pid;
+	});
+	var groupPIDThroughputDimension = PIDThroughputDimension.group().reduce(
+		function (p, v) {
+			++p.count;
+			
+			if(p.start_time > v.starttime) p.start_time = v.starttime;
+			
+		  	p.start_end_interval += v.endtime - v.starttime
+			p.total_iosize += v.iosize;
+			
+		  	p.avg_start_end_interval = p.start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.start_end_interval) / (1024 *1024);
+		  	
+		  	return p;		  
+		},
+	  	function (p, v) {
+		  	--p.count;
+
+		  	p.start_end_interval -= v.endtime - v.starttime;
+			p.total_iosize -= v.iosize;
+			
+		  	p.avg_start_end_interval = p.count == 0 ? 0: p.start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.start_end_interval) / (1024 *1024);
+			
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
+			  	
+			  	start_time: Number.MAX_VALUE,
+			  	
+			  	start_end_interval: 0, 
+				total_iosize: 0,
+
+			  	avg_start_end_interval: 0,
+				throughput: 0
+		  	};
+		}
+	);
+	
+	PIDThroughputChart
+	    .width(Full_Width/2) // (optional) define chart width, :default = 200
+	    .height(groupPIDThroughputDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
+		.margins({top: 10, right: 50, bottom: 20, left: 70})
+	    .dimension(PIDThroughputDimension) // set dimension
+	    .group(groupPIDThroughputDimension) // set group
+	    .valueAccessor(function (p) {
+			return p.value.throughput;
+		})
+	    // (optional) define margins
+	    .margins({top: 20, left: 10, right: 10, bottom: 20})
+	    // (optional) define color array for slices
+/* 	    .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb']) */
+	    // (optional) set gap between rows, default is 5
+	    .gap(7)
+	    // (optional) whether chart should render labels, :default = true
+	    .renderLabel(true)
+    	.label(function (p) {
+			return p.key + ": "+ p.value.throughput.toFixed(3) + " MB/s";
+		})
+	    // (optional) by default pie chart will use group.key and group.value as its title
+	    // you can overwrite it with a closure
+	    .title(function(d) { return d.value.throughput.toFixed(3) + " MB/s"; })
+	    // (optional) whether chart should render titles, :default = false
+	    .renderTitle(true)
+	    // (optional) specify the number of ticks for the X axis
+	    .xAxis().ticks(4);
+
 /*
   	var y_low = 0;
   	var y_high = groupProcessDimension[0].value.count;
@@ -248,29 +549,6 @@ d3.csv("../final_result.csv", function(error, data) {
     
   	var ProcessDimension = ndx.dimension(function(d){ return d.pid });
   	var groupProcessDimension = ProcessDimension.group().reduce(
-/*
-	  	//add
-	  	function (p, v) {
-		  	++p.count;
-		  	if(p.StartTime > v.starttime) p.StartTime = v.starttime;
-		  	p.pid = +v.pid;
-		  			  	
-		  	return p;
-	  	},
-	  	//remove
-	  	function (p, v) {
-		  	--p.count;
-		  	p.pid = +v.pid;
-		  	
-		  	p.processname = v.processname;
-		  	return p;
-	  	},
-	  	//init
-	  	function () {
-		  	return {count: 0, StartTime: Number.MAX_VALUE, 
-		  	pid: 0};
-	  	}
-*/
 		//add
 		function (p, v) {
 			++p.count;
@@ -338,7 +616,7 @@ d3.csv("../final_result.csv", function(error, data) {
 		.y(d3.scale.linear().domain([-1, 1]))
 		.r(d3.scale.linear().domain([0, 7000]))
 		.elasticY(true)
-/* 		.yAxisPadding(0.5) */
+		.yAxisPadding(0.5)
 		.elasticX(false)
 /* 		.xAxisPadding(2000) */
 		.renderHorizontalGridLines(true)
@@ -721,126 +999,9 @@ d3.csv("../final_result.csv", function(error, data) {
 		})
 		.xAxis().ticks(10);
 */
-
-	var StartTimeDimension = ndx.dimension(function (d) {
-		return d.timeline_group;
-	});
-	var groupStartTimeDimension = StartTimeDimension.group().reduce(
-		function (p, v) {
-			++p.count;
-			if(p.start_time > v.starttime) p.start_time = v.starttime;
-		  	p.start_end_interval += v.endtime - v.starttime;
-		  	p.avg_start_end_interval = p.start_end_interval / p.count;
-		  	
-		  	return p;		  
-		},
-	  	function (p, v) {
-		  	--p.count;
-
-		  	p.start_end_interval -= v.endtime - v.starttime;
-		  	p.avg_start_end_interval = p.count == 0 ? 0: p.start_end_interval / p.count;
-
-		  	return p;	  	
-	  	},
-	  	// init
-	  	function() { 
-		  	return {
-			  	count: 0,
-			  	start_end_interval: 0, 
-			  	avg_start_end_interval: 0,
-			  	start_time: Number.MAX_VALUE
-		  	};
-		}
-	);
-  
-	var groupVolumeStartTimeDimension = StartTimeDimension.group()
-		.reduce(
-			function (p, v) {
-				++p.count;
-				p.total_iosize += v.iosize;
-				p.total_responsetime += v.endtime - v.start;
-				p.throughput = p.total_iosize /  p.total_responsetime;
-			},
-			function (p, v) {
-				--p.count;
-				p.total_iosize -= v.iosize;
-				p.total_responsetime -= v.endtime - v.start;
-				p.throughput = p.count == 0 ? 0: p.total_iosize /  p.total_responsetime;
-			},
-			function() {
-				return {
-					count: 0,
-					total_iosize: 0,
-					total_responsetime: 0,
-					throughput: 0				
-				};
-			}			
-		)
-	;
-
-	IOTimeLineChart
-		.width(Full_Width)
-		.height(Default_Height)
-		.transitionDuration(transition_duration_delay)
-		.margins({top: 20, right: 50, bottom: 30, left: 70})
-		.dimension(StartTimeDimension)
-		.group(groupStartTimeDimension)
-		.valueAccessor(function (d) {
-			return d.value.avg_start_end_interval;
-		})
-		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
-/* 		.xUnits(d3.time.second) */
-/* 		.elasticX(true) */
-		.y(d3.scale.linear().domain([0, 0.0004]))
-		.elasticY(true)
-/* 		.yAxisPadding(100) */
-		.renderHorizontalGridLines(true)
-		.renderVerticalGridLines(true)
-		.brushOn(false)
-		.compose([
-			dc.lineChart(IOTimeLineChart)
-			.group(groupStartTimeDimension)
-			.valueAccessor(function (d) {
-				return d.value.avg_start_end_interval;
-			})
-			.renderArea(true)
-			.title(function (d) {
-				var ab_text = "";
-				var text = "start time: " + d.value.start_time + "\n" +
- 				"finish_start_interval: " + d.value.avg_start_end_interval.toFixed(6) + "\n"
-					  ;
-
-				return ab_text + text;
-			})
-		])
-		.xAxis()
-		;
-
-	IOVolumeChart.width(Full_Width)
-		.height(Default_Height/3)
-		.margins({top: 0, right: 50, bottom: 20, left: 70})
-		.dimension(StartTimeDimension)
-		.group(groupVolumeStartTimeDimension)
-/*
-		.valueAccessor(function (d) {
-				return d.value.throughput;
-		})
-*/
-		.centerBar(true)
-		.gap(0)
-		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
-/* 		.xUnits(d3.time.second) */
-		.elasticX(true)
-		.renderlet(function (chart) {
-			chart.select("g.y").style("display", "none");
-			IOTimeLineChart.filter(chart.filter());
-		})
-		.on("filtered", function (chart) {
-			dc.events.trigger(function () {
-				IOTimeLineChart.focus(chart.filter());
-			});
-		});
-                                            
+	
+                   
+                                
     dc.dataCount(".dc-data-count")
     	.dimension(ndx)
     	.group(all);
