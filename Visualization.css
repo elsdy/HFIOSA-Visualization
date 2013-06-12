@@ -21,9 +21,11 @@ div.graph_label, p.graph_label {
 	font-size:medium;
 }
 
+/*
 hr {
 	clear:both;
 }
+*/
 
 .dc-chart {
 	float:left;
@@ -282,10 +284,14 @@ hr {
 }
 
 .left {
-	clear:left;
+	float:left;
+	width:"50%";
+	position: relative;
 }
 
 
 .right {
-	clear:right;
+	float:right;
+	width:"50%";
+	position: relative;
 }
