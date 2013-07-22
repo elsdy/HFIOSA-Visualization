@@ -9,10 +9,11 @@ sys_preadv_pre / sys_preadv_post / 1
 sys_pwritev_pre / sys_pwritev_post / 1
 kernel_read_pre / kernel_read_post / 1
 ext4_sync_file_enter / ext4_sync_file_exit / 2
+ext4_da_writepages / ext4_da_writepages_result|ext4_drop_inode / 2
 block_plug / block_unplug / 3
 ext4_ext_map_blocks_enter / ext4_ext_map_blocks_exit / 3
 mmc_start_req_pre / mmc_start_req_post / 4
-block_bio_remap / block_bio_backmerge|block_getrq / 4
+block_bio_remap / block_bio_frontmerge|block_bio_backmerge|block_getrq / 4
 # vfs level
 #vfs_read_pre / vfs_read_post
 #vfs_write_pre / vfs_write_post
