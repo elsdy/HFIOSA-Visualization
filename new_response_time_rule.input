@@ -116,3 +116,4 @@ fs/ext4_writepage/irq_handler_entry/response_time/no
 fs/ext4_mb_buddy_bitmap_load/ext4_read_block_bitmap_load/response_time/no
 fs/ext4_unlink_enter/__schedule/response_time/no
 fs/irq_handler_exit/ext4_unlink_exit/response_time/no
+vfs/ext4_discard_preallocations/vfs_write_post/response_time/no
