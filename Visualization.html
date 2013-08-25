@@ -423,11 +423,11 @@ d3.csv("../final_result.csv", function(error, data) {
 		.title(function (d) {
 				var ab_text = "";
 				var text = 
-				"io count: " + d.value.count + " #\n" +
-				"start time: " + d.value.start_time + " s\n" +
- 				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
- 				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
- 				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+				"io count: " + d.data.value.count + " #\n" +
+				"start time: " + d.data.value.start_time + " s\n" +
+ 				"avg response time: " + d.data.value.avg_start_end_interval.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
  				;
 				return ab_text + text;
 			})
@@ -468,11 +468,11 @@ d3.csv("../final_result.csv", function(error, data) {
 		.title(function (d) {
 				var ab_text = "";
 				var text = 
-				"io count: " + d.value.count + " #\n" +
-				"start time: " + d.value.start_time + " s\n" +
- 				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
- 				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
- 				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+				"io count: " + d.data.value.count + " #\n" +
+				"start time: " + d.data.value.start_time + " s\n" +
+ 				"avg response time: " + d.data.value.avg_start_end_interval.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
  				;
 				return ab_text + text;
 			})
@@ -525,11 +525,11 @@ d3.csv("../final_result.csv", function(error, data) {
 		.title(function (d) {
 				var ab_text = "";
 				var text = 
-				"io count: " + d.value.count + " #\n" +
-				"start time: " + d.value.start_time + " s\n" +
- 				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
- 				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
- 				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+				"io count: " + d.data.value.count + " #\n" +
+				"start time: " + d.data.value.start_time + " s\n" +
+ 				"avg response time: " + d.data.value.avg_start_end_interval.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
  				;
 				return ab_text + text;
 			})
@@ -1074,19 +1074,19 @@ d3.csv("../final_result.csv", function(error, data) {
     	.elasticY(true)
     	.brushOn(false)
     	.title(function(d){
-	    	return d.key
-						+ "\nio count: " + d.value.count + " #" 
-						+ "\navg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s" 
-						+ "\ntotal io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
-						+ "\nthroughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
-						+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
-	    				+ "\n total fs: " + d.value.total_fs.toFixed(8)
-	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
-	    				+ "\n total cache: " + d.value.total_cache.toFixed(8)
-					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
-	    				+ "\n total block: " + d.value.total_block.toFixed(8)
-	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
-	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
+	    	return d.data.key
+						+ "\nio count: " + d.data.value.count + " #" 
+						+ "\navg response time: " + d.data.value.avg_start_end_interval.toFixed(6) + " s" 
+						+ "\ntotal io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
+						+ "\nthroughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
+						+ "\naver. fs response time: \n" + d.data.value.avg_fs.toFixed(8) 
+	    				+ "\n total fs: " + d.data.value.total_fs.toFixed(8)
+	    				+ "\naver. cache response time: \n" + d.data.value.avg_cache.toFixed(8) 
+	    				+ "\n total cache: " + d.data.value.total_cache.toFixed(8)
+					    + "\naver. block response time: \n" + d.data.value.avg_block.toFixed(8)
+	    				+ "\n total block: " + d.data.value.total_block.toFixed(8)
+	    				+ "\naver. storage response time: \n" + d.data.value.avg_storage.toFixed(8)
+	    				+ "\n total storage: " + d.data.value.total_storage.toFixed(8);
 		})
     	.xAxis().ticks(n_rowchart_ticks)
 		;
@@ -1192,19 +1192,19 @@ d3.csv("../final_result.csv", function(error, data) {
     	.elasticY(true)
     	.brushOn(false)
     	.title(function(d){
-	    	return d.key
-						+ "\nio count: " + d.value.count + " #" 
-						+ "\navg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s" 
-						+ "\ntotal io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
-						+ "\nthroughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
-						+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
-	    				+ "\n total fs: " + d.value.total_fs.toFixed(8)
-	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
-	    				+ "\n total cache: " + d.value.total_cache.toFixed(8)
-					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
-	    				+ "\n total block: " + d.value.total_block.toFixed(8)
-	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
-	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
+	    	return d.data.key
+						+ "\nio count: " + d.data.value.count + " #" 
+						+ "\navg response time: " + d.data.value.avg_start_end_interval.toFixed(6) + " s" 
+						+ "\ntotal io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
+						+ "\nthroughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
+						+ "\naver. fs response time: \n" + d.data.value.avg_fs.toFixed(8) 
+	    				+ "\n total fs: " + d.data.value.total_fs.toFixed(8)
+	    				+ "\naver. cache response time: \n" + d.data.value.avg_cache.toFixed(8) 
+	    				+ "\n total cache: " + d.data.value.total_cache.toFixed(8)
+					    + "\naver. block response time: \n" + d.data.value.avg_block.toFixed(8)
+	    				+ "\n total block: " + d.data.value.total_block.toFixed(8)
+	    				+ "\naver. storage response time: \n" + d.data.value.avg_storage.toFixed(8)
+	    				+ "\n total storage: " + d.data.value.total_storage.toFixed(8);
 		})
     	.xAxis().ticks(n_rowchart_ticks)
 		;
