@@ -77,16 +77,16 @@
 </div>
 
 <!-- anchor div for data table -->
+<!--
 <div class="row">
 	<div id="data-table">
-	    <!-- create a custom header -->
 	        <span>Avg.Throughput</span>
 	        <span>Avg.ResponseTime</span>
 	        <span>Total.IO size</span>
 	        <span>total.IOTime</span>
-	    <!-- data rows will filled in here -->
 	</div>
 </div>
+-->
 
 <div class="row" >
 	<div id="avg-throughput-chart" >
@@ -623,7 +623,7 @@ d3.csv("../final_result.csv", function(error, data) {
 */
 
 	AvgThroughputChart
-	    .width(Full_Width/2) // (optional) define chart width, :default = 200
+	    .width(Full_Width/4) // (optional) define chart width, :default = 200
 	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
 	    .dimension(ALLIODimension) // set dimension
 	    .group(groupALLIODimension) // set group
@@ -650,7 +650,7 @@ d3.csv("../final_result.csv", function(error, data) {
 	    .xAxis().ticks(n_rowchart_ticks);  
 	    
 	AvgRTtimeChart
-	    .width(Full_Width/2) // (optional) define chart width, :default = 200
+	    .width(Full_Width/4) // (optional) define chart width, :default = 200
 	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
 	    .dimension(ALLIODimension) // set dimension
 	    .group(groupALLIODimension) // set group
@@ -677,7 +677,7 @@ d3.csv("../final_result.csv", function(error, data) {
 	    .xAxis().ticks(n_rowchart_ticks);  
 	    
 	TotalIOSizeChart
-	    .width(Full_Width/2) // (optional) define chart width, :default = 200
+	    .width(Full_Width/4) // (optional) define chart width, :default = 200
 	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
 	    .dimension(ALLIODimension) // set dimension
 	    .group(groupALLIODimension) // set group
@@ -704,7 +704,7 @@ d3.csv("../final_result.csv", function(error, data) {
 	    .xAxis().ticks(n_rowchart_ticks);  
 	    
 	TotalIORTChart
-		.width(Full_Width/2) // (optional) define chart width, :default = 200
+		.width(Full_Width/4) // (optional) define chart width, :default = 200
 	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
 	    .dimension(ALLIODimension) // set dimension
 	    .group(groupALLIODimension) // set group
