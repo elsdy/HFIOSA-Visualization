@@ -109,8 +109,16 @@
 			<strong> 수집된 로그들에 대한 총 IO처리 시간  </strong> 
 		</h2>
 	</div>
-
 </div>
+
+<div class="row" >
+	<div id="std-deviation-chart" >
+		<h2>
+			<strong> 수집된 로그들에 대한 평균 처리량  </strong> 
+		</h2>
+	</div>
+</div>
+
 
 <div class="row" >
 	<div id="process_bubble_chart" class="dc-chart" >
@@ -231,6 +239,8 @@ var AvgThroughputChart = dc.rowChart("#avg-throughput-chart");
 var AvgRTtimeChart = dc.rowChart("#avg-rttime-chart");
 var TotalIOSizeChart = dc.rowChart("#total-iosize-chart");
 var TotalIORTChart = dc.rowChart("#total-rttime-chart");
+
+var StdDevChart = dc.rowChart("#std-deviation-chart");
 
 var Process_Throughput_Chart = dc.rowChart("#process_throughput_chart");
 var PID_Throughput_Chart = dc.rowChart("#pid_throughput_chart");
@@ -559,11 +569,17 @@ d3.csv("../final_result.csv", function(error, data) {
 			
 			if(p.start_time > v.starttime) p.start_time = v.starttime;
 			
+			
 		  	p.total_start_end_interval += v.endtime - v.starttime
 			p.total_iosize += v.iosize;
 			
 		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			
+			p.variance_1 += Math.pow(((v.endtime - v.starttime) - p.avg_start_end_interval), 2);
+			p.variance = p.variance_1 / p.count;
+			 
+			p.std_dev = Math.sqrt(p.variance);
 		  	
 		  	return p;		  
 		},
@@ -576,6 +592,11 @@ d3.csv("../final_result.csv", function(error, data) {
 		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 			
+			p.variance_1 -= p.count == 0 ? 0: Math.pow(((v.endtime - v.starttime) - p.avg_start_end_interval), 2);
+			p.variance = p.count == 0 ? 0: p.variance_1 / p.count;
+			
+			p.std_dev = p.count == 0 ? 0: Math.sqrt(p.variance);
+						
 		  	return p;	  	
 	  	},
 	  	// init
@@ -589,7 +610,9 @@ d3.csv("../final_result.csv", function(error, data) {
 				total_iosize: 0,
 
 			  	avg_start_end_interval: 0,
-				throughput: 0
+				throughput: 0,
+				
+				variance_1:0
 		  	};
 		}
 	);
@@ -631,7 +654,7 @@ d3.csv("../final_result.csv", function(error, data) {
 			return p.value.throughput;
 		})
 	    // (optional) define margins
-	    .margins({top: 0, left: 70, right: 20, bottom: 20})
+	    .margins({top: 0, left: 20, right: 20, bottom: 20})
 	    // (optional) define color array for slices
 	    .colors(['red'])
 	    // (optional) set gap between rows, default is 5
@@ -658,7 +681,7 @@ d3.csv("../final_result.csv", function(error, data) {
 			return p.value.avg_start_end_interval;
 		})
 	    // (optional) define margins
-	    .margins({top: 0, left: 20, right: 70, bottom: 20})
+	    .margins({top: 0, left: 20, right: 20, bottom: 20})
 	    // (optional) define color array for slices
 	    .colors(['green'])
 	    // (optional) set gap between rows, default is 5
@@ -685,7 +708,7 @@ d3.csv("../final_result.csv", function(error, data) {
 			return p.value.total_iosize;
 		})
 	    // (optional) define margins
-	    .margins({top: 0, left: 70, right: 20, bottom: 20})
+	    .margins({top: 0, left: 20, right: 20, bottom: 20})
 	    // (optional) define color array for slices
 	    .colors(['yellow'])
 	    // (optional) set gap between rows, default is 5
@@ -712,7 +735,7 @@ d3.csv("../final_result.csv", function(error, data) {
 			return p.value.total_start_end_interval;
 		})
 	    // (optional) define margins
-	    .margins({top: 0, left: 20, right: 70, bottom: 20})
+	    .margins({top: 0, left: 20, right: 20, bottom: 20})
 	    // (optional) define color array for slices
 	    .colors(['red'])
 	    // (optional) set gap between rows, default is 5
@@ -729,6 +752,33 @@ d3.csv("../final_result.csv", function(error, data) {
 	    .renderTitle(true)
 	    // (optional) specify the number of ticks for the X axis
 	    .xAxis().ticks(n_rowchart_ticks);  
+	    
+    StdDevChart
+	    .width(Full_Width/4) // (optional) define chart width, :default = 200
+	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
+	    .dimension(ALLIODimension) // set dimension
+	    .group(groupALLIODimension) // set group
+	    .valueAccessor(function (p) {
+			return p.value.total_start_end_interval;
+		})
+	    // (optional) define margins
+	    .margins({top: 0, left: 20, right: 20, bottom: 20})
+	    // (optional) define color array for slices
+	    .colors(['red'])
+	    // (optional) set gap between rows, default is 5
+	    .gap(6)
+	    // (optional) whether chart should render labels, :default = true
+	    .renderLabel(true)
+    	.label(function (p) {
+			return p.key + ": "+ p.value.std_dev.toFixed(6);
+		})
+	    // (optional) by default pie chart will use group.key and group.value as its title
+	    // you can overwrite it with a closure
+	    .title(function(d) { return d.value.std_dev.toFixed(6)})
+	    // (optional) whether chart should render titles, :default = false
+	    .renderTitle(true)
+	    // (optional) specify the number of ticks for the X axis
+	    .xAxis().ticks(n_rowchart_ticks);
 
   	
 	var ProcessNameDimension = ndx.dimension(function (d) {
