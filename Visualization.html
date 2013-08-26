@@ -76,6 +76,18 @@
 	</div>
 </div>
 
+<!-- anchor div for data table -->
+<div class="row">
+	<div id="data-table">
+	    <!-- create a custom header -->
+	        <span>Avg.Throughput</span>
+	        <span>Avg.ResponseTime</span>
+	        <span>Total.IO size</span>
+	        <span>total.IOTime</span>
+	    <!-- data rows will filled in here -->
+	</div>
+</div>
+
 <div class="row" >
 	<div id="avg-throughput-chart" >
 		<h2>
@@ -212,6 +224,8 @@ var IOCategory_BlockeMMCLevelAvgRT_Chart = dc.barChart("#io_category_aver_block_
 var TimeLine_SysLevelAvgRT_Chart2 = dc.barChart("#io-timeline-chart2");
 var TimeLine_SysLevelThroughput_Chart = dc.barChart("#io-volume-chart");
 var TimeLine_IOCount_Chart = dc.barChart("#io-count-chart");
+
+/* var StatTable = dc.dataTable("#data-table"); */
 
 var AvgThroughputChart = dc.rowChart("#avg-throughput-chart");
 var AvgRTtimeChart = dc.rowChart("#avg-rttime-chart");
@@ -442,7 +456,6 @@ d3.csv("../final_result.csv", function(error, data) {
 			});
 		})
 */
-	    .renderTitle(true);
 		;
 
 
@@ -536,11 +549,11 @@ d3.csv("../final_result.csv", function(error, data) {
 		;
 
 		
-	var AvgThroughputDimension = ndx.dimension(function (d) {
+	var ALLIODimension = ndx.dimension(function (d) {
 		return d.all;
 		});            
 
-	var groupAvgThroughputDimension = AvgThroughputDimension.group().reduce(
+	var groupALLIODimension = ALLIODimension.group().reduce(
 		function (p, v) {
 			++p.count;
 			
@@ -581,11 +594,39 @@ d3.csv("../final_result.csv", function(error, data) {
 		}
 	);
 	
+/*
+	// 데이터 원본에 대해서만 조작 가능
+	// d.데이터 필드가 바로 나옴
+	// d.throughput은 없음
+	// d는 원본 데이터
+	 // set dimension
+ 	StatTable
+        .dimension(ALLIODimension)
+        // data table does not use crossfilter group but rather a closure
+        // as a grouping function
+        .group(function(d) {
+                return d.all;
+            })
+        // (optional) max number of records to be shown, :default = 25
+        .size(1)
+        // dynamic columns creation using an array of closures
+        .columns([
+            function(d) { return d.throughput.toFixed(3) + " MB/s"; },
+            function(d) { return d.avg_start_end_interval.toFixed(7) + " seconds"; },
+            function(d) { return (d.total_iosize/(1024*1024)).toFixed(3)+ " MB"; },
+            function(d) { return d.total_start_end_interval.toFixed(6)+ " seconds" },
+        ])
+        // (optional) sort using the given field, :default = function(d){return d;}
+        .sortBy(function(d){ return d.data.value.total_iosize; })
+        // (optional) sort order, :default ascending
+        .order(d3.ascending);
+*/
+
 	AvgThroughputChart
 	    .width(Full_Width/2) // (optional) define chart width, :default = 200
-	    .height(groupAvgThroughputDimension.size() * 60) // (optional) define chart height, :default = 200
-	    .dimension(AvgThroughputDimension) // set dimension
-	    .group(groupAvgThroughputDimension) // set group
+	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
+	    .dimension(ALLIODimension) // set dimension
+	    .group(groupALLIODimension) // set group
 	    .valueAccessor(function (p) {
 			return p.value.throughput;
 		})
@@ -610,9 +651,9 @@ d3.csv("../final_result.csv", function(error, data) {
 	    
 	AvgRTtimeChart
 	    .width(Full_Width/2) // (optional) define chart width, :default = 200
-	    .height(groupAvgThroughputDimension.size() * 60) // (optional) define chart height, :default = 200
-	    .dimension(AvgThroughputDimension) // set dimension
-	    .group(groupAvgThroughputDimension) // set group
+	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
+	    .dimension(ALLIODimension) // set dimension
+	    .group(groupALLIODimension) // set group
 	    .valueAccessor(function (p) {
 			return p.value.avg_start_end_interval;
 		})
@@ -637,9 +678,9 @@ d3.csv("../final_result.csv", function(error, data) {
 	    
 	TotalIOSizeChart
 	    .width(Full_Width/2) // (optional) define chart width, :default = 200
-	    .height(groupAvgThroughputDimension.size() * 60) // (optional) define chart height, :default = 200
-	    .dimension(AvgThroughputDimension) // set dimension
-	    .group(groupAvgThroughputDimension) // set group
+	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
+	    .dimension(ALLIODimension) // set dimension
+	    .group(groupALLIODimension) // set group
 	    .valueAccessor(function (p) {
 			return p.value.total_iosize;
 		})
@@ -664,9 +705,9 @@ d3.csv("../final_result.csv", function(error, data) {
 	    
 	TotalIORTChart
 		.width(Full_Width/2) // (optional) define chart width, :default = 200
-	    .height(groupAvgThroughputDimension.size() * 60) // (optional) define chart height, :default = 200
-	    .dimension(AvgThroughputDimension) // set dimension
-	    .group(groupAvgThroughputDimension) // set group
+	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
+	    .dimension(ALLIODimension) // set dimension
+	    .group(groupALLIODimension) // set group
 	    .valueAccessor(function (p) {
 			return p.value.total_start_end_interval;
 		})
