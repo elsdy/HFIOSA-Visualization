@@ -109,9 +109,14 @@
 			<strong> 수집된 로그들에 대한 총 IO처리 시간  </strong> 
 		</h2>
 	</div>
+	<div id="variance-chart" >
+		<h2>
+			<strong> 수집된 로그들에 분산 값  </strong> 
+		</h2>
+	</div>
 	<div id="std-deviation-chart" >
 		<h2>
-			<strong> 수집된 로그들에 대한 평균 처리량  </strong> 
+			<strong> 수집된 로그들에 대한 표준 편차</strong> 
 		</h2>
 	</div>
 </div>
@@ -236,6 +241,7 @@ var AvgRTtimeChart = dc.rowChart("#avg-rttime-chart");
 var TotalIOSizeChart = dc.rowChart("#total-iosize-chart");
 var TotalIORTChart = dc.rowChart("#total-rttime-chart");
 
+var VarianceChart = dc.rowChart("#variance-chart");
 var StdDevChart = dc.rowChart("#std-deviation-chart");
 
 var Process_Throughput_Chart = dc.rowChart("#process_throughput_chart");
@@ -642,7 +648,7 @@ d3.csv("../final_result.csv", function(error, data) {
 */
 
 	AvgThroughputChart
-	    .width(Full_Width/4) // (optional) define chart width, :default = 200
+	    .width(Full_Width/6) // (optional) define chart width, :default = 200
 	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
 	    .dimension(ALLIODimension) // set dimension
 	    .group(groupALLIODimension) // set group
@@ -669,7 +675,7 @@ d3.csv("../final_result.csv", function(error, data) {
 	    .xAxis().ticks(n_rowchart_ticks);  
 	    
 	AvgRTtimeChart
-	    .width(Full_Width/4) // (optional) define chart width, :default = 200
+	    .width(Full_Width/6) // (optional) define chart width, :default = 200
 	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
 	    .dimension(ALLIODimension) // set dimension
 	    .group(groupALLIODimension) // set group
@@ -696,7 +702,7 @@ d3.csv("../final_result.csv", function(error, data) {
 	    .xAxis().ticks(n_rowchart_ticks);  
 	    
 	TotalIOSizeChart
-	    .width(Full_Width/4) // (optional) define chart width, :default = 200
+	    .width(Full_Width/6) // (optional) define chart width, :default = 200
 	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
 	    .dimension(ALLIODimension) // set dimension
 	    .group(groupALLIODimension) // set group
@@ -723,7 +729,7 @@ d3.csv("../final_result.csv", function(error, data) {
 	    .xAxis().ticks(n_rowchart_ticks);  
 	    
 	TotalIORTChart
-		.width(Full_Width/4) // (optional) define chart width, :default = 200
+		.width(Full_Width/6) // (optional) define chart width, :default = 200
 	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
 	    .dimension(ALLIODimension) // set dimension
 	    .group(groupALLIODimension) // set group
@@ -749,8 +755,35 @@ d3.csv("../final_result.csv", function(error, data) {
 	    // (optional) specify the number of ticks for the X axis
 	    .xAxis().ticks(n_rowchart_ticks);  
 	    
+    VarianceChart
+	    .width(Full_Width/6) // (optional) define chart width, :default = 200
+	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
+	    .dimension(ALLIODimension) // set dimension
+	    .group(groupALLIODimension) // set group
+	    .valueAccessor(function (p) {
+			return p.value.total_start_end_interval;
+		})
+	    // (optional) define margins
+	    .margins({top: 0, left: 20, right: 20, bottom: 20})
+	    // (optional) define color array for slices
+	    .colors(['red'])
+	    // (optional) set gap between rows, default is 5
+	    .gap(6)
+	    // (optional) whether chart should render labels, :default = true
+	    .renderLabel(true)
+    	.label(function (p) {
+			return p.key + ": "+ p.value.std_dev.toFixed(6);
+		})
+	    // (optional) by default pie chart will use group.key and group.value as its title
+	    // you can overwrite it with a closure
+	    .title(function(d) { return d.value.std_dev.toFixed(6)})
+	    // (optional) whether chart should render titles, :default = false
+	    .renderTitle(true)
+	    // (optional) specify the number of ticks for the X axis
+	    .xAxis().ticks(n_rowchart_ticks);
+
     StdDevChart
-	    .width(Full_Width/4) // (optional) define chart width, :default = 200
+	    .width(Full_Width/6) // (optional) define chart width, :default = 200
 	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
 	    .dimension(ALLIODimension) // set dimension
 	    .group(groupALLIODimension) // set group
