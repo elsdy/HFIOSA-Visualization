@@ -769,6 +769,24 @@ d3.csv("../final_result.csv", function(error, data) {
 	    .colors(['red'])
 	    // (optional) set gap between rows, default is 5
 	    .gap(6)
+	    .on("preRedraw", function(chart){
+     //        // 1. calculating the average with the data left after filtering.
+     //        // 2. calculating the deviating with the average for each entry in the data set.
+     //        // 3. squaring the result from (2) and sum all the entry in the data set.
+     //        // 4. dividing the result from (3) with the number of the entries in the data set.
+     //        // 5. from (4) I can obtain the variance.
+     //        // 6. I want to make the result from (4) label or title of this chart.
+	    // 	// console.log(chart.dimension().group().all().forEach(d));
+
+	    	var Test = chart.dimension().group().all();
+	    	Test.forEach(function(d1, a1, b1) {
+	    		b1.forEach(function(d2, a2, b2) {
+	    			console.log(b2);
+	    		})
+	    		// console.log(d);
+	    	});
+	    		    	// console.log(Test[0].forEach(d));
+	    })
 	    // (optional) whether chart should render labels, :default = true
 	    .renderLabel(true)
     	.label(function (p) {
