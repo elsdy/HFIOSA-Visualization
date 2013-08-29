@@ -605,8 +605,8 @@ d3.csv("../final_result.csv", function(error, data) {
 			  	avg_start_end_interval: 0,
 				throughput: 0,
 				
-				variance:3,
-				std_dev:3
+				variance:0,
+				std_dev:0
 		  	};
 		}
 	);
@@ -791,7 +791,12 @@ d3.csv("../final_result.csv", function(error, data) {
 	    	variance = variance / Dim.length;
 
 	    	var std_dev = Math.sqrt(variance);
-	    	
+
+	    	// chart.group().all()[0].value is different from chart.dimension().group().all()[0].value
+	    	// the former returns what I want, the later returns 1... which is what I dont' want.
+	    	chart.group().all()[0].value.variance = variance;
+	    	chart.group().all()[0].value.std_dev = std_dev;	  
+	    	// console.log(chart.group().all()[0].value);  	
 	    })
 	    // (optional) whether chart should render labels, :default = true
 	    .renderLabel(true)
