@@ -578,12 +578,7 @@ d3.csv("../final_result.csv", function(error, data) {
 			
 		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
-			
-			p.variance_1 += Math.pow(((v.endtime - v.starttime) - p.avg_start_end_interval), 2);
-			p.variance = p.variance_1 / p.count;
-			 
-			p.std_dev = Math.sqrt(p.variance);
-		  	
+					  	
 		  	return p;		  
 		},
 	  	function (p, v) {
@@ -594,12 +589,7 @@ d3.csv("../final_result.csv", function(error, data) {
 			
 		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
-			
-			p.variance_1 -= p.count == 0 ? 0: Math.pow(((v.endtime - v.starttime) - p.avg_start_end_interval), 2);
-			p.variance = p.count == 0 ? 0: p.variance_1 / p.count;
-			
-			p.std_dev = p.count == 0 ? 0: Math.sqrt(p.variance);
-						
+									
 		  	return p;	  	
 	  	},
 	  	// init
@@ -615,7 +605,8 @@ d3.csv("../final_result.csv", function(error, data) {
 			  	avg_start_end_interval: 0,
 				throughput: 0,
 				
-				variance_1:0
+				variance:3,
+				std_dev:3
 		  	};
 		}
 	);
@@ -762,7 +753,7 @@ d3.csv("../final_result.csv", function(error, data) {
 	    .dimension(ALLIODimension) // set dimension
 	    .group(groupALLIODimension) // set group
 	    .valueAccessor(function (p) {
-			return p.value.total_start_end_interval;
+			return p.value.variance;
 		})
 	    // (optional) define margins
 	    .margins({top: 0, left: 20, right: 20, bottom: 20})
@@ -785,29 +776,31 @@ d3.csv("../final_result.csv", function(error, data) {
 	    	// Test.forEach(function(d1, a1, b1) {
 	    	// 	console.log(d1.value.avg_start_end_interval);
 	    	// })
-	    	var Test = chart.dimension().top(Infinity);
+	    	var Dim = chart.dimension().top(Infinity);
+
 	    	var avg = 0;
-	    	Test.forEach(function(d1, a1, b1) {
+	    	Dim.forEach(function(d1, a1, b1) {
 	    		avg += d1.endtime - d1.starttime;
 	    	});
-	    	avg = avg / Test.length;
+	    	avg = avg / Dim.length;
 
 	    	var variance = 0;
-	    	Test.forEach(function(d1, a1, b1) {
+	    	Dim.forEach(function(d1, a1, b1) {
 	    		variance += Math.pow(d1.endtime - d1.starttime - avg, 2);
 	    	});
-	    	variance = variance / Test.length;
+	    	variance = variance / Dim.length;
 
 	    	var std_dev = Math.sqrt(variance);
+	    	
 	    })
 	    // (optional) whether chart should render labels, :default = true
 	    .renderLabel(true)
     	.label(function (p) {
-			return p.key + ": "+ p.value.std_dev.toFixed(6);
+			return p.key + ": "+ p.value.variance.toFixed(10);
 		})
 	    // (optional) by default pie chart will use group.key and group.value as its title
 	    // you can overwrite it with a closure
-	    .title(function(d) { return d.value.std_dev.toFixed(6)})
+	    .title(function(d) { return d.value.variance.toFixed(10)})
 	    // (optional) whether chart should render titles, :default = false
 	    .renderTitle(true)
 	    // (optional) specify the number of ticks for the X axis
@@ -819,7 +812,7 @@ d3.csv("../final_result.csv", function(error, data) {
 	    .dimension(ALLIODimension) // set dimension
 	    .group(groupALLIODimension) // set group
 	    .valueAccessor(function (p) {
-			return p.value.total_start_end_interval;
+			return p.value.std_dev;
 		})
 	    // (optional) define margins
 	    .margins({top: 0, left: 20, right: 20, bottom: 20})
@@ -830,11 +823,11 @@ d3.csv("../final_result.csv", function(error, data) {
 	    // (optional) whether chart should render labels, :default = true
 	    .renderLabel(true)
     	.label(function (p) {
-			return p.key + ": "+ p.value.std_dev.toFixed(6);
+			return p.key + ": "+ p.value.std_dev.toFixed(10);
 		})
 	    // (optional) by default pie chart will use group.key and group.value as its title
 	    // you can overwrite it with a closure
-	    .title(function(d) { return d.value.std_dev.toFixed(6)})
+	    .title(function(d) { return d.value.std_dev.toFixed(10)})
 	    // (optional) whether chart should render titles, :default = false
 	    .renderTitle(true)
 	    // (optional) specify the number of ticks for the X axis
