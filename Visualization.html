@@ -779,14 +779,26 @@ d3.csv("../final_result.csv", function(error, data) {
      //        // 6. I want to make the result from (4) label or title of this chart.
 	    // 	// console.log(chart.dimension().group().all().forEach(d));
 
-	    	var Test = chart.dimension().group().all();
+	    	// sigma (pow((avg-e(x)),2)) / count
+	    	// squere 
+	    	// var Test = chart.dimension().group().top(Infinity);
+	    	// Test.forEach(function(d1, a1, b1) {
+	    	// 	console.log(d1.value.avg_start_end_interval);
+	    	// })
+	    	var Test = chart.dimension().top(Infinity);
+	    	var avg = 0;
 	    	Test.forEach(function(d1, a1, b1) {
-	    		b1.forEach(function(d2, a2, b2) {
-	    			console.log(b2);
-	    		})
-	    		// console.log(d);
+	    		avg += d1.endtime - d1.starttime;
 	    	});
-	    		    	// console.log(Test[0].forEach(d));
+	    	avg = avg / Test.length;
+
+	    	var variance = 0;
+	    	Test.forEach(function(d1, a1, b1) {
+	    		variance += Math.pow(d1.endtime - d1.starttime - avg, 2);
+	    	});
+	    	variance = variance / Test.length;
+
+	    	var std_dev = Math.sqrt(variance);
 	    })
 	    // (optional) whether chart should render labels, :default = true
 	    .renderLabel(true)
