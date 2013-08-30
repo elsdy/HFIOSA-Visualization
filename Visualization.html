@@ -778,15 +778,15 @@ d3.csv("../final_result.csv", function(error, data) {
 	    	// })
 	    	var Dim = chart.dimension().top(Infinity);
 
-	    	var avg = 0;
-	    	Dim.forEach(function(d1, a1, b1) {
-	    		avg += d1.endtime - d1.starttime;
-	    	});
-	    	avg = avg / Dim.length;
+	    	// var avg = 0;
+	    	// Dim.forEach(function(d1, a1, b1) {
+	    	// 	avg += d1.endtime - d1.starttime;
+	    	// });
+	    	// avg = avg / Dim.length;
 
 	    	var variance = 0;
 	    	Dim.forEach(function(d1, a1, b1) {
-	    		variance += Math.pow(d1.endtime - d1.starttime - avg, 2);
+	    		variance += Math.pow(d1.endtime - d1.starttime - chart.group().all()[0].value.avg_start_end_interval, 2);
 	    	});
 	    	variance = variance / Dim.length;
 
@@ -801,15 +801,15 @@ d3.csv("../final_result.csv", function(error, data) {
 		.on("preRedraw", function(chart){
         	var Dim = chart.dimension().top(Infinity);
 
-	    	var avg = 0;
-	    	Dim.forEach(function(d1, a1, b1) {
-	    		avg += d1.endtime - d1.starttime;
-	    	});
-	    	avg = avg / Dim.length;
+	    	// var avg = 0;
+	    	// Dim.forEach(function(d1, a1, b1) {
+	    	// 	avg += d1.endtime - d1.starttime;
+	    	// });
+	    	// avg = avg / Dim.length;
 
 	    	var variance = 0;
 	    	Dim.forEach(function(d1, a1, b1) {
-	    		variance += Math.pow(d1.endtime - d1.starttime - avg, 2);
+	    		variance += Math.pow(d1.endtime - d1.starttime - chart.group().all()[0].value.avg_start_end_interval, 2);
 	    	});
 	    	variance = variance / Dim.length;
 
