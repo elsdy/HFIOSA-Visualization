@@ -761,7 +761,7 @@ d3.csv("../final_result.csv", function(error, data) {
 	    .colors(['yellow'])
 	    // (optional) set gap between rows, default is 5
 	    .gap(6)
-	    .on("preRedraw", function(chart){
+	    .on("preRender", function(chart){
      //        // 1. calculating the average with the data left after filtering.
      //        // 2. calculating the deviating with the average for each entry in the data set.
      //        // 3. squaring the result from (2) and sum all the entry in the data set.
@@ -777,6 +777,29 @@ d3.csv("../final_result.csv", function(error, data) {
 	    	// 	console.log(d1.value.avg_start_end_interval);
 	    	// })
 	    	var Dim = chart.dimension().top(Infinity);
+
+	    	var avg = 0;
+	    	Dim.forEach(function(d1, a1, b1) {
+	    		avg += d1.endtime - d1.starttime;
+	    	});
+	    	avg = avg / Dim.length;
+
+	    	var variance = 0;
+	    	Dim.forEach(function(d1, a1, b1) {
+	    		variance += Math.pow(d1.endtime - d1.starttime - avg, 2);
+	    	});
+	    	variance = variance / Dim.length;
+
+	    	var std_dev = Math.sqrt(variance);
+
+	    	// chart.group().all()[0].value is different from chart.dimension().group().all()[0].value
+	    	// the former returns what I want, the later returns 1... which is what I dont' want.
+	    	chart.group().all()[0].value.variance = variance;
+	    	chart.group().all()[0].value.std_dev = std_dev;	  
+	    	// console.log(chart.group().all()[0].value);  	
+	    })
+		.on("preRedraw", function(chart){
+        	var Dim = chart.dimension().top(Infinity);
 
 	    	var avg = 0;
 	    	Dim.forEach(function(d1, a1, b1) {
