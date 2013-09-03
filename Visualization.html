@@ -6,17 +6,17 @@
 </head>
 <body onload="window.resizeTo(1600, 1400)" >
 
-<script type="text/javascript" src="../js/d3/d3.js" >
+<script type="text/javascript" src="js/d3/d3.js" >
 
 
 </script>
-<script type="text/javascript" src="../js/crossfilter/crossfilter.js" >
+<script type="text/javascript" src="js/crossfilter/crossfilter.js" >
 
 
 </script>
-<script type="text/javascript" src="../js/dc/dc.js" >
+<script type="text/javascript" src="js/dc/dc.js" >
 
-<script type="text/javascript" src="../js/gauss/gauss.min.js">
+<script type="text/javascript" src="js/gauss/gauss.min.js">
 </script>
 
 <script type="text/javascript" >
@@ -251,9 +251,9 @@ var File_AccessCount_Chart = dc.rowChart("#file_count_chart");
 
 var Full_Width = 1600;
 var Default_Height = 180;
-var n_rowchart_ticks = 3;
+var n_rowchart_ticks = 2;
 
-d3.csv("../final_result.csv", function(error, data) {
+d3.csv("final_result.csv", function(error, data) {
 
 
 	var IOTimeLineChart_x_low = Number.MAX_VALUE; // 입력 파일에서 타임 라인에 나오는 최초 시간값
