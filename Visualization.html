@@ -150,19 +150,22 @@
 <div class="row" >
 	<div id="io_category_chart" class="dc-chart" >
 		<h2>
-			<strong> I/O 종류별 요청 개수 (x축: I/O 요청 개수, y축: I/O 종류)</strong> 
+			<strong> I/O 종류별 개수 <br>
+			(x축: I/O 개수, y축: I/O 종류)</strong> 
 		</h2>
 		<a class="reset" href="javascript:IOCategory_Count_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
 	<div id="io_category_aver_response_time_chart" class="dc-chart" >
 		<h2>
-			<strong> I/O 종류별 평균 응답 시간 (x축: 평균 응답 시간, y: I/O 종류)</strong> 
+			<strong> I/O 종류별 개별 I/O 평균 응답시간 <br>
+			(x축: 응답 시간, y: I/O 종류)</strong> 
 		</h2>
 		<a class="reset" href="javascript:IOCategory_SysLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
 	<div id="io_category_aver_block_emmc_response_time_chart" class="dc-chart" >
 		<h2>
-			<strong> I/O별 블록, eMMC 레벨 평균 응답 시간 (x축: I/O별 평균 응답 시간, y축)</strong> 
+			<strong> I/O종류별 블록 레벨 이하 응답 시간 <br>
+			(x축: I/O별 평균 응답 시간, y축)</strong> 
 		</h2>
 		<a class="reset" href="javascript:IOCategory_BlockeMMCLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
@@ -1229,7 +1232,7 @@ d3.csv("final_result.csv", function(error, data) {
 	var IOCategoryChart_height = groupIOCategoryDimension.size() * 30 + 20 + 20;
 			
 	IOCategory_Count_Chart
-		.width(Full_Width/3-50)
+		.width(Full_Width/4)
 		.height(IOCategoryChart_height)
 		.margins({top: 0, right: 10, bottom: 20, left: 10 })
 		.dimension(IOCategoryDimension)
@@ -1298,7 +1301,7 @@ d3.csv("final_result.csv", function(error, data) {
 */
 
     IOCategory_SysLevelAvgRT_Chart
-		.width(Full_Width/3)
+		.width(Full_Width/4)
 		.height(IOCategoryChart_height)
 		.margins({top: 0, right: 10, bottom: 20, left: 10 })
 		.dimension(IOCategoryDimension)
@@ -1329,7 +1332,7 @@ d3.csv("final_result.csv", function(error, data) {
 		.xAxis().ticks(n_rowchart_ticks);   
 
 	IOCategory_BlockeMMCLevelAvgRT_Chart
-		.width(Full_Width/3)
+		.width(Full_Width/4)
 		.height(IOCategoryChart_height)
 		.margins({top: 0, right: 10, bottom: 20, left: 10 })
 		.dimension(IOCategoryDimension)
