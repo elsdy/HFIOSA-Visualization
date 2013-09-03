@@ -787,11 +787,11 @@ d3.csv("final_result.csv", function(error, data) {
 	    .xAxis().ticks(n_rowchart_ticks);
 
   	
-	var ProcessNameDimension = ndx.dimension(function (d) {
+	var Process_Throughput_ChartDimension = ndx.dimension(function (d) {
 		return d.processname;
 		});            
 
-	var groupProcessNameDimension = ProcessNameDimension.group().reduce(
+	var groupProcess_Throughput_ChartDimension = Process_Throughput_ChartDimension.group().reduce(
 		function (p, v) {
 			++p.count;
 			
@@ -834,9 +834,9 @@ d3.csv("final_result.csv", function(error, data) {
 	
 	Process_Throughput_Chart
 	    .width(Full_Width/4) // (optional) define chart width, :default = 200
-	    .height(groupProcessNameDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
-	    .dimension(ProcessNameDimension) // set dimension
-	    .group(groupProcessNameDimension) // set group
+	    .height(groupProcess_Throughput_ChartDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
+	    .dimension(Process_Throughput_ChartDimension) // set dimension
+	    .group(groupProcess_Throughput_ChartDimension) // set group
 	    .valueAccessor(function (p) {
 			return p.value.throughput;
 		})
@@ -1079,6 +1079,50 @@ d3.csv("final_result.csv", function(error, data) {
 		// })
 		;
 
+	var ProcessNameDimension = ndx.dimension(function (d) {
+		return d.processname;
+		});            
+
+	var groupProcessNameDimension = ProcessNameDimension.group().reduce(
+		function (p, v) {
+			++p.count;
+			
+			if(p.start_time > v.starttime) p.start_time = v.starttime;
+			
+		  	p.total_start_end_interval += v.endtime - v.starttime
+			p.total_iosize += v.iosize;
+			
+		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	
+		  	return p;		  
+		},
+	  	function (p, v) {
+		  	--p.count;
+
+		  	p.total_start_end_interval -= v.endtime - v.starttime;
+			p.total_iosize -= v.iosize;
+			
+		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
+			  	
+			  	start_time: Number.MAX_VALUE,
+			  	
+			  	total_start_end_interval: 0, 
+				total_iosize: 0,
+
+			  	avg_start_end_interval: 0,
+				throughput: 0
+		  	};
+		}
+	);
 	ProcessName_IORatio_Chart
   		.width(Full_Width*1/6) // (optional) define chart width, :default = 200
   		.height(250) // (optional) define chart height, :default = 200
