@@ -948,7 +948,8 @@ d3.csv("final_result.csv", function(error, data) {
 
     
 	var ProcessNamePIDDimension = ndx.dimension(function (d) {
-		return d.processname + "-" + d.pid;
+		// return d.processname + "-" + d.pid;
+		return d.pid;
 	});
 	var groupProcessNamePIDDimension = ProcessNamePIDDimension.group().reduce(
 		function (p, v) {
@@ -1074,9 +1075,9 @@ d3.csv("final_result.csv", function(error, data) {
 		.y(d3.scale.linear().domain([-1, 1]))
 		.r(d3.scale.linear().domain([0, 7000]))
 		.elasticY(true)
-/* 		.yAxisPadding(0.5) */
-		.elasticX(false)
-/* 		.xAxisPadding(2000) */
+ 		.yAxisPadding(0.5) 
+		.elasticX(true)
+ 		// .xAxisPadding(0.5) 
 		.renderHorizontalGridLines(true)
 		.renderVerticalGridLines(true)
 		.renderLabel(true)
@@ -1092,9 +1093,13 @@ d3.csv("final_result.csv", function(error, data) {
 			+ "\nStart time: " + p.value.StartTime.toFixed(8)
 			+ "\nEnd Time: " + p.value.EndTime.toFixed(8);
 		})
-		.yAxis().tickFormat(function (v) {
-			return v + "s";
+		.xAxis().tickFormat(function (v) {
+			return "#" + v;
 		})
+		// the both setting (x/yAxis) aren't working at the same time
+		// .yAxis().tickFormat(function (v) {
+		// 	return v + "s";
+		// })
 		;
 
 	ProcessName_IORatio_Chart
