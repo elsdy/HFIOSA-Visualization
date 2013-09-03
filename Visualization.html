@@ -371,64 +371,6 @@ d3.csv("final_result.csv", function(error, data) {
 		}
 	);
   
-/*
-	TimeLine_SysLevelAvgRT_Chart
-		.width(Full_Width)
-		.height(Default_Height)
-		.transitionDuration(transition_duration_delay)
-		.margins({top: 10, right: 50, bottom: 20, left: 70})
-		.dimension(NewStartTimeDimension)
-		.group(groupNewStartTimeDimension)
-		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
-//		.xUnits(d3.time.second)
-// 		.elasticX(true) 			// 이걸 키면 해당 크개프의 포커싱이 안되는 경우가 있다. 
-// 		.y(d3.scale.linear().domain([0, 0.0004])) 
-		.elasticY(true)
-// 		.yAxisPadding(100) 
-		.renderHorizontalGridLines(true)
-		.renderVerticalGridLines(true)
-		.brushOn(false)
-		.compose([
-			dc.lineChart(TimeLine_SysLevelAvgRT_Chart)
-			.group(groupNewStartTimeDimension)
-			.valueAccessor(function (d) {
-				return d.value.avg_start_end_interval;
-			})
-			.renderArea(true)
-			.title(function (d) {
-				var ab_text = "";
-				var text = 
-				"io count: " + d.value.count + " #\n" +
-				"start time: " + d.value.start_time + " s\n" +
- 				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
- 				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
- 				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
- 				;
-				return ab_text + text;
-			})
-			,
-			dc.barChart(TimeLine_SysLevelAvgRT_Chart)
-			.group(groupNewStartTimeDimension)
-			.valueAccessor(function (d) {
-				return d.value.throughput;
-			})
-			.title(function (d) {
-				var ab_text = "";
-				var text = 
-				"io count: " + d.value.count + " #\n" +
-				"start time: " + d.value.start_time + " s\n" +
- 				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
- 				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
- 				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
- 				;
-				return ab_text + text;
-			})
-
-			])
-		.xAxis()
-		;
-*/
-		
 	TimeLine_SysLevelAvgRT_Chart2
 		.width(Full_Width)
 		.height(Default_Height)
@@ -613,34 +555,6 @@ d3.csv("final_result.csv", function(error, data) {
 		}
 	);
 	
-/*
-	// 데이터 원본에 대해서만 조작 가능
-	// d.데이터 필드가 바로 나옴
-	// d.throughput은 없음
-	// d는 원본 데이터
-	 // set dimension
- 	StatTable
-        .dimension(ALLIODimension)
-        // data table does not use crossfilter group but rather a closure
-        // as a grouping function
-        .group(function(d) {
-                return d.all;
-            })
-        // (optional) max number of records to be shown, :default = 25
-        .size(1)
-        // dynamic columns creation using an array of closures
-        .columns([
-            function(d) { return d.throughput.toFixed(3) + " MB/s"; },
-            function(d) { return d.avg_start_end_interval.toFixed(7) + " seconds"; },
-            function(d) { return (d.total_iosize/(1024*1024)).toFixed(3)+ " MB"; },
-            function(d) { return d.total_start_end_interval.toFixed(6)+ " seconds" },
-        ])
-        // (optional) sort using the given field, :default = function(d){return d;}
-        .sortBy(function(d){ return d.data.value.total_iosize; })
-        // (optional) sort order, :default ascending
-        .order(d3.ascending);
-*/
-
 	AvgThroughputChart
 	    .width(Full_Width/6) // (optional) define chart width, :default = 200
 	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
@@ -1266,42 +1180,7 @@ d3.csv("final_result.csv", function(error, data) {
 		.xAxis().ticks(n_rowchart_ticks);             
 
 	        
-/*
-    IOCategoryAver4LayerRTChart
-    	.width(Full_Width*2/3)
-    	.height(IOCategoryChart_height)
-    	.margins({top: 0, right: 10, bottom: 20, left: 60})
-    	.dimension(IOCategoryDimension)
-    	.group(groupIOCategoryDimension)
-    	.valueAccessor(function(d) {
-	    	return d.value.avg_storage;
-    	})
-    	.stack(groupIOCategoryDimension, function(d){return d.value.avg_block;})
-    	.stack(groupIOCategoryDimension, function(d){return d.value.avg_cache;})
-    	.stack(groupIOCategoryDimension, function(d){return d.value.avg_fs;})
 
-    	.x(d3.scale.ordinal().domain(["", "R_4", "R_8", "R_16", "R_32", "R_128", "R_256", "R_512", "R_1024", "R_4096", "R_40960", 
-    	"W_4", "W_8", "W_16", "W_32", "W_128", "W_256", "W_512", "W_1024", "W_4096", "W_40960"])) // manually written in the current version with Dc 1.3, DC 1.4 will cover this automatically
-    	.xUnits(dc.units.ordinal)
-		.renderHorizontalGridLines(true)
-    	.centerBar(true)
-    	.elasticY(true)
-    	.brushOn(false)
-    	.title(function(d){
-	    	return d.key
-	    				+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
-	    				+ "\n total fs: " + d.value.total_fs.toFixed(8) + " count: " + d.value.count
-	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
-	    				+ "\n total cache: " + d.value.total_cache.toFixed(8) + " count: " + d.value.count
-					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
-	    				+ "\n total block: " + d.value.total_block.toFixed(8) + " count: " + d.value.count
-	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
-	    				+ "\n total storage: " + d.value.total_storage.toFixed(8) + " count: " + d.value.counterIncrement
-	    				;
-    	})
-    	.xAxis().ticks(20)
-		;
-*/
 
     IOCategory_SysLevelAvgRT_Chart
 		.width(Full_Width/4)
@@ -1394,8 +1273,137 @@ d3.csv("final_result.csv", function(error, data) {
 		.label(function (d){
 			return d.key + ": #" + d.value;
 		})
-		.xAxis().ticks(n_rowchart_ticks);
-	
+		.xAxis().ticks(n_rowchart_ticks);                   
+                                
+    dc.dataCount(".dc-data-count")
+    	.dimension(ndx)
+    	.group(all);
+
+                
+	dc.renderAll();
+
+/*
+	TimeLine_SysLevelAvgRT_Chart
+		.width(Full_Width)
+		.height(Default_Height)
+		.transitionDuration(transition_duration_delay)
+		.margins({top: 10, right: 50, bottom: 20, left: 70})
+		.dimension(NewStartTimeDimension)
+		.group(groupNewStartTimeDimension)
+		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
+//		.xUnits(d3.time.second)
+// 		.elasticX(true) 			// 이걸 키면 해당 크개프의 포커싱이 안되는 경우가 있다. 
+// 		.y(d3.scale.linear().domain([0, 0.0004])) 
+		.elasticY(true)
+// 		.yAxisPadding(100) 
+		.renderHorizontalGridLines(true)
+		.renderVerticalGridLines(true)
+		.brushOn(false)
+		.compose([
+			dc.lineChart(TimeLine_SysLevelAvgRT_Chart)
+			.group(groupNewStartTimeDimension)
+			.valueAccessor(function (d) {
+				return d.value.avg_start_end_interval;
+			})
+			.renderArea(true)
+			.title(function (d) {
+				var ab_text = "";
+				var text = 
+				"io count: " + d.value.count + " #\n" +
+				"start time: " + d.value.start_time + " s\n" +
+ 				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+ 				;
+				return ab_text + text;
+			})
+			,
+			dc.barChart(TimeLine_SysLevelAvgRT_Chart)
+			.group(groupNewStartTimeDimension)
+			.valueAccessor(function (d) {
+				return d.value.throughput;
+			})
+			.title(function (d) {
+				var ab_text = "";
+				var text = 
+				"io count: " + d.value.count + " #\n" +
+				"start time: " + d.value.start_time + " s\n" +
+ 				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+ 				;
+				return ab_text + text;
+			})
+
+			])
+		.xAxis()
+		;
+*/
+
+/*
+	// 데이터 원본에 대해서만 조작 가능
+	// d.데이터 필드가 바로 나옴
+	// d.throughput은 없음
+	// d는 원본 데이터
+	 // set dimension
+ 	StatTable
+        .dimension(ALLIODimension)
+        // data table does not use crossfilter group but rather a closure
+        // as a grouping function
+        .group(function(d) {
+                return d.all;
+            })
+        // (optional) max number of records to be shown, :default = 25
+        .size(1)
+        // dynamic columns creation using an array of closures
+        .columns([
+            function(d) { return d.throughput.toFixed(3) + " MB/s"; },
+            function(d) { return d.avg_start_end_interval.toFixed(7) + " seconds"; },
+            function(d) { return (d.total_iosize/(1024*1024)).toFixed(3)+ " MB"; },
+            function(d) { return d.total_start_end_interval.toFixed(6)+ " seconds" },
+        ])
+        // (optional) sort using the given field, :default = function(d){return d;}
+        .sortBy(function(d){ return d.data.value.total_iosize; })
+        // (optional) sort order, :default ascending
+        .order(d3.ascending);
+*/
+
+	/*
+    IOCategoryAver4LayerRTChart
+    	.width(Full_Width*2/3)
+    	.height(IOCategoryChart_height)
+    	.margins({top: 0, right: 10, bottom: 20, left: 60})
+    	.dimension(IOCategoryDimension)
+    	.group(groupIOCategoryDimension)
+    	.valueAccessor(function(d) {
+	    	return d.value.avg_storage;
+    	})
+    	.stack(groupIOCategoryDimension, function(d){return d.value.avg_block;})
+    	.stack(groupIOCategoryDimension, function(d){return d.value.avg_cache;})
+    	.stack(groupIOCategoryDimension, function(d){return d.value.avg_fs;})
+
+    	.x(d3.scale.ordinal().domain(["", "R_4", "R_8", "R_16", "R_32", "R_128", "R_256", "R_512", "R_1024", "R_4096", "R_40960", 
+    	"W_4", "W_8", "W_16", "W_32", "W_128", "W_256", "W_512", "W_1024", "W_4096", "W_40960"])) // manually written in the current version with Dc 1.3, DC 1.4 will cover this automatically
+    	.xUnits(dc.units.ordinal)
+		.renderHorizontalGridLines(true)
+    	.centerBar(true)
+    	.elasticY(true)
+    	.brushOn(false)
+    	.title(function(d){
+	    	return d.key
+	    				+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
+	    				+ "\n total fs: " + d.value.total_fs.toFixed(8) + " count: " + d.value.count
+	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
+	    				+ "\n total cache: " + d.value.total_cache.toFixed(8) + " count: " + d.value.count
+					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
+	    				+ "\n total block: " + d.value.total_block.toFixed(8) + " count: " + d.value.count
+	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
+	    				+ "\n total storage: " + d.value.total_storage.toFixed(8) + " count: " + d.value.counterIncrement
+	    				;
+    	})
+    	.xAxis().ticks(20)
+		;
+*/
 /*
 	var FileRTDimension = ndx.dimension(function(d) {return d.filename});
 	var groupFileRTDimension = FileRTDimension.group()
@@ -1412,15 +1420,7 @@ d3.csv("final_result.csv", function(error, data) {
 			return d.key + ": #" + d.value;
 		})
 		.xAxis().ticks(10);
-*/       
-                   
-                                
-    dc.dataCount(".dc-data-count")
-    	.dimension(ndx)
-    	.group(all);
-
-                
-	dc.renderAll();
+*/      
 });
 </script>
 
