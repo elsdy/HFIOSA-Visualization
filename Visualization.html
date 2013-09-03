@@ -162,12 +162,19 @@
 		</h2>
 		<a class="reset" href="javascript:IOCategory_SysLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
-	<div id="io_category_aver_block_emmc_response_time_chart" class="dc-chart" >
+	<div id="io_category_aver_block_response_time_chart" class="dc-chart" >
 		<h2>
 			<strong> I/O 종류별 블록 레벨 이하 응답 시간 <br>
 			(x축: 응답 시간, y축)</strong> 
 		</h2>
-		<a class="reset" href="javascript:IOCategory_BlockeMMCLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+		<a class="reset" href="javascript:IOCategory_BlockLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+	</div>
+	<div id="io_category_aver_emmc_response_time_chart" class="dc-chart" >
+		<h2>
+			<strong> I/O 종류별 블록 레벨 이하 응답 시간 <br>
+			(x축: 응답 시간, y축)</strong> 
+		</h2>
+		<a class="reset" href="javascript:IOCategory_eMMCLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
 </div>
 
@@ -226,7 +233,9 @@ var IOType_IORatio_Chart = dc.pieChart("#type_chart");
 
 var IOCategory_Count_Chart = dc.rowChart("#io_category_chart");
 var IOCategory_SysLevelAvgRT_Chart = dc.rowChart("#io_category_aver_response_time_chart");
-var IOCategory_BlockeMMCLevelAvgRT_Chart = dc.rowChart("#io_category_aver_block_emmc_response_time_chart");
+var IOCategory_BlockLevelAvgRT_Chart = dc.rowChart("#io_category_aver_block_response_time_chart");
+var IOCategory_eMMCLevelAvgRT_Chart = dc.rowChart("#io_category_aver_emmc_response_time_chart");
+
 
 /* var IOCategoryAver4LayerRTChart = dc.barChart("#io_category_aver_4layer_response_time_chart"); */
 
@@ -1229,12 +1238,6 @@ d3.csv("final_result.csv", function(error, data) {
 	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
 	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
 		})
-		.on("filtered", function (chart) {
-			dc.events.trigger(function () {
-				IOCategory_SysLevelAvgRT_Chart.doRedraw();
-				IOCategory_BlockeMMCLevelAvgRT_Chart.doRedraw();
-			});
-		})
 		.xAxis().ticks(n_rowchart_ticks);             
 
     var IOCategory_SysLevelAvgRT_ChartDimension = ndx.dimension(function(d) {return d.class});
@@ -1326,8 +1329,8 @@ d3.csv("final_result.csv", function(error, data) {
 		})
 		.xAxis().ticks(n_rowchart_ticks);   
 
-    var IOCategory_BlockeMMCLevelAvgRT_ChartDimension = ndx.dimension(function(d) {return d.class});
-  	var groupIOCategory_BlockeMMCLevelAvgRT_ChartDimension = IOCategory_BlockeMMCLevelAvgRT_ChartDimension.group().reduce(
+    var IOCategory_BlockLevelAvgRT_ChartDimension = ndx.dimension(function(d) {return d.class});
+  	var groupIOCategory_BlockLevelAvgRT_ChartDimension = IOCategory_BlockLevelAvgRT_ChartDimension.group().reduce(
 	  	//add
 	  	function (p, v) {
 		  	++p.count;
@@ -1384,12 +1387,101 @@ d3.csv("final_result.csv", function(error, data) {
 		}
 	);	
 
-	IOCategory_BlockeMMCLevelAvgRT_Chart
+	IOCategory_BlockLevelAvgRT_Chart
 		.width(Full_Width/4)
 		.height(IOCategoryChart_height)
 		.margins({top: 0, right: 10, bottom: 20, left: 10 })
-		.dimension(IOCategory_BlockeMMCLevelAvgRT_ChartDimension)
-		.group(groupIOCategory_BlockeMMCLevelAvgRT_ChartDimension)
+		.dimension(IOCategory_BlockLevelAvgRT_ChartDimension)
+		.group(groupIOCategory_BlockLevelAvgRT_ChartDimension)
+    	.valueAccessor(function(d) {
+	    	return d.value.count;
+    	})
+
+/* 		.colors(['#3182bd']) */
+		.label(function (d){
+			return d.key + ": #" + d.value.count;
+		})
+    	.title(function(d){
+	    	return d.key
+						+ "\nio count: " + d.value.count + " #" 
+						+ "\navg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s" 
+						+ "\ntotal io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
+						+ "\nthroughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+						+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
+	    				+ "\n total fs: " + d.value.total_fs.toFixed(8)
+	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
+	    				+ "\n total cache: " + d.value.total_cache.toFixed(8)
+					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
+	    				+ "\n total block: " + d.value.total_block.toFixed(8)
+	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
+	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
+		})
+		.xAxis().ticks(n_rowchart_ticks);  
+
+    var IOCategory_eMMCLevelAvgRT_ChartDimension = ndx.dimension(function(d) {return d.class});
+  	var groupIOCategory_eMMCLevelAvgRT_ChartDimension = IOCategory_eMMCLevelAvgRT_ChartDimension.group().reduce(
+	  	//add
+	  	function (p, v) {
+		  	++p.count;
+		  	p.total_fs += v.fs; 
+		  	p.total_cache += v.cache;
+		  	p.total_block += v.block; 
+		  	p.total_storage += v.storage;
+
+		  	p.avg_fs = p.total_fs / p.count;
+		  	p.avg_cache = p.total_cache / p.count;
+		  	p.avg_block = p.total_block / p.count; 
+		  	p.avg_storage = p.total_storage / p.count; 
+		  	
+		  	p.total_start_end_interval += v.endtime - v.starttime;
+		  	p.avg_start_end_interval = p.total_start_end_interval/p.count;
+		  	
+			p.total_iosize += v.iosize;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	
+		  	return p;	  	
+	  	},
+	  	//remove
+	  	function (p, v) {
+		  	--p.count;
+		  	p.total_fs -= v.fs; 
+		  	p.total_cache -= v.cache;
+		  	p.total_block -= v.block; 
+		  	p.total_storage -= v.storage;
+
+		  	p.avg_fs = p.count == 0 ? 0 : p.total_fs / p.count;
+		  	p.avg_cache = p.count == 0 ? 0 : p.total_cache / p.count;
+		  	p.avg_block = p.count == 0 ? 0 : p.total_block / p.count;
+		  	p.avg_storage = p.count == 0 ? 0 : p.total_storage / p.count;
+		  	
+			p.total_start_end_interval -= v.endtime - v.starttime;
+			p.avg_start_end_interval = p.count == 0 ? 0 : p.total_start_end_interval/p.count;
+			
+			p.total_iosize -= v.iosize;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+
+		  	
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
+			  	total_block: 0,  total_storage: 0, total_fs: 0, total_cache: 0,
+			  	avg_block: 0,  avg_storage: 0, avg_fs: 0, avg_cache: 0,
+		  		total_start_end_interval: 0, avg_start_end_interval: 0,
+		  		
+		  		total_iosize: 0, throughput: 0
+		  	};
+		}
+	);	
+
+	IOCategory_eMMCLevelAvgRT_Chart
+		.width(Full_Width/4)
+		.height(IOCategoryChart_height)
+		.margins({top: 0, right: 10, bottom: 20, left: 10 })
+		.dimension(IOCategory_eMMCLevelAvgRT_ChartDimension)
+		.group(groupIOCategory_eMMCLevelAvgRT_ChartDimension)
     	.valueAccessor(function(d) {
 	    	return d.value.count;
     	})
