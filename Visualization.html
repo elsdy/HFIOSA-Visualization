@@ -125,9 +125,17 @@
 <div class="row" >
 	<div id="process_bubble_chart" class="dc-chart" >
 		<h2>
-			<strong> PID별 I/O 특성 (x축: I/O 요청 개수, y축: I/O별 평균 응답 시간)</strong> 
+			<strong> PID별 I/O 특성 <br>
+			(x축: I/O 요청 개수, y축: I/O별 평균 응답 시간)</strong> 
 		</h2>
 		 <a class="reset" href="javascript:PID_IOSize_SysLevelAvgRt_BubbleChart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+	</div>
+	<div id="rt_distribution_chart" class="dc-chart" >
+		<h2>
+			<strong> 응답 시간 분포 그래프 <br>
+			(x축: 응답시간, y축: 개수) </strong> 
+		</h2>
+		 <a class="reset" href="javascript:RT_Distribution_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
 	<div id="process_chart" class="dc-chart" >
 		<h2>
@@ -227,7 +235,7 @@
 <script>
 
 var PID_IOSize_SysLevelAvgRt_BubbleChart = dc.bubbleChart("#process_bubble_chart");
-
+var RT_Distribution_Chart = dc.barChart("#rt_distribution_chart");
 var ProcessName_IORatio_Chart = dc.pieChart("#process_chart");
 var IOType_IORatio_Chart = dc.pieChart("#type_chart");
 
@@ -269,7 +277,9 @@ d3.csv("final_result.csv", function(error, data) {
 
 	var IOTimeLineChart_x_low = Number.MAX_VALUE; // 입력 파일에서 타임 라인에 나오는 최초 시간값
 	var IOTimeLineChart_x_high = 0;					// 입력 파일에서 타임 라인에 나오는 최후 시간값
-	
+
+	var MaxIORT = 0;
+
 	var ProcessBubbleChart_x_low = Number.MAX_VALUE; // bubble chart에서 사용할 최초 시간값
 	var ProcessBubbleChart_x_high = 0;					// bubble chart에서 사용할 최후 시간값
 	
@@ -305,6 +315,9 @@ d3.csv("final_result.csv", function(error, data) {
 	  	// d.filename
 	  	d.starttime = +d.starttime;
 	  	d.endtime = +d.endtime;
+
+	  	d.rttime = d.endtime - d.starttime;
+	  	if(MaxIORT < d.rttime) MaxIORT = d.rttime;
 
 	  	d.linenumber = +d.linenumber;
 	  	
@@ -1024,7 +1037,7 @@ d3.csv("final_result.csv", function(error, data) {
 	);
 
 	PID_IOSize_SysLevelAvgRt_BubbleChart
-		.width(Full_Width*2/3)
+		.width(Full_Width*1/3)
 		.height(250)
     	.margins({top: 0, right: 60, bottom: 20, left: 60})
 		.dimension(PID_IOSize_SysLevelAvgRt_BubbleChartDimension)
@@ -1078,6 +1091,37 @@ d3.csv("final_result.csv", function(error, data) {
 		// 	return v + "s";
 		// })
 		;
+
+ 	var fluctuation = ndx.dimension(function (d) {
+                return (d.endtime - d.starttime).toFixed(4);
+            });
+    var fluctuationGroup = fluctuation.group();
+
+	RT_Distribution_Chart
+		.width(Full_Width*1/3)
+        .height(250)
+        .margins({top: 0, right: 60, bottom: 20, left: 60})
+        .dimension(fluctuation)
+        .group(fluctuationGroup)
+        .elasticY(true)
+		.yAxisPadding("10%") 
+        // .elasticX(true)
+        // .xAxisPadding("10%") 
+        .centerBar(true)
+        // .gap(100)
+        // .round(dc.round.floor)
+        .x(d3.scale.linear().domain([0, MaxIORT]))
+        // .x(d3.scale.linear().domain([0, MaxIORT]))
+        .renderHorizontalGridLines(true)
+        // .filterPrinter(function (filters) {
+        //     var filter = filters[0], s = "";
+        //     s += numberFormat(filter[0]) + "% -> " + numberFormat(filter[1]) + "%";
+        //     return s;
+        // })
+        .xAxis()
+        .tickFormat(function (v) {
+            return v + "s";
+        });
 
 	var ProcessNameDimension = ndx.dimension(function (d) {
 		return d.processname;
