@@ -962,12 +962,64 @@ d3.csv("final_result.csv", function(error, data) {
 */
     
 
+	var PID_IOSize_SysLevelAvgRt_BubbleChartDimension = ndx.dimension(function (d) {
+		// return d.processname + "-" + d.pid;
+		return d.pid;
+	});
+	var groupPID_IOSize_SysLevelAvgRt_BubbleChartDimension = PID_IOSize_SysLevelAvgRt_BubbleChartDimension.group().reduce(
+		function (p, v) {
+			++p.count;
+			
+			if(p.start_time > v.starttime) p.start_time = v.starttime;
+			
+		  	p.total_start_end_interval += v.endtime - v.starttime
+			p.total_iosize += v.iosize;
+			
+		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	
+		  	return p;		  
+		},
+	  	function (p, v) {
+		  	--p.count;
+
+		  	p.total_start_end_interval -= v.endtime - v.starttime;
+			p.total_iosize -= v.iosize;
+			
+		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			
+		  	if(p.StartTime > v.starttime) p.StartTime = v.starttime;
+		  	if(p.EndTime < v.endtime) p.EndTime = v.endtime;
+
+			
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
+			  	
+			  	start_time: Number.MAX_VALUE,
+			  	
+			  	total_start_end_interval: 0, 
+				total_iosize: 0,
+
+			  	avg_start_end_interval: 0,
+				throughput: 0,
+				
+				StartTime: Number.MAX_VALUE,
+				EndTime: 0
+		  	};
+		}
+	);
+
 	PID_IOSize_SysLevelAvgRt_BubbleChart
 		.width(Full_Width*2/3)
 		.height(250)
     	.margins({top: 0, right: 60, bottom: 20, left: 60})
-		.dimension(ProcessNamePIDDimension)
-		.group(groupProcessNamePIDDimension)
+		.dimension(PID_IOSize_SysLevelAvgRt_BubbleChartDimension)
+		.group(groupPID_IOSize_SysLevelAvgRt_BubbleChartDimension)
 		.transitionDuration(transition_duration_delay)
 		.colors(["green"])
 /*
@@ -1177,17 +1229,78 @@ d3.csv("final_result.csv", function(error, data) {
 	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
 	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
 		})
+		.on("filtered", function (chart) {
+			dc.events.trigger(function () {
+				IOCategory_SysLevelAvgRT_Chart.doRedraw();
+				IOCategory_BlockeMMCLevelAvgRT_Chart.doRedraw();
+			});
+		})
 		.xAxis().ticks(n_rowchart_ticks);             
 
-	        
+    var IOCategory_SysLevelAvgRT_ChartDimension = ndx.dimension(function(d) {return d.class});
+  	var groupIOCategory_SysLevelAvgRT_ChartDimension = IOCategory_SysLevelAvgRT_ChartDimension.group().reduce(
+	  	//add
+	  	function (p, v) {
+		  	++p.count;
+		  	p.total_fs += v.fs; 
+		  	p.total_cache += v.cache;
+		  	p.total_block += v.block; 
+		  	p.total_storage += v.storage;
 
+		  	p.avg_fs = p.total_fs / p.count;
+		  	p.avg_cache = p.total_cache / p.count;
+		  	p.avg_block = p.total_block / p.count; 
+		  	p.avg_storage = p.total_storage / p.count; 
+		  	
+		  	p.total_start_end_interval += v.endtime - v.starttime;
+		  	p.avg_start_end_interval = p.total_start_end_interval/p.count;
+		  	
+			p.total_iosize += v.iosize;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	
+		  	return p;	  	
+	  	},
+	  	//remove
+	  	function (p, v) {
+		  	--p.count;
+		  	p.total_fs -= v.fs; 
+		  	p.total_cache -= v.cache;
+		  	p.total_block -= v.block; 
+		  	p.total_storage -= v.storage;
+
+		  	p.avg_fs = p.count == 0 ? 0 : p.total_fs / p.count;
+		  	p.avg_cache = p.count == 0 ? 0 : p.total_cache / p.count;
+		  	p.avg_block = p.count == 0 ? 0 : p.total_block / p.count;
+		  	p.avg_storage = p.count == 0 ? 0 : p.total_storage / p.count;
+		  	
+			p.total_start_end_interval -= v.endtime - v.starttime;
+			p.avg_start_end_interval = p.count == 0 ? 0 : p.total_start_end_interval/p.count;
+			
+			p.total_iosize -= v.iosize;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+
+		  	
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
+			  	total_block: 0,  total_storage: 0, total_fs: 0, total_cache: 0,
+			  	avg_block: 0,  avg_storage: 0, avg_fs: 0, avg_cache: 0,
+		  		total_start_end_interval: 0, avg_start_end_interval: 0,
+		  		
+		  		total_iosize: 0, throughput: 0
+		  	};
+		}
+	);	
 
     IOCategory_SysLevelAvgRT_Chart
 		.width(Full_Width/4)
 		.height(IOCategoryChart_height)
 		.margins({top: 0, right: 10, bottom: 20, left: 10 })
-		.dimension(IOCategoryDimension)
-		.group(groupIOCategoryDimension)
+		.dimension(IOCategory_SysLevelAvgRT_ChartDimension)
+		.group(groupIOCategory_SysLevelAvgRT_ChartDimension)
     	.valueAccessor(function(d) {
 	    	return d.value.avg_start_end_interval;
     	})
@@ -1213,12 +1326,70 @@ d3.csv("final_result.csv", function(error, data) {
 		})
 		.xAxis().ticks(n_rowchart_ticks);   
 
+    var IOCategory_BlockeMMCLevelAvgRT_ChartDimension = ndx.dimension(function(d) {return d.class});
+  	var groupIOCategory_BlockeMMCLevelAvgRT_ChartDimension = IOCategory_BlockeMMCLevelAvgRT_ChartDimension.group().reduce(
+	  	//add
+	  	function (p, v) {
+		  	++p.count;
+		  	p.total_fs += v.fs; 
+		  	p.total_cache += v.cache;
+		  	p.total_block += v.block; 
+		  	p.total_storage += v.storage;
+
+		  	p.avg_fs = p.total_fs / p.count;
+		  	p.avg_cache = p.total_cache / p.count;
+		  	p.avg_block = p.total_block / p.count; 
+		  	p.avg_storage = p.total_storage / p.count; 
+		  	
+		  	p.total_start_end_interval += v.endtime - v.starttime;
+		  	p.avg_start_end_interval = p.total_start_end_interval/p.count;
+		  	
+			p.total_iosize += v.iosize;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	
+		  	return p;	  	
+	  	},
+	  	//remove
+	  	function (p, v) {
+		  	--p.count;
+		  	p.total_fs -= v.fs; 
+		  	p.total_cache -= v.cache;
+		  	p.total_block -= v.block; 
+		  	p.total_storage -= v.storage;
+
+		  	p.avg_fs = p.count == 0 ? 0 : p.total_fs / p.count;
+		  	p.avg_cache = p.count == 0 ? 0 : p.total_cache / p.count;
+		  	p.avg_block = p.count == 0 ? 0 : p.total_block / p.count;
+		  	p.avg_storage = p.count == 0 ? 0 : p.total_storage / p.count;
+		  	
+			p.total_start_end_interval -= v.endtime - v.starttime;
+			p.avg_start_end_interval = p.count == 0 ? 0 : p.total_start_end_interval/p.count;
+			
+			p.total_iosize -= v.iosize;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+
+		  	
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
+			  	total_block: 0,  total_storage: 0, total_fs: 0, total_cache: 0,
+			  	avg_block: 0,  avg_storage: 0, avg_fs: 0, avg_cache: 0,
+		  		total_start_end_interval: 0, avg_start_end_interval: 0,
+		  		
+		  		total_iosize: 0, throughput: 0
+		  	};
+		}
+	);	
+
 	IOCategory_BlockeMMCLevelAvgRT_Chart
 		.width(Full_Width/4)
 		.height(IOCategoryChart_height)
 		.margins({top: 0, right: 10, bottom: 20, left: 10 })
-		.dimension(IOCategoryDimension)
-		.group(groupIOCategoryDimension)
+		.dimension(IOCategory_BlockeMMCLevelAvgRT_ChartDimension)
+		.group(groupIOCategory_BlockeMMCLevelAvgRT_ChartDimension)
     	.valueAccessor(function(d) {
 	    	return d.value.count;
     	})
