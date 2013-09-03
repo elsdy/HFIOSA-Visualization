@@ -1238,8 +1238,8 @@ d3.csv("final_result.csv", function(error, data) {
     	})
     	.stack(groupIOCategoryDimension, function(d){return d.value.avg_block;})
 
-    	.x(d3.scale.ordinal().domain(["", "R_4", "R_8", "R_16", "R_32", "R_128", "R_256", "R_512", "R_1024", "R_4096", "R_40960", 
-    	"W_4", "W_8", "W_16", "W_32", "W_128", "W_256", "W_512", "W_1024", "W_4096", "W_40960"])) // manually written in the current version with Dc 1.3, DC 1.4 will cover this automatically
+		// manually written in the current version with Dc 1.3, DC 1.4 will cover this automatically
+    	.x(d3.scale.ordinal().domain(["", "R_4", "R_8", "R_16", "R_32", "R_128", "R_256", "R_512", "R_1024", "R_4096", "R_40960", "W_4", "W_8", "W_16", "W_32", "W_128", "W_256", "W_512", "W_1024", "W_4096", "W_40960"])) 
     	.xUnits(dc.units.ordinal)
 		.renderHorizontalGridLines(true)
     	.centerBar(true)
@@ -1353,8 +1353,8 @@ d3.csv("final_result.csv", function(error, data) {
     	.stack(groupIOCategoryAverRTDimension, function(d){return d.value.avg_sys;})
 */
 
-    	.x(d3.scale.ordinal().domain(["", "R_4", "R_8", "R_16", "R_32", "R_128", "R_256", "R_512", "R_1024", "R_4096", "R_40960", 
-    	"W_4", "W_8", "W_16", "W_32", "W_128", "W_256", "W_512", "W_1024", "W_4096", "W_40960"])) // manually written in the current version with Dc 1.3, DC 1.4 will cover this automatically
+		// manually written in the current version with Dc 1.3, DC 1.4 will cover this automatically
+    	.x(d3.scale.ordinal().domain(["", "R_4", "R_8", "R_16", "R_32", "R_128", "R_256", "R_512", "R_1024", "R_4096", "R_40960", "W_4", "W_8", "W_16", "W_32", "W_128", "W_256", "W_512", "W_1024", "W_4096", "W_40960"])) 
 
 /* 		.x(d3.scale.ordinal().domain([""] + groupIOCategoryAverRTDimension.all()) */
 /*     	.x(d3.scale.ordinal().domain(["", "R_4", "R_8", "R_16", "R_32", "R_128", "R_256", "R_512", "R_1024", "R_4096", "R_40960",  */
