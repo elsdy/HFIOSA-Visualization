@@ -148,26 +148,23 @@
 </div>
 
 <div class="row" >
-	<div style="float:left">
-		<div id="io_category_aver_block_emmc_response_time_chart" class="dc-chart" >
-			<h2>
-				<strong> I/O별 블록, eMMC 레벨 평균 응답 시간 (x축: I/O별 평균 응답 시간, y축: (아래부터) eMMC, 블록 레벨)</strong> 
-			</h2>
-			<a class="reset" href="javascript:IOCategory_BlockeMMCLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
-		</div>
-		<div id="clearfix" ></div>
-		<div id="io_category_aver_response_time_chart" class="dc-chart" >
-			<h2>
-				<strong> I/O 종류별 평균 응답 시간 (x축: 평균 응답 시간, y: I/O 종류)</strong> 
-			</h2>
-			<a class="reset" href="javascript:IOCategory_SysLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
-		</div>
-	</div>
 	<div id="io_category_chart" class="dc-chart" >
 		<h2>
 			<strong> I/O 종류별 요청 개수 (x축: I/O 요청 개수, y축: I/O 종류)</strong> 
 		</h2>
 		<a class="reset" href="javascript:IOCategory_Count_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+	</div>
+	<div id="io_category_aver_response_time_chart" class="dc-chart" >
+		<h2>
+			<strong> I/O 종류별 평균 응답 시간 (x축: 평균 응답 시간, y: I/O 종류)</strong> 
+		</h2>
+		<a class="reset" href="javascript:IOCategory_SysLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+	</div>
+	<div id="io_category_aver_block_emmc_response_time_chart" class="dc-chart" >
+		<h2>
+			<strong> I/O별 블록, eMMC 레벨 평균 응답 시간 (x축: I/O별 평균 응답 시간, y축)</strong> 
+		</h2>
+		<a class="reset" href="javascript:IOCategory_BlockeMMCLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
 </div>
 
@@ -222,7 +219,6 @@ var ProcessName_IORatio_Chart = dc.pieChart("#process_chart");
 var IOType_IORatio_Chart = dc.pieChart("#type_chart");
 
 var IOCategory_Count_Chart = dc.rowChart("#io_category_chart");
-
 var IOCategory_SysLevelAvgRT_Chart = dc.rowChart("#io_category_aver_response_time_chart");
 var IOCategory_BlockeMMCLevelAvgRT_Chart = dc.rowChart("#io_category_aver_block_emmc_response_time_chart");
 
@@ -1231,37 +1227,6 @@ d3.csv("final_result.csv", function(error, data) {
 		}
 	);	
 	var IOCategoryChart_height = groupIOCategoryDimension.size() * 30 + 20 + 20;
-	        
-    IOCategory_BlockeMMCLevelAvgRT_Chart
-.width(Full_Width/3-50)
-		.height(IOCategoryChart_height)
-		.margins({top: 0, right: 10, bottom: 20, left: 10 })
-		.dimension(IOCategoryDimension)
-		.group(groupIOCategoryDimension)
-    	.valueAccessor(function(d) {
-	    	return d.value.count;
-    	})
-
-/* 		.colors(['#3182bd']) */
-		.label(function (d){
-			return d.key + ": #" + d.value.count;
-		})
-    	.title(function(d){
-	    	return d.key
-						+ "\nio count: " + d.value.count + " #" 
-						+ "\navg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s" 
-						+ "\ntotal io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
-						+ "\nthroughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
-						+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
-	    				+ "\n total fs: " + d.value.total_fs.toFixed(8)
-	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
-	    				+ "\n total cache: " + d.value.total_cache.toFixed(8)
-					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
-	    				+ "\n total block: " + d.value.total_block.toFixed(8)
-	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
-	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
-		})
-		.xAxis().ticks(n_rowchart_ticks);  
 			
 	IOCategory_Count_Chart
 		.width(Full_Width/3-50)
@@ -1363,6 +1328,36 @@ d3.csv("final_result.csv", function(error, data) {
 		})
 		.xAxis().ticks(n_rowchart_ticks);   
 
+	IOCategory_BlockeMMCLevelAvgRT_Chart
+		.width(Full_Width/3)
+		.height(IOCategoryChart_height)
+		.margins({top: 0, right: 10, bottom: 20, left: 10 })
+		.dimension(IOCategoryDimension)
+		.group(groupIOCategoryDimension)
+    	.valueAccessor(function(d) {
+	    	return d.value.count;
+    	})
+
+/* 		.colors(['#3182bd']) */
+		.label(function (d){
+			return d.key + ": #" + d.value.count;
+		})
+    	.title(function(d){
+	    	return d.key
+						+ "\nio count: " + d.value.count + " #" 
+						+ "\navg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s" 
+						+ "\ntotal io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
+						+ "\nthroughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+						+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
+	    				+ "\n total fs: " + d.value.total_fs.toFixed(8)
+	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
+	    				+ "\n total cache: " + d.value.total_cache.toFixed(8)
+					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
+	    				+ "\n total block: " + d.value.total_block.toFixed(8)
+	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
+	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
+		})
+		.xAxis().ticks(n_rowchart_ticks);  
                 
 	var FileCountDimension = ndx.dimension(function(d) {return d.filename});
 	var groupFileCountDimension = FileCountDimension.group()
