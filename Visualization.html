@@ -164,8 +164,8 @@
 	</div>
 	<div id="io_category_aver_block_emmc_response_time_chart" class="dc-chart" >
 		<h2>
-			<strong> I/O종류별 블록 레벨 이하 응답 시간 <br>
-			(x축: I/O별 평균 응답 시간, y축)</strong> 
+			<strong> I/O 종류별 블록 레벨 이하 응답 시간 <br>
+			(x축: 응답 시간, y축)</strong> 
 		</h2>
 		<a class="reset" href="javascript:IOCategory_BlockeMMCLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
@@ -174,19 +174,22 @@
 <div class="row" >
 	<div id="process_throughput_chart" >
 		<h2>
-			<strong> 프로세스별 평균 처리량 (x축: 처리량, y축: 프로세스 이름) </strong>
+			<strong> 프로세스별 평균 처리량 <br>
+			(x축: 처리량, y축: 프로세스 이름) </strong>
 		</h2>
 		<a class="reset" href="javascript:Process_Throughput_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
 	<div id="pid_throughput_chart" >
 		<h2>
-			<strong> PID별 평균 처리량 (x축: 처리량, y축: PID)</strong>
+			<strong> PID별 평균 처리량 <br>
+			(x축: 처리량, y축: PID)</strong>
 		</h2>
 		 <a class="reset" href="javascript:PID_Throughput_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
 	<div id="file_count_chart" class="dc-chart" >
 		<h2>
-			<strong> 접근 파일별 I/O 요청 개수 (x축: I/O 요청 개수, y축: 접근 파일)</strong> 
+			<strong> 접근 파일별 I/O 요청 개수 <br>
+			(x축: I/O 요청 개수, y축: 접근 파일)</strong> 
 		</h2>
 		 <a class="reset" href="javascript:File_AccessCount_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
@@ -907,7 +910,7 @@ d3.csv("final_result.csv", function(error, data) {
 	);
 	
 	Process_Throughput_Chart
-	    .width(Full_Width/3) // (optional) define chart width, :default = 200
+	    .width(Full_Width/4) // (optional) define chart width, :default = 200
 	    .height(groupProcessNameDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
 	    .dimension(ProcessNameDimension) // set dimension
 	    .group(groupProcessNameDimension) // set group
@@ -999,7 +1002,7 @@ d3.csv("final_result.csv", function(error, data) {
 	);
 	
 	PID_Throughput_Chart
-	    .width(Full_Width/3) // (optional) define chart width, :default = 200
+	    .width(Full_Width/4) // (optional) define chart width, :default = 200
 	    .height(groupProcessNamePIDDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
 	    .dimension(ProcessNamePIDDimension) // set dimension
 	    .group(groupProcessNamePIDDimension) // set group
@@ -1382,7 +1385,7 @@ d3.csv("final_result.csv", function(error, data) {
 	;
 	
 	File_AccessCount_Chart
-		.width(Full_Width/3)
+		.width(Full_Width/4)
 		.height(groupFileCountDimension.size() * 30 + 20 + 20)
 		.margins({top: 0, left: 10, right: 10, bottom: 20})
 		.dimension(FileCountDimension)
