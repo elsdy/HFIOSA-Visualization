@@ -261,6 +261,7 @@ var File_AccessCount_Chart = dc.rowChart("#file_count_chart");
 var Full_Width = 1600;
 var Default_Height = 180;
 var n_rowchart_ticks = 3;
+var n_bubblechart_ticks = 5;
 
 d3.csv("final_result.csv", function(error, data) {
 
@@ -1076,6 +1077,7 @@ d3.csv("final_result.csv", function(error, data) {
 		.xAxis().tickFormat(function (v) {
 			return "#" + v;
 		})
+		.ticks(n_bubblechart_ticks);
 		// the both setting (x/yAxis) aren't working at the same time
 		// .yAxis().tickFormat(function (v) {
 		// 	return v + "s";
