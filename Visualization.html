@@ -877,8 +877,8 @@ d3.csv("final_result.csv", function(error, data) {
 
     
 	var ProcessNamePIDDimension = ndx.dimension(function (d) {
-		// return d.processname + "-" + d.pid;
-		return d.pid;
+		return d.processname + "-" + d.pid;
+		// return d.pid;
 	});
 	var groupProcessNamePIDDimension = ProcessNamePIDDimension.group().reduce(
 		function (p, v) {
