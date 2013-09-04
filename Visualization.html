@@ -584,7 +584,7 @@ d3.csv("final_result.csv", function(error, data) {
 	    // (optional) whether chart should render labels, :default = true
 	    .renderLabel(true)
     	.label(function (p) {
-			return p.key + ": "+ (p.value.throughput).toFixed(3) + " MB/s";
+			return p.key + ": "+ (p.value.throughput).toFixed(6) + " MB/s";
 		})
 	    // (optional) by default pie chart will use group.key and group.value as its title
 	    // you can overwrite it with a closure
@@ -944,7 +944,7 @@ d3.csv("final_result.csv", function(error, data) {
 	    // (optional) whether chart should render labels, :default = true
 	    .renderLabel(true)
     	.label(function (p) {
-			return p.key + ": "+ p.value.throughput.toFixed(3) + " MB/s";
+			return p.key + ": "+ p.value.throughput.toFixed(6) + " MB/s";
 		})
 	    // (optional) by default pie chart will use group.key and group.value as its title
 	    // you can overwrite it with a closure
@@ -955,7 +955,7 @@ d3.csv("final_result.csv", function(error, data) {
 				"start time: " + d.value.start_time + " s\n" +
  				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
  				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
- 				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+ 				"throughput: " + d.value.throughput.toFixed(6) + "MB/s\n" 
  				;
 				return ab_text + text;
 			})
