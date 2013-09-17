@@ -279,34 +279,25 @@ d3.csv("final_result.csv", function(error, data) {
 	// 2. 새로운 필드값 추가
 	// 필요에 따라서 입력 데이터값을 cooking 하여 새로운 필드 값을 만들어야 할 필요가 있다. 
 	data.forEach(function(d) {
-	  	// d.processname
-	  	d.pid = +d.pid;
-	  	d.sys = +d.sys;
-	  	d.vfs = +d.vfs;
-	  	d.fs = +d.fs;
-	  	d.cache = +d.cache;
-	  	d.block = +d.block;
-	  	d.driver = +d.driver;
-	  	d.storage = +d.storage;
-	  	d.journaling = +d.journaling;
-	  	d.total = +d.total
-	  	d.wait = +d.wait;
-	  	
-	  	d.iosize = +d.iosize;
-	  	// d.type
-	  	// d.filename
-	  	d.starttime = +d.starttime;
+		// all,entry_type,linenumber,processname,origin_processname,pid, start_time,end_time,rw,iosize,filename,inode,mapped_syscall_io
+		d.linenumber = +d.linenumber;
+		// d.processname
+		// d.origin_processname
+		d.pid = +d.pid;
+		d.starttime = +d.starttime;
 	  	d.endtime = +d.endtime;
-
+	  	// d.rw  
+	  	d.iosize = +d.iosize;
+	  	// d.filename
+	  	d.inode = +d.inode;
+	  	d.mapped_syscall_io = +d.mapped_syscall_io;
+	  
 	  	d.rttime = d.endtime - d.starttime;
 	  	if(MaxIORT < d.rttime) MaxIORT = d.rttime;
-
-	  	d.linenumber = +d.linenumber;
 	  	
 	  	// d.category
 	  	if(IOTimeLineChart_x_high < d.starttime) IOTimeLineChart_x_high = d.starttime;
-	  	if(IOTimeLineChart_x_low > d.starttime) IOTimeLineChart_x_low = d.starttime;
-	  	
+	  	if(IOTimeLineChart_x_low > d.starttime) IOTimeLineChart_x_low = d.starttime;	  	
   	});
   	
   	// 전체 시간 구간을 n_timeline_unit의 개수로 나누어 n_timeline_unit분할 하고
@@ -321,8 +312,6 @@ d3.csv("final_result.csv", function(error, data) {
   	// 그래프를 넉넉히 그리기 위해서 타임 라인을 앞뒤로 3초 연장한다. 
   	IOTimeLineChart_x_low = Math.floor(IOTimeLineChart_x_low)-3;
   	IOTimeLineChart_x_high = Math.ceil(IOTimeLineChart_x_high)+3;
-  	
-  	ProcessBubbleChart_x_low = IOTimeLineChart_x_low;
   
   	// crossfilter를 사용하기 위한 데이터 초기화
   	var ndx = crossfilter(data);
@@ -858,6 +847,8 @@ d3.csv("final_result.csv", function(error, data) {
 */
     
 
+	ProcessBubbleChart_x_low = IOTimeLineChart_x_low;
+	
 	var PID_IOSize_SysLevelAvgRt_BubbleChartDimension = ndx.dimension(function (d) {
 		// return d.processname + "-" + d.pid;
 		return d.pid;
