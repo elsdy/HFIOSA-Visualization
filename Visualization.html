@@ -76,18 +76,21 @@
 <div class="row" >
 	<h2>
 		<div id="AvgThroughtput"> 수집된 로그들에 대한 평균 처리량: <span class="number-display">_</span> MB/s </div>
-	</h2>
+	</h2><br>
 	
 	<h2>
 		<div id="AvgRTtime"> 수집된 로그들에 대한 평균 응답시간: <span class="number-display">_</span> s </div>
-	</h2>
+	</h2><br>
+
+	<h2>
+		<div id="TotalIOSize"> 수집된 로그들에 대한 총 IO크기: <span class="number-display">_</span> MB </div>
+	</h2><br>
 	
-	<div id="total-iosize-chart" >
-		<h2>
-			<strong> 수집된 로그들에 대한 총 IO크기  </strong> 
-		</h2>
-	</div>
-		<div id="total-rttime-chart" >
+	<h2>
+		<div id="TotalRTtime"> 수집된 로그들에 대한 총 IO처리 시간: <span class="number-display">_</span> MB </div>
+	</h2><br>
+	
+	<div id="total-rttime-chart" >
 		<h2>
 			<strong> 수집된 로그들에 대한 총 IO처리 시간  </strong> 
 		</h2>
@@ -244,8 +247,8 @@ var TimeLine_IOCount_Chart = dc.barChart("#io-count-chart");
 
 var AvgThroughtputND   = dc.numberDisplay("#AvgThroughtput");
 var AvgRTtimeND   = dc.numberDisplay("#AvgRTtime");
+var TotalIOSizeND   = dc.numberDisplay("#TotalIOSize");
 
-var TotalIOSizeChart = dc.rowChart("#total-iosize-chart");
 var TotalIORTChart = dc.rowChart("#total-rttime-chart");
 
 var VarianceChart = dc.rowChart("#variance-chart");
@@ -570,7 +573,7 @@ d3.csv("final_result.csv", function(error, data) {
     .valueAccessor(function (p) { 
     	return p.value.throughput; 
     })
-    .formatNumber(d3.format(".8s"))
+    .formatNumber(d3.format(".8g"))
     ;
 
 	AvgRTtimeND
@@ -578,36 +581,17 @@ d3.csv("final_result.csv", function(error, data) {
 	.valueAccessor(function (p) {
 			return p.value.avg_start_end_interval;
 	})
-	.formatNumber(d3.format(".8s"))
+	.formatNumber(d3.format(".8g"))
+	;
+
+	TotalIOSizeND
+	.group(groupALLIODimension)
+	.valueAccessor(function (p) {
+			return p.value.total_iosize;
+	})
+	.formatNumber(d3.format(".8g"))
 	;
 	    	    
-	TotalIOSizeChart
-	    .width(Full_Width/6) // (optional) define chart width, :default = 200
-	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
-	    .dimension(ALLIODimension) // set dimension
-	    .group(groupALLIODimension) // set group
-	    .valueAccessor(function (p) {
-			return p.value.total_iosize;
-		})
-	    // (optional) define margins
-	    .margins({top: 0, left: 20, right: 20, bottom: 20})
-	    // (optional) define color array for slices
-	    .colors(['yellow'])
-	    // (optional) set gap between rows, default is 5
-	    .gap(6)
-	    // (optional) whether chart should render labels, :default = true
-	    .renderLabel(true)
-    	.label(function (p) {
-			return p.key + ": "+ (p.value.total_iosize/(1024*1024)).toFixed(3)+ " MB";
-		})
-	    // (optional) by default pie chart will use group.key and group.value as its title
-	    // you can overwrite it with a closure
-	    .title(function(d) { return (d.value.total_iosize/(1024*1024)).toFixed(3) + " MB"; })
-	    // (optional) whether chart should render titles, :default = false
-	    .renderTitle(true)
-	    // (optional) specify the number of ticks for the X axis
-	    .xAxis().ticks(n_rowchart_ticks);  
-	    
 	TotalIORTChart
 		.width(Full_Width/6) // (optional) define chart width, :default = 200
 	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
