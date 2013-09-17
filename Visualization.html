@@ -87,14 +87,9 @@
 	</h2><br>
 	
 	<h2>
-		<div id="TotalRTtime"> 수집된 로그들에 대한 총 IO처리 시간: <span class="number-display">_</span> MB </div>
+		<div id="TotalRTtime"> 수집된 로그들에 대한 총 IO처리 시간: <span class="number-display">_</span> s </div>
 	</h2><br>
 	
-	<div id="total-rttime-chart" >
-		<h2>
-			<strong> 수집된 로그들에 대한 총 IO처리 시간  </strong> 
-		</h2>
-	</div>
 	<div id="variance-chart" >
 		<h2>
 			<strong> 수집된 로그들에 분산 값  </strong> 
@@ -248,8 +243,7 @@ var TimeLine_IOCount_Chart = dc.barChart("#io-count-chart");
 var AvgThroughtputND   = dc.numberDisplay("#AvgThroughtput");
 var AvgRTtimeND   = dc.numberDisplay("#AvgRTtime");
 var TotalIOSizeND   = dc.numberDisplay("#TotalIOSize");
-
-var TotalIORTChart = dc.rowChart("#total-rttime-chart");
+var TotalRTtimeND   = dc.numberDisplay("#TotalRTtime");
 
 var VarianceChart = dc.rowChart("#variance-chart");
 var StdDevChart = dc.rowChart("#std-deviation-chart");
@@ -591,34 +585,15 @@ d3.csv("final_result.csv", function(error, data) {
 	})
 	.formatNumber(d3.format(".8g"))
 	;
-	    	    
-	TotalIORTChart
-		.width(Full_Width/6) // (optional) define chart width, :default = 200
-	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
-	    .dimension(ALLIODimension) // set dimension
-	    .group(groupALLIODimension) // set group
-	    .valueAccessor(function (p) {
+
+	TotalRTtimeND
+	.group(groupALLIODimension)
+	.valueAccessor(function (p) {
 			return p.value.total_start_end_interval;
-		})
-	    // (optional) define margins
-	    .margins({top: 0, left: 20, right: 20, bottom: 20})
-	    // (optional) define color array for slices
-	    .colors(['yellow'])
-	    // (optional) set gap between rows, default is 5
-	    .gap(6)
-	    // (optional) whether chart should render labels, :default = true
-	    .renderLabel(true)
-    	.label(function (p) {
-			return p.key + ": "+ p.value.total_start_end_interval.toFixed(6)+ " seconds";
-		})
-	    // (optional) by default pie chart will use group.key and group.value as its title
-	    // you can overwrite it with a closure
-	    .title(function(d) { return d.value.total_start_end_interval.toFixed(6) + " seconds"; })
-	    // (optional) whether chart should render titles, :default = false
-	    .renderTitle(true)
-	    // (optional) specify the number of ticks for the X axis
-	    .xAxis().ticks(n_rowchart_ticks);  
-	    
+	})
+	.formatNumber(d3.format(".8g"))
+	;
+	    	    	    
     VarianceChart
 	    .width(Full_Width/6) // (optional) define chart width, :default = 200
 	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
