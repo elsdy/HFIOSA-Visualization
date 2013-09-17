@@ -6,10 +6,6 @@
 </head>
 <body onload="window.resizeTo(1600, 1400)" >
 
-<script type="text/javascript" src="/Users/elsdy/Dropbox/Development/HFIOSA/VisualizationDevelopment/js/d3/d3.js" > </script>
-<script type="text/javascript" src="/Users/elsdy/Dropbox/Development/HFIOSA/VisualizationDevelopment/js/crossfilter/crossfilter.js" > </script>
-<script type="text/javascript" src="/Users/elsdy/Dropbox/Development/HFIOSA/VisualizationDevelopment/js/dc/dc.js" > </script>
-
 <!-- label, # of recored to be analyzed -->
 
 <div class="graph_label" id="title" >
@@ -220,7 +216,13 @@
 </div>
 -->
 
-<script>
+
+<script type="text/javascript" src="/Users/elsdy/Dropbox/Development/HFIOSA/VisualizationDevelopment/js/d3/d3.js" > </script>
+<script type="text/javascript" src="/Users/elsdy/Dropbox/Development/HFIOSA/VisualizationDevelopment/js/crossfilter/crossfilter.js" > </script>
+<script type="text/javascript" src="/Users/elsdy/Dropbox/Development/HFIOSA/VisualizationDevelopment/js/dc/dc.js" > </script>
+<script type="text/javascript">
+
+var meanND   = dc.numberDisplay("#mean");
 
 var PID_IOSize_SysLevelAvgRt_BubbleChart = dc.bubbleChart("#process_bubble_chart");
 var RT_Distribution_Chart = dc.barChart("#rt_distribution_chart");
