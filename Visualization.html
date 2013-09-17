@@ -74,11 +74,9 @@
 -->
 
 <div class="row" >
-	<div id="avg-throughput-chart" >
-		<h2>
-			<strong> 수집된 로그들에 대한 평균 처리량  </strong> 
-		</h2>
-	</div>
+	<h2>
+		<div id="AvgThroughtput"> 수집된 로그들에 대한 평균 처리량: <span class="number-display">_</span> MB/s </div>
+	</h2>
 	<div id="avg-rttime-chart" >
 		<h2>
 			<strong> 수집된 로그들에 대한 평균 응답시간  </strong> 
@@ -222,8 +220,6 @@
 <script type="text/javascript" src="/Users/elsdy/Dropbox/Development/HFIOSA/VisualizationDevelopment/js/dc/dc.js" > </script>
 <script type="text/javascript">
 
-var meanND   = dc.numberDisplay("#mean");
-
 var PID_IOSize_SysLevelAvgRt_BubbleChart = dc.bubbleChart("#process_bubble_chart");
 var RT_Distribution_Chart = dc.barChart("#rt_distribution_chart");
 var ProcessName_IORatio_Chart = dc.pieChart("#process_chart");
@@ -246,7 +242,8 @@ var TimeLine_IOCount_Chart = dc.barChart("#io-count-chart");
 
 /* var StatTable = dc.dataTable("#data-table"); */
 
-var AvgThroughputChart = dc.rowChart("#avg-throughput-chart");
+var AvgThroughtputND   = dc.numberDisplay("#AvgThroughtput");
+
 var AvgRTtimeChart = dc.rowChart("#avg-rttime-chart");
 var TotalIOSizeChart = dc.rowChart("#total-iosize-chart");
 var TotalIORTChart = dc.rowChart("#total-rttime-chart");
@@ -567,33 +564,12 @@ d3.csv("final_result.csv", function(error, data) {
 		  	};
 		}
 	);
-	
-	AvgThroughputChart
-	    .width(Full_Width/6) // (optional) define chart width, :default = 200
-	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
-	    .dimension(ALLIODimension) // set dimension
-	    .group(groupALLIODimension) // set group
-	    .valueAccessor(function (p) {
+	    
+    AvgThroughtputND.group(groupALLIODimension).valueAccessor(function (p) {
 			return p.value.throughput;
 		})
-	    // (optional) define margins
-	    .margins({top: 0, left: 20, right: 20, bottom: 20})
-	    // (optional) define color array for slices
-	    .colors(['yellow'])
-	    // (optional) set gap between rows, default is 5
-	    .gap(6)
-	    // (optional) whether chart should render labels, :default = true
-	    .renderLabel(true)
-    	.label(function (p) {
-			return p.key + ": "+ (p.value.throughput).toFixed(6) + " MB/s";
-		})
-	    // (optional) by default pie chart will use group.key and group.value as its title
-	    // you can overwrite it with a closure
-	    .title(function(d) { return d.value.throughput + " MB/s"; })
-	    // (optional) whether chart should render titles, :default = false
-	    .renderTitle(true)
-	    // (optional) specify the number of ticks for the X axis
-	    .xAxis().ticks(n_rowchart_ticks);  
+		.formatNumber(d3.format(".8s"))
+		;
 	    
 	AvgRTtimeChart
 	    .width(Full_Width/6) // (optional) define chart width, :default = 200
