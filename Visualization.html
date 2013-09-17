@@ -89,12 +89,11 @@
 	<h2>
 		<div id="TotalRTtime"> 수집된 로그들에 대한 총 IO처리 시간: <span class="number-display">_</span> s </div>
 	</h2><br>
+
+	<h2>
+		<div id="Variance"> 수집된 로그들에 분산 : <span class="number-display">_</span> s </div>
+	</h2><br>
 	
-	<div id="variance-chart" >
-		<h2>
-			<strong> 수집된 로그들에 분산 값  </strong> 
-		</h2>
-	</div>
 	<div id="std-deviation-chart" >
 		<h2>
 			<strong> 수집된 로그들에 대한 표준 편차</strong> 
@@ -244,8 +243,8 @@ var AvgThroughtputND   = dc.numberDisplay("#AvgThroughtput");
 var AvgRTtimeND   = dc.numberDisplay("#AvgRTtime");
 var TotalIOSizeND   = dc.numberDisplay("#TotalIOSize");
 var TotalRTtimeND   = dc.numberDisplay("#TotalRTtime");
+var VarianceND   = dc.numberDisplay("#Variance");
 
-var VarianceChart = dc.rowChart("#variance-chart");
 var StdDevChart = dc.rowChart("#std-deviation-chart");
 
 var Process_Throughput_Chart = dc.rowChart("#process_throughput_chart");
@@ -563,6 +562,7 @@ d3.csv("final_result.csv", function(error, data) {
 	);
 	    
     AvgThroughtputND
+    .dimension(ALLIODimension)
     .group(groupALLIODimension)
     .valueAccessor(function (p) { 
     	return p.value.throughput; 
@@ -571,6 +571,7 @@ d3.csv("final_result.csv", function(error, data) {
     ;
 
 	AvgRTtimeND
+	.dimension(ALLIODimension)
 	.group(groupALLIODimension)
 	.valueAccessor(function (p) {
 			return p.value.avg_start_end_interval;
@@ -579,6 +580,7 @@ d3.csv("final_result.csv", function(error, data) {
 	;
 
 	TotalIOSizeND
+	.dimension(ALLIODimension)
 	.group(groupALLIODimension)
 	.valueAccessor(function (p) {
 			return p.value.total_iosize;
@@ -587,28 +589,21 @@ d3.csv("final_result.csv", function(error, data) {
 	;
 
 	TotalRTtimeND
+	.dimension(ALLIODimension)
 	.group(groupALLIODimension)
 	.valueAccessor(function (p) {
 			return p.value.total_start_end_interval;
 	})
 	.formatNumber(d3.format(".8g"))
 	;
-	    	    	    
-    VarianceChart
-	    .width(Full_Width/6) // (optional) define chart width, :default = 200
-	    .height(groupALLIODimension.size() * 60) // (optional) define chart height, :default = 200
-	    .dimension(ALLIODimension) // set dimension
-	    .group(groupALLIODimension) // set group
-	    .valueAccessor(function (p) {
+
+	VarianceND
+	.dimension(ALLIODimension)
+	.group(groupALLIODimension)
+	.valueAccessor(function (p) {
 			return p.value.variance;
-		})
-	    // (optional) define margins
-	    .margins({top: 0, left: 20, right: 20, bottom: 20})
-	    // (optional) define color array for slices
-	    .colors(['yellow'])
-	    // (optional) set gap between rows, default is 5
-	    .gap(6)
-	    .on("preRender", function(chart){
+	})
+		    .on("preRender", function(chart){
      //        // 1. calculating the average with the data left after filtering.
      //        // 2. calculating the deviating with the average for each entry in the data set.
      //        // 3. squaring the result from (2) and sum all the entry in the data set.
@@ -668,18 +663,8 @@ d3.csv("final_result.csv", function(error, data) {
 	    	chart.group().all()[0].value.std_dev = std_dev;	  
 	    	// console.log(chart.group().all()[0].value);  	
 	    })
-	    // (optional) whether chart should render labels, :default = true
-	    .renderLabel(true)
-    	.label(function (p) {
-			return p.key + ": "+ p.value.variance.toFixed(10);
-		})
-	    // (optional) by default pie chart will use group.key and group.value as its title
-	    // you can overwrite it with a closure
-	    .title(function(d) { return d.value.variance.toFixed(10)})
-	    // (optional) whether chart should render titles, :default = false
-	    .renderTitle(true)
-	    // (optional) specify the number of ticks for the X axis
-	    .xAxis().ticks(n_rowchart_ticks);
+	.formatNumber(d3.format(".8g"))
+	;
 
     StdDevChart
 	    .width(Full_Width/6) // (optional) define chart width, :default = 200
