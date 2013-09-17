@@ -249,7 +249,7 @@ var Process_Throughput_Chart = dc.rowChart("#process_throughput_chart");
 var PID_Throughput_Chart = dc.rowChart("#pid_throughput_chart");
 var File_AccessCount_Chart = dc.rowChart("#file_count_chart");
 
-var Full_Width = 1600;
+var Full_Width = 1400;
 var Default_Height = 180;
 var n_rowchart_ticks = 3;
 var n_bubblechart_ticks = 5;
@@ -379,7 +379,7 @@ d3.csv("final_result.csv", function(error, data) {
 		.width(Full_Width)
 		.height(Default_Height)
 		.transitionDuration(transition_duration_delay)
-		.margins({top: 10, right: 50, bottom: 20, left: 70})
+		.margins({top: 0, right: 50, bottom: 0, left: 70})
 		.dimension(NewStartTimeDimension)
 		.group(groupNewStartTimeDimension)
 		.valueAccessor(function (d) {
@@ -424,7 +424,7 @@ d3.csv("final_result.csv", function(error, data) {
 		.width(Full_Width)
 		.height(Default_Height)
 		.transitionDuration(transition_duration_delay)
-		.margins({top: 10, right: 50, bottom: 20, left: 70})
+		.margins({top: 0, right: 50, bottom: 0, left: 70})
 		.dimension(NewStartTimeDimension)
 		.group(groupNewStartTimeDimension)
 		.valueAccessor(function (d) {
@@ -468,7 +468,7 @@ d3.csv("final_result.csv", function(error, data) {
 		.width(Full_Width)
 		.height(Default_Height)
 		.transitionDuration(transition_duration_delay)
-		.margins({top: 10, right: 50, bottom: 20, left: 70})
+		.margins({top: 0, right: 50, bottom: 0, left: 70})
 		.dimension(NewStartTimeDimension)
 		.group(groupNewStartTimeDimension)
 		.valueAccessor(function (d) {
