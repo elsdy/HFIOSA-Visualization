@@ -29,31 +29,77 @@
 		<h2>
 			<strong> 시간별 요청 I/O 특징 (x축: 시간축, y축: 평균 응답시간(s))</strong> 
 		</h2>
-		 <a class="reset" href="javascript:TimeLine_IOCount_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+		 <a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
 </div>
 -->
+<!-- 맨위 3개 -->
+<div class="row" style="clear:both; " >
+	<div id="io-timeline-chart1" class="dc-chart" >
+		<h2>
+			시스템콜 레벨 응답 시간 (x축: 시간축, y축: 평균 응답시간(s))
+		</h2>
+		 <a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
+	</div>
+	<div id="io-volume-chart1" >
+		<h2>
+			시간구간별 처리량 (x축: 시간축, y축: 처리량(MB/s))
+		</h2>
+		<a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
+	</div>
+	<div id="io-count-chart1" >
+		<h2>
+			시간구간별 I/O 요청 회수 (특정 부분 선택 가능) (x축: 시간축, y축: 요청 개수) </strong>	
+		</h2>
+		<a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+	</div>
+</div>
 
+<!-- 가운데 3개 -->
 <div class="row" style="clear:both; " >
 	<div id="io-timeline-chart2" class="dc-chart" >
 		<h2>
 			시스템콜 레벨 응답 시간 (x축: 시간축, y축: 평균 응답시간(s))
 		</h2>
-		 <a class="reset" href="javascript:TimeLine_IOCount_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
+		 <a class="reset" href="javascript:Timeline_IOCount_Chart2.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
 	</div>
-	<div id="io-volume-chart" >
+	<div id="io-volume-chart2" >
 		<h2>
 			시간구간별 처리량 (x축: 시간축, y축: 처리량(MB/s))
 		</h2>
-		<a class="reset" href="javascript:TimeLine_IOCount_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+		<a class="reset" href="javascript:Timeline_IOCount_Chart2.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
 	</div>
-	<div id="io-count-chart" >
+	<div id="io-count-chart2" >
 		<h2>
 			시간구간별 I/O 요청 회수 (특정 부분 선택 가능) (x축: 시간축, y축: 요청 개수) </strong>	
 		</h2>
-		<a class="reset" href="javascript:TimeLine_IOCount_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+		<a class="reset" href="javascript:Timeline_IOCount_Chart2.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
 </div>
+
+
+<!-- 밑 3개 그래프 -->
+<div class="row" style="clear:both; " >
+	<div id="io-timeline-chart3" class="dc-chart" >
+		<h2>
+			시스템콜 레벨 응답 시간 (x축: 시간축, y축: 평균 응답시간(s))
+		</h2>
+		 <a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
+	</div>
+	<div id="io-volume-chart3" >
+		<h2>
+			시간구간별 처리량 (x축: 시간축, y축: 처리량(MB/s))
+		</h2>
+		<a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
+	</div>
+	<div id="io-count-chart3" >
+		<h2>
+			시간구간별 I/O 요청 회수 (특정 부분 선택 가능) (x축: 시간축, y축: 요청 개수) </strong>	
+		</h2>
+		<a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+	</div>
+</div>
+
 
 <!-- anchor div for data table -->
 <!--
@@ -225,10 +271,20 @@ var IOCategory_eMMCLevelAvgRT_Chart = dc.rowChart("#io_category_aver_emmc_respon
 
 /* var FileRTChart = dc.barChart("#file_rt_chart"); */
 
-/* var TimeLine_SysLevelAvgRT_Chart = dc.compositeChart("#io-timeline-chart"); */
-var TimeLine_SysLevelAvgRT_Chart2 = dc.barChart("#io-timeline-chart2");
-var TimeLine_SysLevelThroughput_Chart = dc.barChart("#io-volume-chart");
-var TimeLine_IOCount_Chart = dc.barChart("#io-count-chart");
+/* var TimeLine_SysLevelAvgRT_Chart = dc.compositeChart("#io-timeline-chart1"); */
+var Timeline_RT_Chart1 = dc.barChart("#io-timeline-chart1");
+var Timeline_Throughput_Chart1 = dc.barChart("#io-volume-chart1");
+var Timeline_IOCount_Chart1 = dc.barChart("#io-count-chart1");
+
+var Timeline_RT_Chart2 = dc.barChart("#io-timeline-chart2");
+var Timeline_Throughput_Chart2 = dc.barChart("#io-volume-chart2");
+var Timeline_IOCount_Chart2 = dc.barChart("#io-count-chart2");
+
+var Timeline_RT_Chart3 = dc.barChart("#io-timeline-chart3");
+var Timeline_Throughput_Chart3 = dc.barChart("#io-volume-chart3");
+var Timeline_IOCount_Chart3 = dc.barChart("#io-count-chart3");
+
+
 
 /* var StatTable = dc.dataTable("#data-table"); */
 
@@ -313,33 +369,43 @@ d3.csv("final_result.csv", function(error, data) {
   	// 전체를 일단 그룹핑한다. 
   	var all = ndx.groupAll();
 
+// #define SYSCALL_TYPE 1
+// #define BLOCK_TYPE 2
+// #define EMMC_TYPE 3
+// #define PROCESS_TYPE 4
+
   	// time_group을 dimension으로 설정, reduce 함수를 정의
 	var NewStartTimeDimension = ndx.dimension(function (d) {
 		return d.timeline_group;
 	});
 	var groupNewStartTimeDimension = NewStartTimeDimension.group().reduce(
 		function (p, v) {
-			++p.count;
-			
-			if(p.start_time > v.starttime) p.start_time = v.starttime;
-			
-		  	p.total_start_end_interval += v.endtime - v.starttime
-			p.total_iosize += v.iosize;
-			
-		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
-			p.throughput = (p.total_iosize /  p.total_start_end_interval) / (1024*1024)  ; //MB/s
-		  	
-		  	return p;		  
+			if(v.entry_type == 1)
+			{
+				++p.count;
+						
+				if(p.start_time > v.starttime) p.start_time = v.starttime;
+						
+			  	p.total_rt += v.endtime - v.starttime
+				p.total_iosize += v.iosize;
+				
+			  	p.avg_total_rt = p.total_total_rt / p.count;
+				p.throughput = (p.total_iosize /  p.total_total_rt) / (1024*1024)  ; //MB/s
+
+				return p;		  
+			}
 		},
 	  	function (p, v) {
-		  	--p.count;
+		  	if(p.entry_type == 1)
+			{		  		
+			  	--p.count;
 
-		  	p.total_start_end_interval -= v.endtime - v.starttime;
-			p.total_iosize -= v.iosize;
-			
-		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024); //MB/s
-			
+			  	p.total_total_rt -= v.endtime - v.starttime;
+				p.total_iosize -= v.iosize;
+				
+			  	p.avg_total_rt = p.count == 0 ? 0: p.total_total_rt / p.count;
+				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_total_rt) / (1024*1024); //MB/s
+			}			
 		  	return p;	  	
 	  	},
 	  	// init
@@ -349,24 +415,24 @@ d3.csv("final_result.csv", function(error, data) {
 			  	
 			  	start_time: Number.MAX_VALUE,
 			  	
-			  	total_start_end_interval: 0, 
+			  	total_total_rt: 0, 
 				total_iosize: 0,
 
-			  	avg_start_end_interval: 0,
+			  	avg_total_rt: 0,
 				throughput: 0
 		  	};
 		}
 	);
   
-	TimeLine_SysLevelAvgRT_Chart2
-		.width(Full_Width)
-		.height(Default_Height)
+	Timeline_RT_Chart1
+		.width(Full_Width/3)
+		.height(Default_Height/2)
 		.transitionDuration(transition_duration_delay)
 		.margins({top: 0, right: 50, bottom: 10, left: 70})
 		.dimension(NewStartTimeDimension)
 		.group(groupNewStartTimeDimension)
 		.valueAccessor(function (d) {
-				return d.value.avg_start_end_interval;
+				return d.value.avg_total_rt;
 		})
 		.centerBar(true)
 		.gap(bargap)
@@ -383,7 +449,7 @@ d3.csv("final_result.csv", function(error, data) {
 				var text = 
 				"io count: " + d.data.value.count + " #\n" +
 				"start time: " + d.data.value.start_time + " s\n" +
- 				"avg response time: " + d.data.value.avg_start_end_interval.toFixed(6) + " s\n" +
+ 				"avg response time: " + d.data.value.avg_total_rt.toFixed(6) + " s\n" +
  				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
  				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
  				;
@@ -403,8 +469,8 @@ d3.csv("final_result.csv", function(error, data) {
 		;
 
 
-	TimeLine_SysLevelThroughput_Chart
-		.width(Full_Width)
+	Timeline_Throughput_Chart1
+		.width(Full_Width/3)
 		.height(Default_Height)
 		.transitionDuration(transition_duration_delay)
 		.margins({top: 0, right: 50, bottom: 10, left: 70})
@@ -427,7 +493,7 @@ d3.csv("final_result.csv", function(error, data) {
 				var text = 
 				"io count: " + d.data.value.count + " #\n" +
 				"start time: " + d.data.value.start_time + " s\n" +
- 				"avg response time: " + d.data.value.avg_start_end_interval.toFixed(6) + " s\n" +
+ 				"avg response time: " + d.data.value.avg_total_rt.toFixed(6) + " s\n" +
  				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
  				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
  				;
@@ -436,19 +502,19 @@ d3.csv("final_result.csv", function(error, data) {
 /*
 		.renderlet(function (chart) {
 // 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
-			TimeLine_SysLevelThroughput_Chart.filter(chart.filter());
+			Timeline_Throughput_Chart1.filter(chart.filter());
 		})
 		.on("filtered", function (chart) {
 			dc.events.trigger(function () {
-				TimeLine_SysLevelThroughput_Chart.focus(chart.filter());
+				Timeline_Throughput_Chart1.focus(chart.filter());
 			});
 		})
 */
 		.gap(bargap)
 		;
 		
-	TimeLine_IOCount_Chart
-		.width(Full_Width)
+	Timeline_IOCount_Chart1
+		.width(Full_Width3/)
 		.height(Default_Height)
 		.transitionDuration(transition_duration_delay)
 		.margins({top: 0, right: 50, bottom: 10, left: 70})
@@ -465,18 +531,18 @@ d3.csv("final_result.csv", function(error, data) {
 		.y(d3.scale.linear().domain([0, 100]))
 		.elasticY(true)
 		.renderHorizontalGridLines(true)
-		.renderVerticalGridLines(true)
+		.renderVerticalGridLines(true1)
 		.renderlet(function (chart) {
 // 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
 /* 			TimeLine_SysLevelAvgRT_Chart.filter(chart.filter()); */
-			TimeLine_SysLevelAvgRT_Chart2.filter(chart.filter());
-			TimeLine_SysLevelThroughput_Chart.filter(chart.filter());
+			Timeline_RT_Chart1.filter(chart.filter());
+			Timeline_Throughput_Chart1.filter(chart.filter());
 		})
 		.on("filtered", function (chart) {
 			dc.events.trigger(function () {
 /* 				TimeLine_SysLevelAvgRT_Chart.focus(chart.filter()); */
-				TimeLine_SysLevelAvgRT_Chart2.focus(chart.filter());
-				TimeLine_SysLevelThroughput_Chart.focus(chart.filter());
+				Timeline_RT_Chart1.focus(chart.filter());
+				Timeline_Throughput_Chart1.focus(chart.filter());
 			});
 		})
 		.title(function (d) {
@@ -484,13 +550,15 @@ d3.csv("final_result.csv", function(error, data) {
 				var text = 
 				"io count: " + d.data.value.count + " #\n" +
 				"start time: " + d.data.value.start_time + " s\n" +
- 				"avg response time: " + d.data.value.avg_start_end_interval.toFixed(6) + " s\n" +
+ 				"avg response time: " + d.data.value.avg_total_rt.toFixed(6) + " s\n" +
  				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
  				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
  				;
 				return ab_text + text;
 			})
 		;
+
+		
 
 		
 	var ALLIODimension = ndx.dimension(function (d) {
