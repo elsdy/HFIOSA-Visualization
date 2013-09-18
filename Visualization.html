@@ -22,7 +22,7 @@
 	</div>
 	<br>
 </div>
-
+<div id="clearfix" ></div>
 <!--
 <div class="row" style="clear:both; " >
 	<div id="io-timeline-chart" class="dc-chart" >
@@ -33,73 +33,153 @@
 	</div>
 </div>
 -->
+
 <!-- 맨위 3개 -->
 <div class="row" style="clear:both; " >
 	<div id="io-timeline-chart1" class="dc-chart" >
 		<h2>
-			시스템콜 레벨 응답 시간 (x축: 시간축, y축: 평균 응답시간(s))
+			시스템콜레벨 평균응답시간
 		</h2>
-		 <a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
+		(x축: 시간축, y축: 평균응답시간(s))
+		<a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > reset  </a> <div id="clearfix" ></div>
 	</div>
 	<div id="io-volume-chart1" >
 		<h2>
-			시간구간별 처리량 (x축: 시간축, y축: 처리량(MB/s))
+			시스템콜레벨 처리량 
 		</h2>
-		<a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
+		(x축: 시간축, y축: 처리량(MB/s))
+		<a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > reset  </a> <div id="clearfix" ></div>
 	</div>
 	<div id="io-count-chart1" >
 		<h2>
-			시간구간별 I/O 요청 회수 (특정 부분 선택 가능) (x축: 시간축, y축: 요청 개수) </strong>	
+			시스템콜레벨 I/O요청회수 
 		</h2>
-		<a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+		(x축: 시간축, y축: 요청 개수)
+		<a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > reset  </a> <div id="clearfix" ></div>
 	</div>
+	<div class="row" >
+		<h3>
+			<div id="nr_dataset1"> 수집된 데이터: <span class="number-display">_</span> 개</div>
+		</h3><br>
+		<h3>
+			<div id="AvgThroughtput1">평균처리량: <span class="number-display">_</span> MB/s </div>
+		</h3><br>
+		<h3>
+			<div id="AvgRTtime1">평균응답시간: <span class="number-display">_</span> s </div>
+		</h3><br>
+		<h3>
+			<div id="TotalIOSize1">총IO크기: <span class="number-display">_</span> MB </div>
+		</h3><br>
+		<h3>
+			<div id="TotalRTtime1">총IO응답시간: <span class="number-display">_</span> s </div>
+		</h3><br>
+		<h3>
+			<div id="Variance1">분산(응답시간): <span class="number-display">_</span> </div>
+		</h3><br>
+		<h3>
+			<div id="StdDeviation1">표준편차(응답시간): <span class="number-display">_</span> </div>
+		</h3><br>
+	</div>
+	<div id="clearfix" ></div>
 </div>
 
 <!-- 가운데 3개 -->
 <div class="row" style="clear:both; " >
 	<div id="io-timeline-chart2" class="dc-chart" >
 		<h2>
-			시스템콜 레벨 응답 시간 (x축: 시간축, y축: 평균 응답시간(s))
+			블록레벨 평균응답시간 
 		</h2>
-		 <a class="reset" href="javascript:Timeline_IOCount_Chart2.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
+		(x축: 시간축, y축: 평균응답시간(s))
+		 <a class="reset" href="javascript:Timeline_IOCount_Chart2.filterAll();dc.redrawAll();" style="display:none; " > reset  </a> <div id="clearfix" ></div>
 	</div>
 	<div id="io-volume-chart2" >
 		<h2>
-			시간구간별 처리량 (x축: 시간축, y축: 처리량(MB/s))
+			블록레벨 처리량 
 		</h2>
-		<a class="reset" href="javascript:Timeline_IOCount_Chart2.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
+		(x축: 시간축, y축: 처리량(MB/s))
+		<a class="reset" href="javascript:Timeline_IOCount_Chart2.filterAll();dc.redrawAll();" style="display:none; " > reset  </a> <div id="clearfix" ></div>
 	</div>
 	<div id="io-count-chart2" >
 		<h2>
-			시간구간별 I/O 요청 회수 (특정 부분 선택 가능) (x축: 시간축, y축: 요청 개수) </strong>	
+			블록레벨 I/O요청회수
 		</h2>
-		<a class="reset" href="javascript:Timeline_IOCount_Chart2.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+		(x축: 시간축, y축: 요청 개수)
+		<a class="reset" href="javascript:Timeline_IOCount_Chart2.filterAll();dc.redrawAll();" style="display:none; " > reset  </a> <div id="clearfix" ></div>
 	</div>
+	<div class="row" >
+		<h3>
+			<div id="nr_dataset2"> 수집된 데이터: <span class="number-display">_</span> 개</div>
+		</h3><br>
+		<h3>
+			<div id="AvgThroughtput2">평균처리량: <span class="number-display">_</span> MB/s </div>
+		</h3><br>
+		<h3>
+			<div id="AvgRTtime2">평균응답시간: <span class="number-display">_</span> s </div>
+		</h3><br>
+		<h3>
+			<div id="TotalIOSize2">총IO크기: <span class="number-display">_</span> MB </div>
+		</h3><br>
+		<h3>
+			<div id="TotalRTtime2">총IO응답시간: <span class="number-display">_</span> s </div>
+		</h3><br>
+		<h3>
+			<div id="Variance2">분산(응답시간): <span class="number-display">_</span> </div>
+		</h3><br>
+		<h3>
+			<div id="StdDeviation2">표준편차(응답시간): <span class="number-display">_</span> </div>
+		</h3><br>
+	</div>
+	<div id="clearfix" ></div>
 </div>
-
 
 <!-- 밑 3개 그래프 -->
 <div class="row" style="clear:both; " >
 	<div id="io-timeline-chart3" class="dc-chart" >
 		<h2>
-			시스템콜 레벨 응답 시간 (x축: 시간축, y축: 평균 응답시간(s))
+			eMMC레벨 평균응답시간 
 		</h2>
-		 <a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
+		(x축: 시간축, y축: 평균응답시간(s))
+		 <a class="reset" href="javascript:Timeline_IOCount_Chart3.filterAll();dc.redrawAll();" style="display:none; " > reset  </a> <div id="clearfix" ></div>
 	</div>
 	<div id="io-volume-chart3" >
 		<h2>
-			시간구간별 처리량 (x축: 시간축, y축: 처리량(MB/s))
+			eMMC레벨 처리량 
 		</h2>
-		<a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> 
+		(x축: 시간축, y축: 처리량(MB/s))
+		<a class="reset" href="javascript:Timeline_IOCount_Chart3.filterAll();dc.redrawAll();" style="display:none; " > reset  </a> <div id="clearfix" ></div>
 	</div>
 	<div id="io-count-chart3" >
 		<h2>
-			시간구간별 I/O 요청 회수 (특정 부분 선택 가능) (x축: 시간축, y축: 요청 개수) </strong>	
+			eMMC레벨 I/O요청회수
 		</h2>
-		<a class="reset" href="javascript:Timeline_IOCount_Chart1.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+		(x축: 시간축, y축: 요청 개수)
+		<a class="reset" href="javascript:Timeline_IOCount_Chart3.filterAll();dc.redrawAll();" style="display:none; " > reset  </a> <div id="clearfix" ></div>
 	</div>
+	<div class="row" >
+		<h3>
+			<div id="nr_dataset3"> 수집된 데이터: <span class="number-display">_</span> 개</div>
+		</h3><br>
+		<h3>
+			<div id="AvgThroughtput3">평균처리량: <span class="number-display">_</span> MB/s </div>
+		</h3><br>
+		<h3>
+			<div id="AvgRTtime3">평균응답시간: <span class="number-display">_</span> s </div>
+		</h3><br>
+		<h3>
+			<div id="TotalIOSize3">총IO크기: <span class="number-display">_</span> MB </div>
+		</h3><br>
+		<h3>
+			<div id="TotalRTtime3">총IO응답시간: <span class="number-display">_</span> s </div>
+		</h3><br>
+		<h3>
+			<div id="Variance3">분산(응답시간): <span class="number-display">_</span> </div>
+		</h3><br>
+		<h3>
+			<div id="StdDeviation3">표준편차(응답시간): <span class="number-display">_</span> </div>
+		</h3><br>
+	</div>
+	<div id="clearfix" ></div>
 </div>
-
 
 <!-- anchor div for data table -->
 <!--
@@ -113,120 +193,8 @@
 </div>
 -->
 
-<div class="row" >
-	<h2>
-		<div id="AvgThroughtput"> 수집된 로그들에 대한 평균 처리량: <span class="number-display">_</span> MB/s </div>
-	</h2><br>
-	
-	<h2>
-		<div id="AvgRTtime"> 수집된 로그들에 대한 평균 응답시간: <span class="number-display">_</span> s </div>
-	</h2><br>
 
-	<h2>
-		<div id="TotalIOSize"> 수집된 로그들에 대한 총 IO크기: <span class="number-display">_</span> MB </div>
-	</h2><br>
-	
-	<h2>
-		<div id="TotalRTtime"> 수집된 로그들에 대한 총 IO처리 시간: <span class="number-display">_</span> s </div>
-	</h2><br>
 
-	<h2>
-		<div id="Variance"> 수집된 로그들에 분산: <span class="number-display">_</span> </div>
-	</h2><br>
-	
-	<h2>
-		<div id="StdDeviation"> 수집된 로그들에 대한 표준 편차: <span class="number-display">_</span> </div>
-	</h2><br>
-
-</div>
-
-<div class="row" >
-	<div id="process_bubble_chart" class="dc-chart" >
-		<h2>
-			<strong> PID별 I/O 특성 <br>
-			(x축: I/O 요청 개수, y축: I/O별 평균 응답 시간)</strong> 
-		</h2>
-		 <a class="reset" href="javascript:PID_IOSize_SysLevelAvgRt_BubbleChart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
-	</div>
-	<div id="rt_distribution_chart" class="dc-chart" >
-		<h2>
-			<strong> 응답 시간 분포 그래프 <br>
-			(x축: 응답시간, y축: 개수) </strong> 
-		</h2>
-		 <a class="reset" href="javascript:RT_Distribution_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
-	</div>
-	<div id="process_chart" class="dc-chart" >
-		<h2>
-			<strong> 프로세스 이름별 I/O 요청 비율 </strong> 
-		</h2>
-		(면적: I/O 요청 비율) <a class="reset" href="javascript:ProcessName_IORatio_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
-		<div class="clearfix" >
-		</div>
-	</div>
-	<div id="type_chart" class="dc-chart" >
-		<h2>
-			<strong> 읽기 / 쓰기 비율 </strong> 
-		</h2>
-		(면적: I/O 요청 비율) <a class="reset" href="javascript:IOType_IORatio_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
-		<div class="clearfix" >
-		</div>
-	</div>
-</div>
-
-<div class="row" >
-	<div id="io_category_chart" class="dc-chart" >
-		<h2>
-			<strong> I/O 종류별 개수 <br>
-			(x축: I/O 개수, y축: I/O 종류)</strong> 
-		</h2>
-		<a class="reset" href="javascript:IOCategory_Count_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
-	</div>
-	<div id="io_category_aver_response_time_chart" class="dc-chart" >
-		<h2>
-			<strong> I/O 종류별 개별 I/O 평균 응답시간 <br>
-			(x축: 응답 시간, y: I/O 종류)</strong> 
-		</h2>
-		<a class="reset" href="javascript:IOCategory_SysLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
-	</div>
-	<div id="io_category_aver_block_response_time_chart" class="dc-chart" >
-		<h2>
-			<strong> I/O 종류별 블록 레벨 이하 응답 시간 <br>
-			(x축: 응답 시간, y축)</strong> 
-		</h2>
-		<a class="reset" href="javascript:IOCategory_BlockLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
-	</div>
-	<div id="io_category_aver_emmc_response_time_chart" class="dc-chart" >
-		<h2>
-			<strong> I/O 종류별 eMMC 레벨 응답 시간 <br>
-			(x축: 응답 시간, y축)</strong> 
-		</h2>
-		<a class="reset" href="javascript:IOCategory_eMMCLevelAvgRT_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
-	</div>
-</div>
-
-<div class="row" >
-	<div id="process_throughput_chart" >
-		<h2>
-			<strong> 프로세스별 평균 처리량 <br>
-			(x축: 처리량, y축: 프로세스 이름) </strong>
-		</h2>
-		<a class="reset" href="javascript:Process_Throughput_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
-	</div>
-	<div id="pid_throughput_chart" >
-		<h2>
-			<strong> PID별 평균 처리량 <br>
-			(x축: 처리량, y축: PID)</strong>
-		</h2>
-		 <a class="reset" href="javascript:PID_Throughput_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
-	</div>
-	<div id="file_count_chart" class="dc-chart" >
-		<h2>
-			<strong> 접근 파일별 I/O 요청 개수 <br>
-			(x축: I/O 요청 개수, y축: 접근 파일)</strong> 
-		</h2>
-		 <a class="reset" href="javascript:File_AccessCount_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
-	</div>
-</div>
 
 
 	
@@ -256,15 +224,15 @@
 <script type="text/javascript" src="/Users/elsdy/Dropbox/Development/HFIOSA/VisualizationDevelopment/js/dc/dc.js" > </script>
 <script type="text/javascript">
 
-var PID_IOSize_SysLevelAvgRt_BubbleChart = dc.bubbleChart("#process_bubble_chart");
-var RT_Distribution_Chart = dc.barChart("#rt_distribution_chart");
-var ProcessName_IORatio_Chart = dc.pieChart("#process_chart");
-var IOType_IORatio_Chart = dc.pieChart("#type_chart");
+// var PID_IOSize_SysLevelAvgRt_BubbleChart = dc.bubbleChart("#process_bubble_chart");
+// var RT_Distribution_Chart = dc.barChart("#rt_distribution_chart");
+// var ProcessName_IORatio_Chart = dc.pieChart("#process_chart");
+// var IOType_IORatio_Chart = dc.pieChart("#type_chart");
 
-var IOCategory_Count_Chart = dc.rowChart("#io_category_chart");
-var IOCategory_SysLevelAvgRT_Chart = dc.rowChart("#io_category_aver_response_time_chart");
-var IOCategory_BlockLevelAvgRT_Chart = dc.rowChart("#io_category_aver_block_response_time_chart");
-var IOCategory_eMMCLevelAvgRT_Chart = dc.rowChart("#io_category_aver_emmc_response_time_chart");
+// var IOCategory_Count_Chart = dc.rowChart("#io_category_chart");
+// var IOCategory_SysLevelAvgRT_Chart = dc.rowChart("#io_category_aver_response_time_chart");
+// var IOCategory_BlockLevelAvgRT_Chart = dc.rowChart("#io_category_aver_block_response_time_chart");
+// var IOCategory_eMMCLevelAvgRT_Chart = dc.rowChart("#io_category_aver_emmc_response_time_chart");
 
 
 /* var IOCategoryAver4LayerRTChart = dc.barChart("#io_category_aver_4layer_response_time_chart"); */
@@ -272,37 +240,58 @@ var IOCategory_eMMCLevelAvgRT_Chart = dc.rowChart("#io_category_aver_emmc_respon
 /* var FileRTChart = dc.barChart("#file_rt_chart"); */
 
 /* var TimeLine_SysLevelAvgRT_Chart = dc.compositeChart("#io-timeline-chart1"); */
+var NR_Dataset1ND = dc.numberDisplay("#nr_dataset1");
 var Timeline_RT_Chart1 = dc.barChart("#io-timeline-chart1");
 var Timeline_Throughput_Chart1 = dc.barChart("#io-volume-chart1");
 var Timeline_IOCount_Chart1 = dc.barChart("#io-count-chart1");
 
+var AvgThroughtputND1   = dc.numberDisplay("#AvgThroughtput1");
+var AvgRTtimeND1   = dc.numberDisplay("#AvgRTtime1");
+var TotalIOSizeND1   = dc.numberDisplay("#TotalIOSize1");
+var TotalRTtimeND1   = dc.numberDisplay("#TotalRTtime1");
+var VarianceND1   = dc.numberDisplay("#Variance1");
+var StdDeviationND1   = dc.numberDisplay("#StdDeviation1");
+
+var NR_Dataset2ND = dc.numberDisplay("#nr_dataset2");
 var Timeline_RT_Chart2 = dc.barChart("#io-timeline-chart2");
 var Timeline_Throughput_Chart2 = dc.barChart("#io-volume-chart2");
 var Timeline_IOCount_Chart2 = dc.barChart("#io-count-chart2");
 
+var AvgThroughtputND2   = dc.numberDisplay("#AvgThroughtput2");
+var AvgRTtimeND2   = dc.numberDisplay("#AvgRTtime2");
+var TotalIOSizeND2   = dc.numberDisplay("#TotalIOSize2");
+var TotalRTtimeND2   = dc.numberDisplay("#TotalRTtime2");
+var VarianceND2   = dc.numberDisplay("#Variance2");
+var StdDeviationND2   = dc.numberDisplay("#StdDeviation2");
+
+var NR_Dataset3ND = dc.numberDisplay("#nr_dataset3");
 var Timeline_RT_Chart3 = dc.barChart("#io-timeline-chart3");
 var Timeline_Throughput_Chart3 = dc.barChart("#io-volume-chart3");
 var Timeline_IOCount_Chart3 = dc.barChart("#io-count-chart3");
 
-
+var AvgThroughtputND3   = dc.numberDisplay("#AvgThroughtput3");
+var AvgRTtimeND3   = dc.numberDisplay("#AvgRTtime3");
+var TotalIOSizeND3   = dc.numberDisplay("#TotalIOSize3");
+var TotalRTtimeND3   = dc.numberDisplay("#TotalRTtime3");
+var VarianceND3   = dc.numberDisplay("#Variance3");
+var StdDeviationND3   = dc.numberDisplay("#StdDeviation3");
 
 /* var StatTable = dc.dataTable("#data-table"); */
 
-var AvgThroughtputND   = dc.numberDisplay("#AvgThroughtput");
-var AvgRTtimeND   = dc.numberDisplay("#AvgRTtime");
-var TotalIOSizeND   = dc.numberDisplay("#TotalIOSize");
-var TotalRTtimeND   = dc.numberDisplay("#TotalRTtime");
-var VarianceND   = dc.numberDisplay("#Variance");
-var StdDeviationND   = dc.numberDisplay("#StdDeviation");
+// var Process_Throughput_Chart = dc.rowChart("#process_throughput_chart");
+// var PID_Throughput_Chart = dc.rowChart("#pid_throughput_chart");
+// var File_AccessCount_Chart = dc.rowChart("#file_count_chart");
 
-var Process_Throughput_Chart = dc.rowChart("#process_throughput_chart");
-var PID_Throughput_Chart = dc.rowChart("#pid_throughput_chart");
-var File_AccessCount_Chart = dc.rowChart("#file_count_chart");
-
-var Full_Width = 1400;
+var Full_Width = 1800;
 var Default_Height = 180;
 var n_rowchart_ticks = 3;
 var n_bubblechart_ticks = 5;
+
+var top1 = 20, bottom1 = 20, left1 = 70, right1 = 10;
+var height1 = Default_Height;
+var width1 = Full_Width / 4;
+
+var n_dataset1 = 0, n_dataset2 = 0, n_dataset3 = 0;
 
 d3.csv("final_result.csv", function(error, data) {
 
@@ -330,6 +319,7 @@ d3.csv("final_result.csv", function(error, data) {
 	// 필요에 따라서 입력 데이터값을 cooking 하여 새로운 필드 값을 만들어야 할 필요가 있다. 
 	data.forEach(function(d) {
 		// all,entry_type,linenumber,processname,origin_processname,pid, start_time,end_time,rw,iosize,filename,inode,mapped_syscall_io
+		d.entry_type = +d.entry_type;
 		d.linenumber = +d.linenumber;
 		// d.processname
 		// d.origin_processname
@@ -384,55 +374,59 @@ d3.csv("final_result.csv", function(error, data) {
 			{
 				++p.count;
 						
-				if(p.start_time > v.starttime) p.start_time = v.starttime;
+				if(p.start_time > v.starttime) p.start_time = v.starttime; //이거왜넣었지?
 						
-			  	p.total_rt += v.endtime - v.starttime
-				p.total_iosize += v.iosize;
-				
-			  	p.avg_total_rt = p.total_total_rt / p.count;
-				p.throughput = (p.total_iosize /  p.total_total_rt) / (1024*1024)  ; //MB/s
+			  	p.total_rt += v.endtime - v.starttime;
+			  	p.avg_rt = p.total_rt / p.count;
 
-				return p;		  
+				p.total_iosize += v.iosize;
+				p.throughput = (p.total_iosize /  p.total_rt) / (1024*1024)  ; //MB/s
+
+				n_dataset1++;
 			}
+			return p;		  
 		},
 	  	function (p, v) {
-		  	if(p.entry_type == 1)
+		  	if(v.entry_type == 1)
 			{		  		
 			  	--p.count;
 
-			  	p.total_total_rt -= v.endtime - v.starttime;
+			  	p.total_rt -= v.endtime - v.starttime;
+			  	p.avg_rt = p.count == 0 ? 0: p.total_rt / p.count;
+
 				p.total_iosize -= v.iosize;
-				
-			  	p.avg_total_rt = p.count == 0 ? 0: p.total_total_rt / p.count;
-				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_total_rt) / (1024*1024); //MB/s
+				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_rt) / (1024*1024); //MB/s
+
+				n_dataset1--;
 			}			
-		  	return p;	  	
+			return p;	  	
 	  	},
 	  	// init
 	  	function() { 
+	  		n_dataset1 = 0;
 		  	return {
 			  	count: 0,
 			  	
 			  	start_time: Number.MAX_VALUE,
 			  	
-			  	total_total_rt: 0, 
-				total_iosize: 0,
+			  	total_rt: 0, 
+			  	avg_rt: 0,
 
-			  	avg_total_rt: 0,
+				total_iosize: 0,			  	
 				throughput: 0
 		  	};
 		}
 	);
   
 	Timeline_RT_Chart1
-		.width(Full_Width/3)
-		.height(Default_Height/2)
+		.width(width1)
+		.height(height1)
 		.transitionDuration(transition_duration_delay)
-		.margins({top: 0, right: 50, bottom: 10, left: 70})
+		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
 		.dimension(NewStartTimeDimension)
 		.group(groupNewStartTimeDimension)
 		.valueAccessor(function (d) {
-				return d.value.avg_total_rt;
+				return d.value.avg_rt;
 		})
 		.centerBar(true)
 		.gap(bargap)
@@ -449,7 +443,7 @@ d3.csv("final_result.csv", function(error, data) {
 				var text = 
 				"io count: " + d.data.value.count + " #\n" +
 				"start time: " + d.data.value.start_time + " s\n" +
- 				"avg response time: " + d.data.value.avg_total_rt.toFixed(6) + " s\n" +
+ 				"avg response time: " + d.data.value.avg_rt.toFixed(6) + " s\n" +
  				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
  				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
  				;
@@ -470,10 +464,10 @@ d3.csv("final_result.csv", function(error, data) {
 
 
 	Timeline_Throughput_Chart1
-		.width(Full_Width/3)
-		.height(Default_Height)
+		.width(width1)
+		.height(height1)
 		.transitionDuration(transition_duration_delay)
-		.margins({top: 0, right: 50, bottom: 10, left: 70})
+		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
 		.dimension(NewStartTimeDimension)
 		.group(groupNewStartTimeDimension)
 		.valueAccessor(function (d) {
@@ -493,7 +487,7 @@ d3.csv("final_result.csv", function(error, data) {
 				var text = 
 				"io count: " + d.data.value.count + " #\n" +
 				"start time: " + d.data.value.start_time + " s\n" +
- 				"avg response time: " + d.data.value.avg_total_rt.toFixed(6) + " s\n" +
+ 				"avg response time: " + d.data.value.avg_rt.toFixed(6) + " s\n" +
  				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
  				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
  				;
@@ -514,10 +508,10 @@ d3.csv("final_result.csv", function(error, data) {
 		;
 		
 	Timeline_IOCount_Chart1
-		.width(Full_Width3/)
-		.height(Default_Height)
+		.width(width1)
+		.height(height1)
 		.transitionDuration(transition_duration_delay)
-		.margins({top: 0, right: 50, bottom: 10, left: 70})
+		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
 		.dimension(NewStartTimeDimension)
 		.group(groupNewStartTimeDimension)
 		.valueAccessor(function (d) {
@@ -531,7 +525,7 @@ d3.csv("final_result.csv", function(error, data) {
 		.y(d3.scale.linear().domain([0, 100]))
 		.elasticY(true)
 		.renderHorizontalGridLines(true)
-		.renderVerticalGridLines(true1)
+		.renderVerticalGridLines(true)
 		.renderlet(function (chart) {
 // 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
 /* 			TimeLine_SysLevelAvgRT_Chart.filter(chart.filter()); */
@@ -550,49 +544,59 @@ d3.csv("final_result.csv", function(error, data) {
 				var text = 
 				"io count: " + d.data.value.count + " #\n" +
 				"start time: " + d.data.value.start_time + " s\n" +
- 				"avg response time: " + d.data.value.avg_total_rt.toFixed(6) + " s\n" +
+ 				"avg response time: " + d.data.value.avg_rt.toFixed(6) + " s\n" +
  				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
  				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
  				;
 				return ab_text + text;
 			})
 		;
+	NR_Dataset1ND
+    .dimension(NewStartTimeDimension)
+    .group(groupNewStartTimeDimension)
+    .valueAccessor(function (p) { 
+    	return n_dataset1; 
+    })
+    .formatNumber(d3.format(".1g"))
+    ;
 
-		
-
-		
-	var ALLIODimension = ndx.dimension(function (d) {
+	var ALLIODimension1 = ndx.dimension(function (d) {
 		return d.all;
 		});            
 
-	var groupALLIODimension = ALLIODimension.group().reduce(
+	var groupALLIODimension1 = ALLIODimension1.group().reduce(
 		function (p, v) {
-			++p.count;
-			
-			if(p.start_time > v.starttime) p.start_time = v.starttime;
-			
-			
-		  	p.total_start_end_interval += v.endtime - v.starttime
-			p.total_iosize += v.iosize;
-			
-		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
-					  	
+			if(v.entry_type == 1)
+			{
+				++p.count;
+				
+				if(p.start_time > v.starttime) p.start_time = v.starttime;
+				
+				
+			  	p.total_start_end_interval += v.endtime - v.starttime
+				p.total_iosize += v.iosize;
+				
+			  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			}
+						  	
 		  	return p;		  
 		},
 	  	function (p, v) {
-		  	--p.count;
+	  		if(v.entry_type == 1)
+	  		{
+			  	--p.count;
 
-		  	p.total_start_end_interval -= v.endtime - v.starttime;
-			p.total_iosize -= v.iosize;
-			
-		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
-									
+			  	p.total_start_end_interval -= v.endtime - v.starttime;
+				p.total_iosize -= v.iosize;
+				
+			  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			}						
 		  	return p;	  	
 	  	},
 	  	// init
-	  	function() { 
+	  	function() { 	  	
 		  	return {
 			  	count: 0,
 			  	
@@ -610,45 +614,45 @@ d3.csv("final_result.csv", function(error, data) {
 		}
 	);
 	    
-    AvgThroughtputND
-    .dimension(ALLIODimension)
-    .group(groupALLIODimension)
+    AvgThroughtputND1
+    .dimension(ALLIODimension1)
+    .group(groupALLIODimension1)
     .valueAccessor(function (p) { 
     	return p.value.throughput; 
     })
     .formatNumber(d3.format(".8g"))
     ;
 
-	AvgRTtimeND
-	.dimension(ALLIODimension)
-	.group(groupALLIODimension)
+	AvgRTtimeND1
+	.dimension(ALLIODimension1)
+	.group(groupALLIODimension1)
 	.valueAccessor(function (p) {
 			return p.value.avg_start_end_interval;
 	})
 	.formatNumber(d3.format(".8g"))
 	;
 
-	TotalIOSizeND
-	.dimension(ALLIODimension)
-	.group(groupALLIODimension)
+	TotalIOSizeND1
+	.dimension(ALLIODimension1)
+	.group(groupALLIODimension1)
 	.valueAccessor(function (p) {
 			return p.value.total_iosize;
 	})
 	.formatNumber(d3.format(".8g"))
 	;
 
-	TotalRTtimeND
-	.dimension(ALLIODimension)
-	.group(groupALLIODimension)
+	TotalRTtimeND1
+	.dimension(ALLIODimension1)
+	.group(groupALLIODimension1)
 	.valueAccessor(function (p) {
 			return p.value.total_start_end_interval;
 	})
 	.formatNumber(d3.format(".8g"))
 	;
 
-	VarianceND
-	.dimension(ALLIODimension)
-	.group(groupALLIODimension)
+	VarianceND1
+	.dimension(ALLIODimension1)
+	.group(groupALLIODimension1)
 	.valueAccessor(function (p) {
 			return p.value.variance;
 	})
@@ -715,369 +719,244 @@ d3.csv("final_result.csv", function(error, data) {
 	.formatNumber(d3.format(".8g"))
 	;
 
-	StdDeviationND
-	.dimension(ALLIODimension)
-	.group(groupALLIODimension)
+	StdDeviationND1
+	.dimension(ALLIODimension1)
+	.group(groupALLIODimension1)
 	.valueAccessor(function (p) {
 			return p.value.std_dev;
 	})
 	.formatNumber(d3.format(".8g"))
 	;
 
-  	
-	var Process_Throughput_ChartDimension = ndx.dimension(function (d) {
-		return d.processname;
-		});            
-
-	var groupProcess_Throughput_ChartDimension = Process_Throughput_ChartDimension.group().reduce(
+  	// time_group을 dimension으로 설정, reduce 함수를 정의
+	var NewStartTimeDimension2 = ndx.dimension(function (d) {
+		return d.timeline_group;
+	});
+	var groupNewStartTimeDimension2 = NewStartTimeDimension2.group().reduce(
 		function (p, v) {
-			++p.count;
-			
-			if(p.start_time > v.starttime) p.start_time = v.starttime;
-			
-		  	p.total_start_end_interval += v.endtime - v.starttime
-			p.total_iosize += v.iosize;
-			
-		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
-		  	
-		  	return p;		  
+			if(v.entry_type == 2)
+			{
+				++p.count;
+						
+				if(p.start_time > v.starttime) p.start_time = v.starttime; //이거왜넣었지?
+						
+			  	p.total_rt += v.endtime - v.starttime;
+			  	p.avg_rt = p.total_rt / p.count;
+
+				p.total_iosize += v.iosize;
+				p.throughput = (p.total_iosize /  p.total_rt) / (1024*1024)  ; //MB/s
+
+				n_dataset2++;
+			}
+			return p;		  
 		},
 	  	function (p, v) {
-		  	--p.count;
+		  	if(v.entry_type == 2)
+			{		  		
+			  	--p.count;
 
-		  	p.total_start_end_interval -= v.endtime - v.starttime;
-			p.total_iosize -= v.iosize;
-			
-		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
-			
-		  	return p;	  	
+			  	p.total_rt -= v.endtime - v.starttime;
+			  	p.avg_rt = p.count == 0 ? 0: p.total_rt / p.count;
+
+				p.total_iosize -= v.iosize;
+				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_rt) / (1024*1024); //MB/s
+
+				n_dataset2--;
+			}			
+			return p;	  	
 	  	},
 	  	// init
 	  	function() { 
+	  		n_dataset2 = 0;
 		  	return {
 			  	count: 0,
 			  	
 			  	start_time: Number.MAX_VALUE,
 			  	
-			  	total_start_end_interval: 0, 
-				total_iosize: 0,
+			  	total_rt: 0, 
+			  	avg_rt: 0,
 
-			  	avg_start_end_interval: 0,
+				total_iosize: 0,			  	
 				throughput: 0
 		  	};
 		}
 	);
-	
-	Process_Throughput_Chart
-	    .width(Full_Width/4) // (optional) define chart width, :default = 200
-	    .height(groupProcess_Throughput_ChartDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
-	    .dimension(Process_Throughput_ChartDimension) // set dimension
-	    .group(groupProcess_Throughput_ChartDimension) // set group
-	    .valueAccessor(function (p) {
-			return p.value.throughput;
+
+	Timeline_RT_Chart2
+		.width(width1)
+		.height(height1)
+		.transitionDuration(transition_duration_delay)
+		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
+		.dimension(NewStartTimeDimension2)
+		.group(groupNewStartTimeDimension2)
+		.valueAccessor(function (d) {
+				return d.value.avg_rt;
 		})
-	    // (optional) define margins
-	    .margins({top: 0, left: 10, right: 10, bottom: 20})
-	    // (optional) define color array for slices
-/* 	    .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb']) */
-	    // (optional) set gap between rows, default is 5
-	    .gap(7)
-	    // (optional) whether chart should render labels, :default = true
-	    .renderLabel(true)
-    	.label(function (p) {
-			return p.key + ": "+ p.value.throughput.toFixed(3) + " MB/s";
-		})
-	    // (optional) by default pie chart will use group.key and group.value as its title
-	    // you can overwrite it with a closure
+		.centerBar(true)
+		.gap(bargap)
+		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
+// 		.xUnits(d3.time.second)
+// 		.elasticX(true)
+// 		.y(d3.scale.linear().domain([0, 100])) 
+		.elasticY(true)
+		.renderHorizontalGridLines(true)
+		.renderVerticalGridLines(true)
+		.brushOn(false)
 		.title(function (d) {
 				var ab_text = "";
 				var text = 
-				"io count: " + d.value.count + " #\n" +
-				"start time: " + d.value.start_time + " s\n" +
- 				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
- 				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
- 				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+				"io count: " + d.data.value.count + " #\n" +
+				"start time: " + d.data.value.start_time + " s\n" +
+ 				"avg response time: " + d.data.value.avg_rt.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
  				;
 				return ab_text + text;
 			})
-
-	    // (optional) whether chart should render titles, :default = false
-	    .renderTitle(true)
-	    // (optional) specify the number of ticks for the X axis
-	    .xAxis().ticks(n_rowchart_ticks);
-
-
-    
-	var ProcessNamePIDDimension = ndx.dimension(function (d) {
-		return d.processname + "-" + d.pid;
-		// return d.pid;
-	});
-	var groupProcessNamePIDDimension = ProcessNamePIDDimension.group().reduce(
-		function (p, v) {
-			++p.count;
-			
-			if(p.start_time > v.starttime) p.start_time = v.starttime;
-			
-		  	p.total_start_end_interval += v.endtime - v.starttime
-			p.total_iosize += v.iosize;
-			
-		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
-		  	
-		  	return p;		  
-		},
-	  	function (p, v) {
-		  	--p.count;
-
-		  	p.total_start_end_interval -= v.endtime - v.starttime;
-			p.total_iosize -= v.iosize;
-			
-		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
-			
-		  	if(p.StartTime > v.starttime) p.StartTime = v.starttime;
-		  	if(p.EndTime < v.endtime) p.EndTime = v.endtime;
-
-			
-		  	return p;	  	
-	  	},
-	  	// init
-	  	function() { 
-		  	return {
-			  	count: 0,
-			  	
-			  	start_time: Number.MAX_VALUE,
-			  	
-			  	total_start_end_interval: 0, 
-				total_iosize: 0,
-
-			  	avg_start_end_interval: 0,
-				throughput: 0,
-				
-				StartTime: Number.MAX_VALUE,
-				EndTime: 0
-		  	};
-		}
-	);
-	
-	PID_Throughput_Chart
-	    .width(Full_Width/4) // (optional) define chart width, :default = 200
-	    .height(groupProcessNamePIDDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
-	    .dimension(ProcessNamePIDDimension) // set dimension
-	    .group(groupProcessNamePIDDimension) // set group
-	    .valueAccessor(function (p) {
-			return p.value.throughput;
-		})
-	    // (optional) define margins
-	    .margins({top: 0, left: 10, right: 10, bottom: 20})
-	    // (optional) define color array for slices
-/* 	    .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb']) */
-	    // (optional) set gap between rows, default is 5
-	    .gap(7)
-	    // (optional) whether chart should render labels, :default = true
-	    .renderLabel(true)
-    	.label(function (p) {
-			return p.key + ": "+ p.value.throughput.toFixed(6) + " MB/s";
-		})
-	    // (optional) by default pie chart will use group.key and group.value as its title
-	    // you can overwrite it with a closure
-	    		.title(function (d) {
-				var ab_text = "";
-				var text = 
-				"io count: " + d.value.count + " #\n" +
-				"start time: " + d.value.start_time + " s\n" +
- 				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
- 				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
- 				"throughput: " + d.value.throughput.toFixed(6) + "MB/s\n" 
- 				;
-				return ab_text + text;
-			})
-
-	    // (optional) whether chart should render titles, :default = false
-	    .renderTitle(true)
-	    // (optional) specify the number of ticks for the X axis
-	    .xAxis().ticks(n_rowchart_ticks);
-
 /*
-  	var y_low = 0;
-  	var y_high = groupProcessDimension[0].value.count;
-  	var y_gap = Math.ceil(y_high * 0.1);
-  	var y_low = 0 - y_gap;
-  	var y_high = y_high + y_gap;
-*/
-    
-
-	ProcessBubbleChart_x_low = IOTimeLineChart_x_low;
-	
-	var PID_IOSize_SysLevelAvgRt_BubbleChartDimension = ndx.dimension(function (d) {
-		// return d.processname + "-" + d.pid;
-		return d.pid;
-	});
-	var groupPID_IOSize_SysLevelAvgRt_BubbleChartDimension = PID_IOSize_SysLevelAvgRt_BubbleChartDimension.group().reduce(
-		function (p, v) {
-			++p.count;
-			
-			if(p.start_time > v.starttime) p.start_time = v.starttime;
-			
-		  	p.total_start_end_interval += v.endtime - v.starttime
-			p.total_iosize += v.iosize;
-			
-		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
-		  	
-		  	return p;		  
-		},
-	  	function (p, v) {
-		  	--p.count;
-
-		  	p.total_start_end_interval -= v.endtime - v.starttime;
-			p.total_iosize -= v.iosize;
-			
-		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
-			
-		  	if(p.StartTime > v.starttime) p.StartTime = v.starttime;
-		  	if(p.EndTime < v.endtime) p.EndTime = v.endtime;
-
-			
-		  	return p;	  	
-	  	},
-	  	// init
-	  	function() { 
-		  	return {
-			  	count: 0,
-			  	
-			  	start_time: Number.MAX_VALUE,
-			  	
-			  	total_start_end_interval: 0, 
-				total_iosize: 0,
-
-			  	avg_start_end_interval: 0,
-				throughput: 0,
-				
-				StartTime: Number.MAX_VALUE,
-				EndTime: 0
-		  	};
-		}
-	);
-
-	PID_IOSize_SysLevelAvgRt_BubbleChart
-		.width(Full_Width*1/3)
-		.height(250)
-    	.margins({top: 0, right: 60, bottom: 20, left: 60})
-		.dimension(PID_IOSize_SysLevelAvgRt_BubbleChartDimension)
-		.group(groupPID_IOSize_SysLevelAvgRt_BubbleChartDimension)
-		.transitionDuration(transition_duration_delay)
-		.colors(["green"])
-/*
-		.colorDomain([-12000, 12000])
-		.colorAccessor(function (d) {
-			return d.value.count;
+		.renderlet(function (chart) {
+// 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
+			TimeLine_SysLevelAvgRT_Chart.filter(chart.filter());
+		})
+		.on("filtered", function (chart) {
+			dc.events.trigger(function () {
+				TimeLine_SysLevelAvgRT_Chart.focus(chart.filter());
+			});
 		})
 */
-		.keyAccessor(function (p) {
-			return p.value.count;
-		})
-		.valueAccessor(function (p) {
-			return p.value.avg_start_end_interval;
-		})
-		.radiusValueAccessor(function (p) {
-/* 			return p.value.count / all.value()*10000; // 원의 지름이 I/O 요청 개수에 따라서 커짐, 프로세스간의 I/O 요청 개수들을 쉽게 비교하고 싶을 때 사용 */
-			return 2;
-		})
-	/* 	.maxBubbleRelativeSize(30) */
-		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
-		.y(d3.scale.linear().domain([-1, 1]))
-		.r(d3.scale.linear().domain([0, 7000]))
-		.elasticY(true)
- 		.yAxisPadding(0.5) 
-		.elasticX(true)
- 		// .xAxisPadding(0.5) 
-		.renderHorizontalGridLines(true)
-		.renderVerticalGridLines(true)
-		.renderLabel(true)
-		.renderTitle(true)
-		.label(function (p) {
-			return p.key;
-		})
-		.title(function (p) {
-			return p.key 
-			+ "\nI/O #" + p.value.count 
-			+ "\n1st I/O at: " + p.value.StartTime
-			+ "\nAvg. RT: " + p.value.avg_start_end_interval.toFixed(8)
-			+ "\nStart time: " + p.value.StartTime.toFixed(8)
-			+ "\nEnd Time: " + p.value.EndTime.toFixed(8);
-		})
-		.xAxis().tickFormat(function (v) {
-			return "#" + v;
-		})
-		.ticks(n_bubblechart_ticks);
-		// the both setting (x/yAxis) aren't working at the same time
-		// .yAxis().tickFormat(function (v) {
-		// 	return v + "s";
-		// })
 		;
 
- 	var fluctuation = ndx.dimension(function (d) {
-                return (d.endtime - d.starttime).toFixed(4);
-            });
-    var fluctuationGroup = fluctuation.group();
 
-	RT_Distribution_Chart
-		.width(Full_Width*1/3)
-        .height(250)
-        .margins({top: 0, right: 60, bottom: 20, left: 60})
-        .dimension(fluctuation)
-        .group(fluctuationGroup)
-        .elasticY(true)
-		.yAxisPadding("10%") 
-        // .elasticX(true)
-        // .xAxisPadding("10%") 
-        .centerBar(true)
-        // .gap(100)
-        // .round(dc.round.floor)
-        .x(d3.scale.linear().domain([0, MaxIORT]))
-        // .x(d3.scale.linear().domain([0, MaxIORT]))
-        .renderHorizontalGridLines(true)
-        // .filterPrinter(function (filters) {
-        //     var filter = filters[0], s = "";
-        //     s += numberFormat(filter[0]) + "% -> " + numberFormat(filter[1]) + "%";
-        //     return s;
-        // })
-        .xAxis()
-        .tickFormat(function (v) {
-            return v + "s";
-        });
+	Timeline_Throughput_Chart2
+		.width(width1)
+		.height(height1)
+		.transitionDuration(transition_duration_delay)
+		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
+		.dimension(NewStartTimeDimension2)
+		.group(groupNewStartTimeDimension2)
+		.valueAccessor(function (d) {
+				return d.value.throughput;
+		})
+		.centerBar(true)
+		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
+// 		.xUnits(d3.time.second) */
+// 		.elasticX(true) */
+// 		.y(d3.scale.linear().domain([0, 100])) */
+		.elasticY(true)
+		.renderHorizontalGridLines(true)
+		.renderVerticalGridLines(true)
+		.brushOn(false)
+		.title(function (d) {
+				var ab_text = "";
+				var text = 
+				"io count: " + d.data.value.count + " #\n" +
+				"start time: " + d.data.value.start_time + " s\n" +
+ 				"avg response time: " + d.data.value.avg_rt.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
+ 				;
+				return ab_text + text;
+			})
+/*
+		.renderlet(function (chart) {
+// 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
+			Timeline_Throughput_Chart1.filter(chart.filter());
+		})
+		.on("filtered", function (chart) {
+			dc.events.trigger(function () {
+				Timeline_Throughput_Chart1.focus(chart.filter());
+			});
+		})
+*/
+		.gap(bargap)
+		;
+		
+	Timeline_IOCount_Chart2
+		.width(width1)
+		.height(height1)
+		.transitionDuration(transition_duration_delay)
+		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
+		.dimension(NewStartTimeDimension2)
+		.group(groupNewStartTimeDimension2)
+		.valueAccessor(function (d) {
+				return d.value.count;
+		})
+		.centerBar(true)
+		.gap(bargap)
+		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
+// 		.xUnits(d3.time.second) 
+/* 		.elasticX(true) */
+		.y(d3.scale.linear().domain([0, 100]))
+		.elasticY(true)
+		.renderHorizontalGridLines(true)
+		.renderVerticalGridLines(true)
+		.renderlet(function (chart) {
+// 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
+/* 			TimeLine_SysLevelAvgRT_Chart.filter(chart.filter()); */
+			Timeline_RT_Chart1.filter(chart.filter());
+			Timeline_Throughput_Chart1.filter(chart.filter());
+		})
+		.on("filtered", function (chart) {
+			dc.events.trigger(function () {
+/* 				TimeLine_SysLevelAvgRT_Chart.focus(chart.filter()); */
+				Timeline_RT_Chart1.focus(chart.filter());
+				Timeline_Throughput_Chart1.focus(chart.filter());
+			});
+		})
+		.title(function (d) {
+				var ab_text = "";
+				var text = 
+				"io count: " + d.data.value.count + " #\n" +
+				"start time: " + d.data.value.start_time + " s\n" +
+ 				"avg response time: " + d.data.value.avg_rt.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
+ 				;
+				return ab_text + text;
+			})
+		;
 
-	var ProcessNameDimension = ndx.dimension(function (d) {
-		return d.processname;
+	NR_Dataset2ND
+    .dimension(NewStartTimeDimension2)
+    .group(groupNewStartTimeDimension2)
+    .valueAccessor(function (p) { 
+    	return n_dataset2; 
+    })
+    .formatNumber(d3.format(".1g"))
+    ;
+		
+	var ALLIODimension2 = ndx.dimension(function (d) {
+		return d.all;
 		});            
 
-	var groupProcessNameDimension = ProcessNameDimension.group().reduce(
+	var groupALLIODimension2 = ALLIODimension2.group().reduce(
 		function (p, v) {
-			++p.count;
-			
-			if(p.start_time > v.starttime) p.start_time = v.starttime;
-			
-		  	p.total_start_end_interval += v.endtime - v.starttime
-			p.total_iosize += v.iosize;
-			
-		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
-		  	
+			if(v.entry_type == 2)
+			{
+				++p.count;
+				
+				if(p.start_time > v.starttime) p.start_time = v.starttime;
+				
+				
+			  	p.total_start_end_interval += v.endtime - v.starttime
+				p.total_iosize += v.iosize;
+				
+			  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			}		  	
 		  	return p;		  
 		},
 	  	function (p, v) {
-		  	--p.count;
+	  		if(v.entry_type == 2)
+	  		{
+			  	--p.count;
 
-		  	p.total_start_end_interval -= v.endtime - v.starttime;
-			p.total_iosize -= v.iosize;
-			
-		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
-			
+			  	p.total_start_end_interval -= v.endtime - v.starttime;
+				p.total_iosize -= v.iosize;
+				
+			  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			}							
 		  	return p;	  	
 	  	},
 	  	// init
@@ -1091,468 +970,1326 @@ d3.csv("final_result.csv", function(error, data) {
 				total_iosize: 0,
 
 			  	avg_start_end_interval: 0,
+				throughput: 0,
+				
+				variance:0,
+				std_dev:0
+		  	};
+		}
+	);
+	    
+    AvgThroughtputND2
+    .dimension(ALLIODimension2)
+    .group(groupALLIODimension2)
+    .valueAccessor(function (p) { 
+    	return p.value.throughput; 
+    })
+    .formatNumber(d3.format(".8g"))
+    ;
+
+	AvgRTtimeND2
+	.dimension(ALLIODimension2)
+	.group(groupALLIODimension2)
+	.valueAccessor(function (p) {
+			return p.value.avg_start_end_interval;
+	})
+	.formatNumber(d3.format(".8g"))
+	;
+
+	TotalIOSizeND2
+	.dimension(ALLIODimension2)
+	.group(groupALLIODimension2)
+	.valueAccessor(function (p) {
+			return p.value.total_iosize;
+	})
+	.formatNumber(d3.format(".8g"))
+	;
+
+	TotalRTtimeND2
+	.dimension(ALLIODimension2)
+	.group(groupALLIODimension2)
+	.valueAccessor(function (p) {
+			return p.value.total_start_end_interval;
+	})
+	.formatNumber(d3.format(".8g"))
+	;
+
+	VarianceND2
+	.dimension(ALLIODimension2)
+	.group(groupALLIODimension2)
+	.valueAccessor(function (p) {
+			return p.value.variance;
+	})
+		    .on("preRender", function(chart){
+     //        // 1. calculating the average with the data left after filtering.
+     //        // 2. calculating the deviating with the average for each entry in the data set.
+     //        // 3. squaring the result from (2) and sum all the entry in the data set.
+     //        // 4. dividing the result from (3) with the number of the entries in the data set.
+     //        // 5. from (4) I can obtain the variance.
+     //        // 6. I want to make the result from (4) label or title of this chart.
+	    // 	// console.log(chart.dimension().group().all().forEach(d));
+
+	    	// sigma (pow((avg-e(x)),2)) / count
+	    	// squere 
+	    	// var Test = chart.dimension().group().top(Infinity);
+	    	// Test.forEach(function(d1, a1, b1) {
+	    	// 	console.log(d1.value.avg_start_end_interval);
+	    	// })
+	    	var Dim = chart.dimension().top(Infinity);
+
+	    	// var avg = 0;
+	    	// Dim.forEach(function(d1, a1, b1) {
+	    	// 	avg += d1.endtime - d1.starttime;
+	    	// });
+	    	// avg = avg / Dim.length;
+
+	    	var variance = 0;
+	    	Dim.forEach(function(d1, a1, b1) {
+	    		variance += Math.pow(d1.endtime - d1.starttime - chart.group().all()[0].value.avg_start_end_interval, 2);
+	    	});
+	    	variance = variance / Dim.length;
+
+	    	var std_dev = Math.sqrt(variance);
+
+	    	// chart.group().all()[0].value is different from chart.dimension().group().all()[0].value
+	    	// the former returns what I want, the later returns 1... which is what I dont' want.
+	    	chart.group().all()[0].value.variance = variance;
+	    	chart.group().all()[0].value.std_dev = std_dev;	  
+	    	// console.log(chart.group().all()[0].value);  	
+	    })
+		.on("preRedraw", function(chart){
+        	var Dim = chart.dimension().top(Infinity);
+
+	    	// var avg = 0;
+	    	// Dim.forEach(function(d1, a1, b1) {
+	    	// 	avg += d1.endtime - d1.starttime;
+	    	// });
+	    	// avg = avg / Dim.length;
+
+	    	var variance = 0;
+	    	Dim.forEach(function(d1, a1, b1) {
+	    		variance += Math.pow(d1.endtime - d1.starttime - chart.group().all()[0].value.avg_start_end_interval, 2);
+	    	});
+	    	variance = variance / Dim.length;
+
+	    	var std_dev = Math.sqrt(variance);
+
+	    	// chart.group().all()[0].value is different from chart.dimension().group().all()[0].value
+	    	// the former returns what I want, the later returns 1... which is what I dont' want.
+	    	chart.group().all()[0].value.variance = variance;
+	    	chart.group().all()[0].value.std_dev = std_dev;	  
+	    	// console.log(chart.group().all()[0].value);  	
+	    })
+	.formatNumber(d3.format(".8g"))
+	;
+
+	StdDeviationND2
+	.dimension(ALLIODimension2)
+	.group(groupALLIODimension2)
+	.valueAccessor(function (p) {
+			return p.value.std_dev;
+	})
+	.formatNumber(d3.format(".8g"))
+	;
+
+  	// time_group을 dimension으로 설정, reduce 함수를 정의
+	var NewStartTimeDimension3 = ndx.dimension(function (d) {
+		return d.timeline_group;
+	});
+	var groupNewStartTimeDimension3 = NewStartTimeDimension3.group().reduce(
+		function (p, v) {
+			if(v.entry_type == 3)
+			{
+				++p.count;
+						
+				if(p.start_time > v.starttime) p.start_time = v.starttime; //이거왜넣었지?
+						
+			  	p.total_rt += v.endtime - v.starttime;
+			  	p.avg_rt = p.total_rt / p.count;
+
+				p.total_iosize += v.iosize;
+				p.throughput = (p.total_iosize /  p.total_rt) / (1024*1024)  ; //MB/s
+
+				n_dataset3++;
+			}
+			return p;		  
+		},
+	  	function (p, v) {
+		  	if(v.entry_type == 3)
+			{		  		
+			  	--p.count;
+
+			  	p.total_rt -= v.endtime - v.starttime;
+			  	p.avg_rt = p.count == 0 ? 0: p.total_rt / p.count;
+
+				p.total_iosize -= v.iosize;
+				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_rt) / (1024*1024); //MB/s
+
+				n_dataset3--;
+			}			
+			return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+	  		n_dataset3 = 0;
+		  	return {
+			  	count: 0,
+			  	
+			  	start_time: Number.MAX_VALUE,
+			  	
+			  	total_rt: 0, 
+			  	avg_rt: 0,
+
+				total_iosize: 0,			  	
 				throughput: 0
 		  	};
 		}
 	);
-	ProcessName_IORatio_Chart
-  		.width(Full_Width*1/6) // (optional) define chart width, :default = 200
-  		.height(250) // (optional) define chart height, :default = 200
-  		.transitionDuration(transition_duration_delay) // (optional) define chart transition duration, :default = 350
-  		// (optional) define color array for slices .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
-  		// (optional) define color domain to match your data domain if you want to bind data or color.colorDomain([-1750, 1644])
-  		// (optional) define color value accessor
+
+	Timeline_RT_Chart3
+		.width(width1)
+		.height(height1)
+		.transitionDuration(transition_duration_delay)
+		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
+		.dimension(NewStartTimeDimension3)
+		.group(groupNewStartTimeDimension3)
+		.valueAccessor(function (d) {
+				return d.value.avg_rt;
+		})
+		.centerBar(true)
+		.gap(bargap)
+		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
+// 		.xUnits(d3.time.second)
+// 		.elasticX(true)
+// 		.y(d3.scale.linear().domain([0, 100])) 
+		.elasticY(true)
+		.renderHorizontalGridLines(true)
+		.renderVerticalGridLines(true)
+		.brushOn(false)
+		.title(function (d) {
+				var ab_text = "";
+				var text = 
+				"io count: " + d.data.value.count + " #\n" +
+				"start time: " + d.data.value.start_time + " s\n" +
+ 				"avg response time: " + d.data.value.avg_rt.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
+ 				;
+				return ab_text + text;
+			})
 /*
-  		.colorAccessor(function(d, i){return d.data.value;})
-  		.radius(90) // define pie radius
-*/
-		// (optional) if inner radius is used then a donut chart will
-		// be generated instead of pie chart
-		.innerRadius(20)
-		.dimension(ProcessNameDimension) // set dimension
-		.group(groupProcessNameDimension) // set group
-		// (optional) by default pie chart will use group.key as it's label
-		// but you can overwrite it with a closure
-		.label(function(d) { return d.data.key + "(" + Math.floor(d.data.value.count / all.value() * 100) + "%)"; })
-		// (optional) whether chart should render labels, :default = true
-/* 		.renderLabel(true) */
-		// (optional) by default pie chart will use group.key and group.value as its title
-		// you can overwrite it with a closure
-/*
-		.title(function(d) { return d.data.key + ": "+ Math.floor(d.data.value / all.value() * 100) + "%\n"	
-			+ "The number of I/O = " + d..value + "\n";
+		.renderlet(function (chart) {
+// 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
+			TimeLine_SysLevelAvgRT_Chart.filter(chart.filter());
+		})
+		.on("filtered", function (chart) {
+			dc.events.trigger(function () {
+				TimeLine_SysLevelAvgRT_Chart.focus(chart.filter());
+			});
 		})
 */
-		.title(function(d) { return d.data.key + ": "+ Math.floor(d.data.value.count / all.value() * 100) + "%\n"	
-			+ "The number of I/O = " + d.data.value.count + "\n";
-		})		
-    	.valueAccessor(function(d) {
-	    	return d.value.count;
-    	})
-		// (optional) whether chart should render titles, :default = false
-		.renderTitle(true);
+		;
 
-  	var TypeDimension = ndx.dimension(function(d) {return d.type});
-  	var groupTypeDimension = TypeDimension.group();  	
 
-	IOType_IORatio_Chart
-	  	.width(Full_Width*1/6) // (optional) define chart width, :default = 200
-	  	.height(250) // (optional) define chart height, :default = 200
-	  	.transitionDuration(transition_duration_delay) // (optional) define chart transition duration, :default = 350
-	  	// (optional) define color array for slices
-	  	// (optional) define color domain to match your data domain if you want to bind data or color.colorDomain([-1750, 1644])
-	  	// (optional) define color value accessor
+	Timeline_Throughput_Chart3
+		.width(width1)
+		.height(height1)
+		.transitionDuration(transition_duration_delay)
+		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
+		.dimension(NewStartTimeDimension3)
+		.group(groupNewStartTimeDimension3)
+		.valueAccessor(function (d) {
+				return d.value.throughput;
+		})
+		.centerBar(true)
+		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
+// 		.xUnits(d3.time.second) */
+// 		.elasticX(true) */
+// 		.y(d3.scale.linear().domain([0, 100])) */
+		.elasticY(true)
+		.renderHorizontalGridLines(true)
+		.renderVerticalGridLines(true)
+		.brushOn(false)
+		.title(function (d) {
+				var ab_text = "";
+				var text = 
+				"io count: " + d.data.value.count + " #\n" +
+				"start time: " + d.data.value.start_time + " s\n" +
+ 				"avg response time: " + d.data.value.avg_rt.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
+ 				;
+				return ab_text + text;
+			})
 /*
-	  	.colorAccessor(function(d, i){return d.data.value;})
-	  	.radius(90) // define pie radius
+		.renderlet(function (chart) {
+// 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
+			Timeline_Throughput_Chart1.filter(chart.filter());
+		})
+		.on("filtered", function (chart) {
+			dc.events.trigger(function () {
+				Timeline_Throughput_Chart1.focus(chart.filter());
+			});
+		})
 */
-	  	// (optional) if inner radius is used then a donut chart will
-	  	// be generated instead of pie chart
-	  	.innerRadius(20)
-	  	.dimension(TypeDimension) // set dimension
-	  	.group(groupTypeDimension) // set group)
-	  	// (optional) by default pie chart will use group.key as it's label
-	  	// but you can overwrite it with a closure
-	  	.label(function(d) { return d.data.key + "(" + Math.floor(d.data.value / all.value() * 100) + "%)"; })
-	  	// (optional) whether chart should render labels, :default = true
-	  	.renderLabel(true)
-	  	// (optional) by default pie chart will use group.key and group.value as its title
-	  	// you can overwrite it with a closure
-	  	.title(function(d) { return d.data.key + "\n"	
-		  	+ ": " + d.data.value + "\n"; 
-	  	})
-	  	// (optional) whether chart should render titles, :default = false
-	  	.renderTitle(true)
-	  	;
+		.gap(bargap)
+		;
+		
+	Timeline_IOCount_Chart3
+		.width(width1)
+		.height(height1)
+		.transitionDuration(transition_duration_delay)
+		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
+		.dimension(NewStartTimeDimension3)
+		.group(groupNewStartTimeDimension3)
+		.valueAccessor(function (d) {
+				return d.value.count;
+		})
+		.centerBar(true)
+		.gap(bargap)
+		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
+// 		.xUnits(d3.time.second) 
+/* 		.elasticX(true) */
+		.y(d3.scale.linear().domain([0, 100]))
+		.elasticY(true)
+		.renderHorizontalGridLines(true)
+		.renderVerticalGridLines(true)
+		.renderlet(function (chart) {
+// 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
+/* 			TimeLine_SysLevelAvgRT_Chart.filter(chart.filter()); */
+			Timeline_RT_Chart1.filter(chart.filter());
+			Timeline_Throughput_Chart1.filter(chart.filter());
+		})
+		.on("filtered", function (chart) {
+			dc.events.trigger(function () {
+/* 				TimeLine_SysLevelAvgRT_Chart.focus(chart.filter()); */
+				Timeline_RT_Chart1.focus(chart.filter());
+				Timeline_Throughput_Chart1.focus(chart.filter());
+			});
+		})
+		.title(function (d) {
+				var ab_text = "";
+				var text = 
+				"io count: " + d.data.value.count + " #\n" +
+				"start time: " + d.data.value.start_time + " s\n" +
+ 				"avg response time: " + d.data.value.avg_rt.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
+ 				;
+				return ab_text + text;
+			})
+		;
+
+	NR_Dataset3ND
+    .dimension(NewStartTimeDimension3)
+    .group(groupNewStartTimeDimension3)
+    .valueAccessor(function (p) { 
+    	return n_dataset3; 
+    })
+    .formatNumber(d3.format(".1g"))
+    ;
+
+		
+	var ALLIODimension3 = ndx.dimension(function (d) {
+		return d.all;
+		});            
+
+	var groupALLIODimension3 = ALLIODimension2.group().reduce(
+		function (p, v) {
+			if(v.entry_type == 3)
+			{
+				++p.count;
+				
+				if(p.start_time > v.starttime) p.start_time = v.starttime;
+				
+				
+			  	p.total_start_end_interval += v.endtime - v.starttime
+				p.total_iosize += v.iosize;
+				
+			  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			}		  	
+		  	return p;		  
+		},
+	  	function (p, v) {
+	  		if(v.entry_type == 3)
+	  		{
+			  	--p.count;
+
+			  	p.total_start_end_interval -= v.endtime - v.starttime;
+				p.total_iosize -= v.iosize;
+				
+			  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			}						
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
+			  	
+			  	start_time: Number.MAX_VALUE,
+			  	
+			  	total_start_end_interval: 0, 
+				total_iosize: 0,
+
+			  	avg_start_end_interval: 0,
+				throughput: 0,
+				
+				variance:0,
+				std_dev:0
+		  	};
+		}
+	);
+	    
+    AvgThroughtputND3
+    .dimension(ALLIODimension3)
+    .group(groupALLIODimension3)
+    .valueAccessor(function (p) { 
+    	return p.value.throughput; 
+    })
+    .formatNumber(d3.format(".8g"))
+    ;
+
+	AvgRTtimeND3
+	.dimension(ALLIODimension3)
+	.group(groupALLIODimension3)
+	.valueAccessor(function (p) {
+			return p.value.avg_start_end_interval;
+	})
+	.formatNumber(d3.format(".8g"))
+	;
+
+	TotalIOSizeND3
+	.dimension(ALLIODimension3)
+	.group(groupALLIODimension3)
+	.valueAccessor(function (p) {
+			return p.value.total_iosize;
+	})
+	.formatNumber(d3.format(".8g"))
+	;
+
+	TotalRTtimeND3
+	.dimension(ALLIODimension3)
+	.group(groupALLIODimension3)
+	.valueAccessor(function (p) {
+			return p.value.total_start_end_interval;
+	})
+	.formatNumber(d3.format(".8g"))
+	;
+
+	VarianceND3
+	.dimension(ALLIODimension3)
+	.group(groupALLIODimension3)
+	.valueAccessor(function (p) {
+			return p.value.variance;
+	})
+		    .on("preRender", function(chart){
+     //        // 1. calculating the average with the data left after filtering.
+     //        // 2. calculating the deviating with the average for each entry in the data set.
+     //        // 3. squaring the result from (2) and sum all the entry in the data set.
+     //        // 4. dividing the result from (3) with the number of the entries in the data set.
+     //        // 5. from (4) I can obtain the variance.
+     //        // 6. I want to make the result from (4) label or title of this chart.
+	    // 	// console.log(chart.dimension().group().all().forEach(d));
+
+	    	// sigma (pow((avg-e(x)),2)) / count
+	    	// squere 
+	    	// var Test = chart.dimension().group().top(Infinity);
+	    	// Test.forEach(function(d1, a1, b1) {
+	    	// 	console.log(d1.value.avg_start_end_interval);
+	    	// })
+	    	var Dim = chart.dimension().top(Infinity);
+
+	    	// var avg = 0;
+	    	// Dim.forEach(function(d1, a1, b1) {
+	    	// 	avg += d1.endtime - d1.starttime;
+	    	// });
+	    	// avg = avg / Dim.length;
+
+	    	var variance = 0;
+	    	Dim.forEach(function(d1, a1, b1) {
+	    		variance += Math.pow(d1.endtime - d1.starttime - chart.group().all()[0].value.avg_start_end_interval, 2);
+	    	});
+	    	variance = variance / Dim.length;
+
+	    	var std_dev = Math.sqrt(variance);
+
+	    	// chart.group().all()[0].value is different from chart.dimension().group().all()[0].value
+	    	// the former returns what I want, the later returns 1... which is what I dont' want.
+	    	chart.group().all()[0].value.variance = variance;
+	    	chart.group().all()[0].value.std_dev = std_dev;	  
+	    	// console.log(chart.group().all()[0].value);  	
+	    })
+		.on("preRedraw", function(chart){
+        	var Dim = chart.dimension().top(Infinity);
+
+	    	// var avg = 0;
+	    	// Dim.forEach(function(d1, a1, b1) {
+	    	// 	avg += d1.endtime - d1.starttime;
+	    	// });
+	    	// avg = avg / Dim.length;
+
+	    	var variance = 0;
+	    	Dim.forEach(function(d1, a1, b1) {
+	    		variance += Math.pow(d1.endtime - d1.starttime - chart.group().all()[0].value.avg_start_end_interval, 2);
+	    	});
+	    	variance = variance / Dim.length;
+
+	    	var std_dev = Math.sqrt(variance);
+
+	    	// chart.group().all()[0].value is different from chart.dimension().group().all()[0].value
+	    	// the former returns what I want, the later returns 1... which is what I dont' want.
+	    	chart.group().all()[0].value.variance = variance;
+	    	chart.group().all()[0].value.std_dev = std_dev;	  
+	    	// console.log(chart.group().all()[0].value);  	
+	    })
+	.formatNumber(d3.format(".8g"))
+	;
+
+	StdDeviationND3
+	.dimension(ALLIODimension2)
+	.group(groupALLIODimension2)
+	.valueAccessor(function (p) {
+			return p.value.std_dev;
+	})
+	.formatNumber(d3.format(".8g"))
+	;
+
+
+		
+
+
+  	
+// 	var Process_Throughput_ChartDimension = ndx.dimension(function (d) {
+// 		return d.processname;
+// 		});            
+
+// 	var groupProcess_Throughput_ChartDimension = Process_Throughput_ChartDimension.group().reduce(
+// 		function (p, v) {
+// 			++p.count;
+			
+// 			if(p.start_time > v.starttime) p.start_time = v.starttime;
+			
+// 		  	p.total_start_end_interval += v.endtime - v.starttime
+// 			p.total_iosize += v.iosize;
+			
+// 		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	
+// 		  	return p;		  
+// 		},
+// 	  	function (p, v) {
+// 		  	--p.count;
+
+// 		  	p.total_start_end_interval -= v.endtime - v.starttime;
+// 			p.total_iosize -= v.iosize;
+			
+// 		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			
+// 		  	return p;	  	
+// 	  	},
+// 	  	// init
+// 	  	function() { 
+// 		  	return {
+// 			  	count: 0,
+			  	
+// 			  	start_time: Number.MAX_VALUE,
+			  	
+// 			  	total_start_end_interval: 0, 
+// 				total_iosize: 0,
+
+// 			  	avg_start_end_interval: 0,
+// 				throughput: 0
+// 		  	};
+// 		}
+// 	);
+	
+// 	Process_Throughput_Chart
+// 	    .width(Full_Width/4) // (optional) define chart width, :default = 200
+// 	    .height(groupProcess_Throughput_ChartDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
+// 	    .dimension(Process_Throughput_ChartDimension) // set dimension
+// 	    .group(groupProcess_Throughput_ChartDimension) // set group
+// 	    .valueAccessor(function (p) {
+// 			return p.value.throughput;
+// 		})
+// 	    // (optional) define margins
+// 	    .margins({top: 0, left: 10, right: 10, bottom: 20})
+// 	    // (optional) define color array for slices
+// /* 	    .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb']) */
+// 	    // (optional) set gap between rows, default is 5
+// 	    .gap(7)
+// 	    // (optional) whether chart should render labels, :default = true
+// 	    .renderLabel(true)
+//     	.label(function (p) {
+// 			return p.key + ": "+ p.value.throughput.toFixed(3) + " MB/s";
+// 		})
+// 	    // (optional) by default pie chart will use group.key and group.value as its title
+// 	    // you can overwrite it with a closure
+// 		.title(function (d) {
+// 				var ab_text = "";
+// 				var text = 
+// 				"io count: " + d.value.count + " #\n" +
+// 				"start time: " + d.value.start_time + " s\n" +
+//  				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
+//  				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+//  				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+//  				;
+// 				return ab_text + text;
+// 			})
+
+// 	    // (optional) whether chart should render titles, :default = false
+// 	    .renderTitle(true)
+// 	    // (optional) specify the number of ticks for the X axis
+// 	    .xAxis().ticks(n_rowchart_ticks);
+
+
+    
+// 	var ProcessNamePIDDimension = ndx.dimension(function (d) {
+// 		return d.processname + "-" + d.pid;
+// 		// return d.pid;
+// 	});
+// 	var groupProcessNamePIDDimension = ProcessNamePIDDimension.group().reduce(
+// 		function (p, v) {
+// 			++p.count;
+			
+// 			if(p.start_time > v.starttime) p.start_time = v.starttime;
+			
+// 		  	p.total_start_end_interval += v.endtime - v.starttime
+// 			p.total_iosize += v.iosize;
+			
+// 		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	
+// 		  	return p;		  
+// 		},
+// 	  	function (p, v) {
+// 		  	--p.count;
+
+// 		  	p.total_start_end_interval -= v.endtime - v.starttime;
+// 			p.total_iosize -= v.iosize;
+			
+// 		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			
+// 		  	if(p.StartTime > v.starttime) p.StartTime = v.starttime;
+// 		  	if(p.EndTime < v.endtime) p.EndTime = v.endtime;
+
+			
+// 		  	return p;	  	
+// 	  	},
+// 	  	// init
+// 	  	function() { 
+// 		  	return {
+// 			  	count: 0,
+			  	
+// 			  	start_time: Number.MAX_VALUE,
+			  	
+// 			  	total_start_end_interval: 0, 
+// 				total_iosize: 0,
+
+// 			  	avg_start_end_interval: 0,
+// 				throughput: 0,
+				
+// 				StartTime: Number.MAX_VALUE,
+// 				EndTime: 0
+// 		  	};
+// 		}
+// 	);
+	
+// 	PID_Throughput_Chart
+// 	    .width(Full_Width/4) // (optional) define chart width, :default = 200
+// 	    .height(groupProcessNamePIDDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
+// 	    .dimension(ProcessNamePIDDimension) // set dimension
+// 	    .group(groupProcessNamePIDDimension) // set group
+// 	    .valueAccessor(function (p) {
+// 			return p.value.throughput;
+// 		})
+// 	    // (optional) define margins
+// 	    .margins({top: 0, left: 10, right: 10, bottom: 20})
+// 	    // (optional) define color array for slices
+// /* 	    .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb']) */
+// 	    // (optional) set gap between rows, default is 5
+// 	    .gap(7)
+// 	    // (optional) whether chart should render labels, :default = true
+// 	    .renderLabel(true)
+//     	.label(function (p) {
+// 			return p.key + ": "+ p.value.throughput.toFixed(6) + " MB/s";
+// 		})
+// 	    // (optional) by default pie chart will use group.key and group.value as its title
+// 	    // you can overwrite it with a closure
+// 	    		.title(function (d) {
+// 				var ab_text = "";
+// 				var text = 
+// 				"io count: " + d.value.count + " #\n" +
+// 				"start time: " + d.value.start_time + " s\n" +
+//  				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
+//  				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+//  				"throughput: " + d.value.throughput.toFixed(6) + "MB/s\n" 
+//  				;
+// 				return ab_text + text;
+// 			})
+
+// 	    // (optional) whether chart should render titles, :default = false
+// 	    .renderTitle(true)
+// 	    // (optional) specify the number of ticks for the X axis
+// 	    .xAxis().ticks(n_rowchart_ticks);
+
+// /*
+//   	var y_low = 0;
+//   	var y_high = groupProcessDimension[0].value.count;
+//   	var y_gap = Math.ceil(y_high * 0.1);
+//   	var y_low = 0 - y_gap;
+//   	var y_high = y_high + y_gap;
+// */
+    
+
+// 	ProcessBubbleChart_x_low = IOTimeLineChart_x_low;
+	
+// 	var PID_IOSize_SysLevelAvgRt_BubbleChartDimension = ndx.dimension(function (d) {
+// 		// return d.processname + "-" + d.pid;
+// 		return d.pid;
+// 	});
+// 	var groupPID_IOSize_SysLevelAvgRt_BubbleChartDimension = PID_IOSize_SysLevelAvgRt_BubbleChartDimension.group().reduce(
+// 		function (p, v) {
+// 			++p.count;
+			
+// 			if(p.start_time > v.starttime) p.start_time = v.starttime;
+			
+// 		  	p.total_start_end_interval += v.endtime - v.starttime
+// 			p.total_iosize += v.iosize;
+			
+// 		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	
+// 		  	return p;		  
+// 		},
+// 	  	function (p, v) {
+// 		  	--p.count;
+
+// 		  	p.total_start_end_interval -= v.endtime - v.starttime;
+// 			p.total_iosize -= v.iosize;
+			
+// 		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			
+// 		  	if(p.StartTime > v.starttime) p.StartTime = v.starttime;
+// 		  	if(p.EndTime < v.endtime) p.EndTime = v.endtime;
+
+			
+// 		  	return p;	  	
+// 	  	},
+// 	  	// init
+// 	  	function() { 
+// 		  	return {
+// 			  	count: 0,
+			  	
+// 			  	start_time: Number.MAX_VALUE,
+			  	
+// 			  	total_start_end_interval: 0, 
+// 				total_iosize: 0,
+
+// 			  	avg_start_end_interval: 0,
+// 				throughput: 0,
+				
+// 				StartTime: Number.MAX_VALUE,
+// 				EndTime: 0
+// 		  	};
+// 		}
+// 	);
+
+// 	PID_IOSize_SysLevelAvgRt_BubbleChart
+// 		.width(Full_Width*1/3)
+// 		.height(250)
+//     	.margins({top: 0, right: 60, bottom: 20, left: 60})
+// 		.dimension(PID_IOSize_SysLevelAvgRt_BubbleChartDimension)
+// 		.group(groupPID_IOSize_SysLevelAvgRt_BubbleChartDimension)
+// 		.transitionDuration(transition_duration_delay)
+// 		.colors(["green"])
+// /*
+// 		.colorDomain([-12000, 12000])
+// 		.colorAccessor(function (d) {
+// 			return d.value.count;
+// 		})
+// */
+// 		.keyAccessor(function (p) {
+// 			return p.value.count;
+// 		})
+// 		.valueAccessor(function (p) {
+// 			return p.value.avg_start_end_interval;
+// 		})
+// 		.radiusValueAccessor(function (p) {
+// /* 			return p.value.count / all.value()*10000; // 원의 지름이 I/O 요청 개수에 따라서 커짐, 프로세스간의 I/O 요청 개수들을 쉽게 비교하고 싶을 때 사용 */
+// 			return 2;
+// 		})
+// 	/* 	.maxBubbleRelativeSize(30) */
+// 		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
+// 		.y(d3.scale.linear().domain([-1, 1]))
+// 		.r(d3.scale.linear().domain([0, 7000]))
+// 		.elasticY(true)
+//  		.yAxisPadding(0.5) 
+// 		.elasticX(true)
+//  		// .xAxisPadding(0.5) 
+// 		.renderHorizontalGridLines(true)
+// 		.renderVerticalGridLines(true)
+// 		.renderLabel(true)
+// 		.renderTitle(true)
+// 		.label(function (p) {
+// 			return p.key;
+// 		})
+// 		.title(function (p) {
+// 			return p.key 
+// 			+ "\nI/O #" + p.value.count 
+// 			+ "\n1st I/O at: " + p.value.StartTime
+// 			+ "\nAvg. RT: " + p.value.avg_start_end_interval.toFixed(8)
+// 			+ "\nStart time: " + p.value.StartTime.toFixed(8)
+// 			+ "\nEnd Time: " + p.value.EndTime.toFixed(8);
+// 		})
+// 		.xAxis().tickFormat(function (v) {
+// 			return "#" + v;
+// 		})
+// 		.ticks(n_bubblechart_ticks);
+// 		// the both setting (x/yAxis) aren't working at the same time
+// 		// .yAxis().tickFormat(function (v) {
+// 		// 	return v + "s";
+// 		// })
+// 		;
+
+//  	var fluctuation = ndx.dimension(function (d) {
+//                 return (d.endtime - d.starttime).toFixed(4);
+//             });
+//     var fluctuationGroup = fluctuation.group();
+
+// 	RT_Distribution_Chart
+// 		.width(Full_Width*1/3)
+//         .height(250)
+//         .margins({top: 0, right: 60, bottom: 20, left: 60})
+//         .dimension(fluctuation)
+//         .group(fluctuationGroup)
+//         .elasticY(true)
+// 		.yAxisPadding("10%") 
+//         // .elasticX(true)
+//         // .xAxisPadding("10%") 
+//         .centerBar(true)
+//         // .gap(100)
+//         // .round(dc.round.floor)
+//         .x(d3.scale.linear().domain([0, MaxIORT]))
+//         // .x(d3.scale.linear().domain([0, MaxIORT]))
+//         .renderHorizontalGridLines(true)
+//         // .filterPrinter(function (filters) {
+//         //     var filter = filters[0], s = "";
+//         //     s += numberFormat(filter[0]) + "% -> " + numberFormat(filter[1]) + "%";
+//         //     return s;
+//         // })
+//         .xAxis()
+//         .tickFormat(function (v) {
+//             return v + "s";
+//         });
+
+// 	var ProcessNameDimension = ndx.dimension(function (d) {
+// 		return d.processname;
+// 		});            
+
+// 	var groupProcessNameDimension = ProcessNameDimension.group().reduce(
+// 		function (p, v) {
+// 			++p.count;
+			
+// 			if(p.start_time > v.starttime) p.start_time = v.starttime;
+			
+// 		  	p.total_start_end_interval += v.endtime - v.starttime
+// 			p.total_iosize += v.iosize;
+			
+// 		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	
+// 		  	return p;		  
+// 		},
+// 	  	function (p, v) {
+// 		  	--p.count;
+
+// 		  	p.total_start_end_interval -= v.endtime - v.starttime;
+// 			p.total_iosize -= v.iosize;
+			
+// 		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			
+// 		  	return p;	  	
+// 	  	},
+// 	  	// init
+// 	  	function() { 
+// 		  	return {
+// 			  	count: 0,
+			  	
+// 			  	start_time: Number.MAX_VALUE,
+			  	
+// 			  	total_start_end_interval: 0, 
+// 				total_iosize: 0,
+
+// 			  	avg_start_end_interval: 0,
+// 				throughput: 0
+// 		  	};
+// 		}
+// 	);
+// 	ProcessName_IORatio_Chart
+//   		.width(Full_Width*1/6) // (optional) define chart width, :default = 200
+//   		.height(250) // (optional) define chart height, :default = 200
+//   		.transitionDuration(transition_duration_delay) // (optional) define chart transition duration, :default = 350
+//   		// (optional) define color array for slices .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
+//   		// (optional) define color domain to match your data domain if you want to bind data or color.colorDomain([-1750, 1644])
+//   		// (optional) define color value accessor
+// /*
+//   		.colorAccessor(function(d, i){return d.data.value;})
+//   		.radius(90) // define pie radius
+// */
+// 		// (optional) if inner radius is used then a donut chart will
+// 		// be generated instead of pie chart
+// 		.innerRadius(20)
+// 		.dimension(ProcessNameDimension) // set dimension
+// 		.group(groupProcessNameDimension) // set group
+// 		// (optional) by default pie chart will use group.key as it's label
+// 		// but you can overwrite it with a closure
+// 		.label(function(d) { return d.data.key + "(" + Math.floor(d.data.value.count / all.value() * 100) + "%)"; })
+// 		// (optional) whether chart should render labels, :default = true
+// /* 		.renderLabel(true) */
+// 		// (optional) by default pie chart will use group.key and group.value as its title
+// 		// you can overwrite it with a closure
+// /*
+// 		.title(function(d) { return d.data.key + ": "+ Math.floor(d.data.value / all.value() * 100) + "%\n"	
+// 			+ "The number of I/O = " + d..value + "\n";
+// 		})
+// */
+// 		.title(function(d) { return d.data.key + ": "+ Math.floor(d.data.value.count / all.value() * 100) + "%\n"	
+// 			+ "The number of I/O = " + d.data.value.count + "\n";
+// 		})		
+//     	.valueAccessor(function(d) {
+// 	    	return d.value.count;
+//     	})
+// 		// (optional) whether chart should render titles, :default = false
+// 		.renderTitle(true);
+
+//   	var TypeDimension = ndx.dimension(function(d) {return d.type});
+//   	var groupTypeDimension = TypeDimension.group();  	
+
+// 	IOType_IORatio_Chart
+// 	  	.width(Full_Width*1/6) // (optional) define chart width, :default = 200
+// 	  	.height(250) // (optional) define chart height, :default = 200
+// 	  	.transitionDuration(transition_duration_delay) // (optional) define chart transition duration, :default = 350
+// 	  	// (optional) define color array for slices
+// 	  	// (optional) define color domain to match your data domain if you want to bind data or color.colorDomain([-1750, 1644])
+// 	  	// (optional) define color value accessor
+// /*
+// 	  	.colorAccessor(function(d, i){return d.data.value;})
+// 	  	.radius(90) // define pie radius
+// */
+// 	  	// (optional) if inner radius is used then a donut chart will
+// 	  	// be generated instead of pie chart
+// 	  	.innerRadius(20)
+// 	  	.dimension(TypeDimension) // set dimension
+// 	  	.group(groupTypeDimension) // set group)
+// 	  	// (optional) by default pie chart will use group.key as it's label
+// 	  	// but you can overwrite it with a closure
+// 	  	.label(function(d) { return d.data.key + "(" + Math.floor(d.data.value / all.value() * 100) + "%)"; })
+// 	  	// (optional) whether chart should render labels, :default = true
+// 	  	.renderLabel(true)
+// 	  	// (optional) by default pie chart will use group.key and group.value as its title
+// 	  	// you can overwrite it with a closure
+// 	  	.title(function(d) { return d.data.key + "\n"	
+// 		  	+ ": " + d.data.value + "\n"; 
+// 	  	})
+// 	  	// (optional) whether chart should render titles, :default = false
+// 	  	.renderTitle(true)
+// 	  	;
 	    
 		
-    var IOCategoryDimension = ndx.dimension(function(d) {return d.class});
-  	var groupIOCategoryDimension = IOCategoryDimension.group().reduce(
-	  	//add
-	  	function (p, v) {
-		  	++p.count;
-		  	p.total_fs += v.fs; 
-		  	p.total_cache += v.cache;
-		  	p.total_block += v.block; 
-		  	p.total_storage += v.storage;
+//     var IOCategoryDimension = ndx.dimension(function(d) {return d.class});
+//   	var groupIOCategoryDimension = IOCategoryDimension.group().reduce(
+// 	  	//add
+// 	  	function (p, v) {
+// 		  	++p.count;
+// 		  	p.total_fs += v.fs; 
+// 		  	p.total_cache += v.cache;
+// 		  	p.total_block += v.block; 
+// 		  	p.total_storage += v.storage;
 
-		  	p.avg_fs = p.total_fs / p.count;
-		  	p.avg_cache = p.total_cache / p.count;
-		  	p.avg_block = p.total_block / p.count; 
-		  	p.avg_storage = p.total_storage / p.count; 
+// 		  	p.avg_fs = p.total_fs / p.count;
+// 		  	p.avg_cache = p.total_cache / p.count;
+// 		  	p.avg_block = p.total_block / p.count; 
+// 		  	p.avg_storage = p.total_storage / p.count; 
 		  	
-		  	p.total_start_end_interval += v.endtime - v.starttime;
-		  	p.avg_start_end_interval = p.total_start_end_interval/p.count;
+// 		  	p.total_start_end_interval += v.endtime - v.starttime;
+// 		  	p.avg_start_end_interval = p.total_start_end_interval/p.count;
 		  	
-			p.total_iosize += v.iosize;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+// 			p.total_iosize += v.iosize;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 		  	
-		  	return p;	  	
-	  	},
-	  	//remove
-	  	function (p, v) {
-		  	--p.count;
-		  	p.total_fs -= v.fs; 
-		  	p.total_cache -= v.cache;
-		  	p.total_block -= v.block; 
-		  	p.total_storage -= v.storage;
+// 		  	return p;	  	
+// 	  	},
+// 	  	//remove
+// 	  	function (p, v) {
+// 		  	--p.count;
+// 		  	p.total_fs -= v.fs; 
+// 		  	p.total_cache -= v.cache;
+// 		  	p.total_block -= v.block; 
+// 		  	p.total_storage -= v.storage;
 
-		  	p.avg_fs = p.count == 0 ? 0 : p.total_fs / p.count;
-		  	p.avg_cache = p.count == 0 ? 0 : p.total_cache / p.count;
-		  	p.avg_block = p.count == 0 ? 0 : p.total_block / p.count;
-		  	p.avg_storage = p.count == 0 ? 0 : p.total_storage / p.count;
+// 		  	p.avg_fs = p.count == 0 ? 0 : p.total_fs / p.count;
+// 		  	p.avg_cache = p.count == 0 ? 0 : p.total_cache / p.count;
+// 		  	p.avg_block = p.count == 0 ? 0 : p.total_block / p.count;
+// 		  	p.avg_storage = p.count == 0 ? 0 : p.total_storage / p.count;
 		  	
-			p.total_start_end_interval -= v.endtime - v.starttime;
-			p.avg_start_end_interval = p.count == 0 ? 0 : p.total_start_end_interval/p.count;
+// 			p.total_start_end_interval -= v.endtime - v.starttime;
+// 			p.avg_start_end_interval = p.count == 0 ? 0 : p.total_start_end_interval/p.count;
 			
-			p.total_iosize -= v.iosize;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+// 			p.total_iosize -= v.iosize;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 
 		  	
-		  	return p;	  	
-	  	},
-	  	// init
-	  	function() { 
-		  	return {
-			  	count: 0,
-			  	total_block: 0,  total_storage: 0, total_fs: 0, total_cache: 0,
-			  	avg_block: 0,  avg_storage: 0, avg_fs: 0, avg_cache: 0,
-		  		total_start_end_interval: 0, avg_start_end_interval: 0,
+// 		  	return p;	  	
+// 	  	},
+// 	  	// init
+// 	  	function() { 
+// 		  	return {
+// 			  	count: 0,
+// 			  	total_block: 0,  total_storage: 0, total_fs: 0, total_cache: 0,
+// 			  	avg_block: 0,  avg_storage: 0, avg_fs: 0, avg_cache: 0,
+// 		  		total_start_end_interval: 0, avg_start_end_interval: 0,
 		  		
-		  		total_iosize: 0, throughput: 0
-		  	};
-		}
-	);	
-	var IOCategoryChart_height = groupIOCategoryDimension.size() * 30 + 20 + 20;
+// 		  		total_iosize: 0, throughput: 0
+// 		  	};
+// 		}
+// 	);	
+// 	var IOCategoryChart_height = groupIOCategoryDimension.size() * 30 + 20 + 20;
 			
-	IOCategory_Count_Chart
-		.width(Full_Width/4)
-		.height(IOCategoryChart_height)
-		.margins({top: 0, right: 10, bottom: 20, left: 10 })
-		.dimension(IOCategoryDimension)
-		.group(groupIOCategoryDimension)
-    	.valueAccessor(function(d) {
-	    	return d.value.count;
-    	})
+// 	IOCategory_Count_Chart
+// 		.width(Full_Width/4)
+// 		.height(IOCategoryChart_height)
+// 		.margins({top: 0, right: 10, bottom: 20, left: 10 })
+// 		.dimension(IOCategoryDimension)
+// 		.group(groupIOCategoryDimension)
+//     	.valueAccessor(function(d) {
+// 	    	return d.value.count;
+//     	})
 
-/* 		.colors(['#3182bd']) */
-		.label(function (d){
-			return d.key + ": #" + d.value.count;
-		})
-    	.title(function(d){
-	    	return d.key
-						+ "\nio count: " + d.value.count + " #" 
-						+ "\navg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s" 
-						+ "\ntotal io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
-						+ "\nthroughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
-						+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
-	    				+ "\n total fs: " + d.value.total_fs.toFixed(8)
-	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
-	    				+ "\n total cache: " + d.value.total_cache.toFixed(8)
-					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
-	    				+ "\n total block: " + d.value.total_block.toFixed(8)
-	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
-	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
-		})
-		.xAxis().ticks(n_rowchart_ticks);             
+// /* 		.colors(['#3182bd']) */
+// 		.label(function (d){
+// 			return d.key + ": #" + d.value.count;
+// 		})
+//     	.title(function(d){
+// 	    	return d.key
+// 						+ "\nio count: " + d.value.count + " #" 
+// 						+ "\navg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s" 
+// 						+ "\ntotal io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
+// 						+ "\nthroughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+// 						+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
+// 	    				+ "\n total fs: " + d.value.total_fs.toFixed(8)
+// 	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
+// 	    				+ "\n total cache: " + d.value.total_cache.toFixed(8)
+// 					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
+// 	    				+ "\n total block: " + d.value.total_block.toFixed(8)
+// 	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
+// 	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
+// 		})
+// 		.xAxis().ticks(n_rowchart_ticks);             
 
-    var IOCategory_SysLevelAvgRT_ChartDimension = ndx.dimension(function(d) {return d.class});
-  	var groupIOCategory_SysLevelAvgRT_ChartDimension = IOCategory_SysLevelAvgRT_ChartDimension.group().reduce(
-	  	//add
-	  	function (p, v) {
-		  	++p.count;
-		  	p.total_fs += v.fs; 
-		  	p.total_cache += v.cache;
-		  	p.total_block += v.block; 
-		  	p.total_storage += v.storage;
+//     var IOCategory_SysLevelAvgRT_ChartDimension = ndx.dimension(function(d) {return d.class});
+//   	var groupIOCategory_SysLevelAvgRT_ChartDimension = IOCategory_SysLevelAvgRT_ChartDimension.group().reduce(
+// 	  	//add
+// 	  	function (p, v) {
+// 		  	++p.count;
+// 		  	p.total_fs += v.fs; 
+// 		  	p.total_cache += v.cache;
+// 		  	p.total_block += v.block; 
+// 		  	p.total_storage += v.storage;
 
-		  	p.avg_fs = p.total_fs / p.count;
-		  	p.avg_cache = p.total_cache / p.count;
-		  	p.avg_block = p.total_block / p.count; 
-		  	p.avg_storage = p.total_storage / p.count; 
+// 		  	p.avg_fs = p.total_fs / p.count;
+// 		  	p.avg_cache = p.total_cache / p.count;
+// 		  	p.avg_block = p.total_block / p.count; 
+// 		  	p.avg_storage = p.total_storage / p.count; 
 		  	
-		  	p.total_start_end_interval += v.endtime - v.starttime;
-		  	p.avg_start_end_interval = p.total_start_end_interval/p.count;
+// 		  	p.total_start_end_interval += v.endtime - v.starttime;
+// 		  	p.avg_start_end_interval = p.total_start_end_interval/p.count;
 		  	
-			p.total_iosize += v.iosize;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+// 			p.total_iosize += v.iosize;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 		  	
-		  	return p;	  	
-	  	},
-	  	//remove
-	  	function (p, v) {
-		  	--p.count;
-		  	p.total_fs -= v.fs; 
-		  	p.total_cache -= v.cache;
-		  	p.total_block -= v.block; 
-		  	p.total_storage -= v.storage;
+// 		  	return p;	  	
+// 	  	},
+// 	  	//remove
+// 	  	function (p, v) {
+// 		  	--p.count;
+// 		  	p.total_fs -= v.fs; 
+// 		  	p.total_cache -= v.cache;
+// 		  	p.total_block -= v.block; 
+// 		  	p.total_storage -= v.storage;
 
-		  	p.avg_fs = p.count == 0 ? 0 : p.total_fs / p.count;
-		  	p.avg_cache = p.count == 0 ? 0 : p.total_cache / p.count;
-		  	p.avg_block = p.count == 0 ? 0 : p.total_block / p.count;
-		  	p.avg_storage = p.count == 0 ? 0 : p.total_storage / p.count;
+// 		  	p.avg_fs = p.count == 0 ? 0 : p.total_fs / p.count;
+// 		  	p.avg_cache = p.count == 0 ? 0 : p.total_cache / p.count;
+// 		  	p.avg_block = p.count == 0 ? 0 : p.total_block / p.count;
+// 		  	p.avg_storage = p.count == 0 ? 0 : p.total_storage / p.count;
 		  	
-			p.total_start_end_interval -= v.endtime - v.starttime;
-			p.avg_start_end_interval = p.count == 0 ? 0 : p.total_start_end_interval/p.count;
+// 			p.total_start_end_interval -= v.endtime - v.starttime;
+// 			p.avg_start_end_interval = p.count == 0 ? 0 : p.total_start_end_interval/p.count;
 			
-			p.total_iosize -= v.iosize;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+// 			p.total_iosize -= v.iosize;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 
 		  	
-		  	return p;	  	
-	  	},
-	  	// init
-	  	function() { 
-		  	return {
-			  	count: 0,
-			  	total_block: 0,  total_storage: 0, total_fs: 0, total_cache: 0,
-			  	avg_block: 0,  avg_storage: 0, avg_fs: 0, avg_cache: 0,
-		  		total_start_end_interval: 0, avg_start_end_interval: 0,
+// 		  	return p;	  	
+// 	  	},
+// 	  	// init
+// 	  	function() { 
+// 		  	return {
+// 			  	count: 0,
+// 			  	total_block: 0,  total_storage: 0, total_fs: 0, total_cache: 0,
+// 			  	avg_block: 0,  avg_storage: 0, avg_fs: 0, avg_cache: 0,
+// 		  		total_start_end_interval: 0, avg_start_end_interval: 0,
 		  		
-		  		total_iosize: 0, throughput: 0
-		  	};
-		}
-	);	
+// 		  		total_iosize: 0, throughput: 0
+// 		  	};
+// 		}
+// 	);	
 
-    IOCategory_SysLevelAvgRT_Chart
-		.width(Full_Width/4)
-		.height(IOCategoryChart_height)
-		.margins({top: 0, right: 10, bottom: 20, left: 10 })
-		.dimension(IOCategory_SysLevelAvgRT_ChartDimension)
-		.group(groupIOCategory_SysLevelAvgRT_ChartDimension)
-    	.valueAccessor(function(d) {
-	    	return d.value.avg_start_end_interval;
-    	})
+//     IOCategory_SysLevelAvgRT_Chart
+// 		.width(Full_Width/4)
+// 		.height(IOCategoryChart_height)
+// 		.margins({top: 0, right: 10, bottom: 20, left: 10 })
+// 		.dimension(IOCategory_SysLevelAvgRT_ChartDimension)
+// 		.group(groupIOCategory_SysLevelAvgRT_ChartDimension)
+//     	.valueAccessor(function(d) {
+// 	    	return d.value.avg_start_end_interval;
+//     	})
 
-/* 		.colors(['#3182bd']) */
-		.label(function (d){
-			return d.key + ": #" + d.value.count;
-		})
-    	.title(function(d){
-	    	return d.key
-						+ "\nio count: " + d.value.count + " #" 
-						+ "\navg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s" 
-						+ "\ntotal io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
-						+ "\nthroughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
-						+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
-	    				+ "\n total fs: " + d.value.total_fs.toFixed(8)
-	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
-	    				+ "\n total cache: " + d.value.total_cache.toFixed(8)
-					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
-	    				+ "\n total block: " + d.value.total_block.toFixed(8)
-	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
-	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
-		})
-		.xAxis().ticks(n_rowchart_ticks);   
+// /* 		.colors(['#3182bd']) */
+// 		.label(function (d){
+// 			return d.key + ": #" + d.value.count;
+// 		})
+//     	.title(function(d){
+// 	    	return d.key
+// 						+ "\nio count: " + d.value.count + " #" 
+// 						+ "\navg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s" 
+// 						+ "\ntotal io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
+// 						+ "\nthroughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+// 						+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
+// 	    				+ "\n total fs: " + d.value.total_fs.toFixed(8)
+// 	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
+// 	    				+ "\n total cache: " + d.value.total_cache.toFixed(8)
+// 					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
+// 	    				+ "\n total block: " + d.value.total_block.toFixed(8)
+// 	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
+// 	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
+// 		})
+// 		.xAxis().ticks(n_rowchart_ticks);   
 
-    var IOCategory_BlockLevelAvgRT_ChartDimension = ndx.dimension(function(d) {return d.class});
-  	var groupIOCategory_BlockLevelAvgRT_ChartDimension = IOCategory_BlockLevelAvgRT_ChartDimension.group().reduce(
-	  	//add
-	  	function (p, v) {
-		  	++p.count;
-		  	p.total_fs += v.fs; 
-		  	p.total_cache += v.cache;
-		  	p.total_block += v.block; 
-		  	p.total_storage += v.storage;
+//     var IOCategory_BlockLevelAvgRT_ChartDimension = ndx.dimension(function(d) {return d.class});
+//   	var groupIOCategory_BlockLevelAvgRT_ChartDimension = IOCategory_BlockLevelAvgRT_ChartDimension.group().reduce(
+// 	  	//add
+// 	  	function (p, v) {
+// 		  	++p.count;
+// 		  	p.total_fs += v.fs; 
+// 		  	p.total_cache += v.cache;
+// 		  	p.total_block += v.block; 
+// 		  	p.total_storage += v.storage;
 
-		  	p.avg_fs = p.total_fs / p.count;
-		  	p.avg_cache = p.total_cache / p.count;
-		  	p.avg_block = p.total_block / p.count; 
-		  	p.avg_storage = p.total_storage / p.count; 
+// 		  	p.avg_fs = p.total_fs / p.count;
+// 		  	p.avg_cache = p.total_cache / p.count;
+// 		  	p.avg_block = p.total_block / p.count; 
+// 		  	p.avg_storage = p.total_storage / p.count; 
 		  	
-		  	p.total_start_end_interval += v.endtime - v.starttime;
-		  	p.avg_start_end_interval = p.total_start_end_interval/p.count;
+// 		  	p.total_start_end_interval += v.endtime - v.starttime;
+// 		  	p.avg_start_end_interval = p.total_start_end_interval/p.count;
 		  	
-			p.total_iosize += v.iosize;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+// 			p.total_iosize += v.iosize;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 		  	
-		  	return p;	  	
-	  	},
-	  	//remove
-	  	function (p, v) {
-		  	--p.count;
-		  	p.total_fs -= v.fs; 
-		  	p.total_cache -= v.cache;
-		  	p.total_block -= v.block; 
-		  	p.total_storage -= v.storage;
+// 		  	return p;	  	
+// 	  	},
+// 	  	//remove
+// 	  	function (p, v) {
+// 		  	--p.count;
+// 		  	p.total_fs -= v.fs; 
+// 		  	p.total_cache -= v.cache;
+// 		  	p.total_block -= v.block; 
+// 		  	p.total_storage -= v.storage;
 
-		  	p.avg_fs = p.count == 0 ? 0 : p.total_fs / p.count;
-		  	p.avg_cache = p.count == 0 ? 0 : p.total_cache / p.count;
-		  	p.avg_block = p.count == 0 ? 0 : p.total_block / p.count;
-		  	p.avg_storage = p.count == 0 ? 0 : p.total_storage / p.count;
+// 		  	p.avg_fs = p.count == 0 ? 0 : p.total_fs / p.count;
+// 		  	p.avg_cache = p.count == 0 ? 0 : p.total_cache / p.count;
+// 		  	p.avg_block = p.count == 0 ? 0 : p.total_block / p.count;
+// 		  	p.avg_storage = p.count == 0 ? 0 : p.total_storage / p.count;
 		  	
-			p.total_start_end_interval -= v.endtime - v.starttime;
-			p.avg_start_end_interval = p.count == 0 ? 0 : p.total_start_end_interval/p.count;
+// 			p.total_start_end_interval -= v.endtime - v.starttime;
+// 			p.avg_start_end_interval = p.count == 0 ? 0 : p.total_start_end_interval/p.count;
 			
-			p.total_iosize -= v.iosize;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+// 			p.total_iosize -= v.iosize;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 
 		  	
-		  	return p;	  	
-	  	},
-	  	// init
-	  	function() { 
-		  	return {
-			  	count: 0,
-			  	total_block: 0,  total_storage: 0, total_fs: 0, total_cache: 0,
-			  	avg_block: 0,  avg_storage: 0, avg_fs: 0, avg_cache: 0,
-		  		total_start_end_interval: 0, avg_start_end_interval: 0,
+// 		  	return p;	  	
+// 	  	},
+// 	  	// init
+// 	  	function() { 
+// 		  	return {
+// 			  	count: 0,
+// 			  	total_block: 0,  total_storage: 0, total_fs: 0, total_cache: 0,
+// 			  	avg_block: 0,  avg_storage: 0, avg_fs: 0, avg_cache: 0,
+// 		  		total_start_end_interval: 0, avg_start_end_interval: 0,
 		  		
-		  		total_iosize: 0, throughput: 0
-		  	};
-		}
-	);	
+// 		  		total_iosize: 0, throughput: 0
+// 		  	};
+// 		}
+// 	);	
 
-	IOCategory_BlockLevelAvgRT_Chart
-		.width(Full_Width/4)
-		.height(IOCategoryChart_height)
-		.margins({top: 0, right: 10, bottom: 20, left: 10 })
-		.dimension(IOCategory_BlockLevelAvgRT_ChartDimension)
-		.group(groupIOCategory_BlockLevelAvgRT_ChartDimension)
-    	.valueAccessor(function(d) {
-	    	return d.value.count;
-    	})
+// 	IOCategory_BlockLevelAvgRT_Chart
+// 		.width(Full_Width/4)
+// 		.height(IOCategoryChart_height)
+// 		.margins({top: 0, right: 10, bottom: 20, left: 10 })
+// 		.dimension(IOCategory_BlockLevelAvgRT_ChartDimension)
+// 		.group(groupIOCategory_BlockLevelAvgRT_ChartDimension)
+//     	.valueAccessor(function(d) {
+// 	    	return d.value.count;
+//     	})
 
-/* 		.colors(['#3182bd']) */
-		.label(function (d){
-			return d.key + ": #" + d.value.count;
-		})
-    	.title(function(d){
-	    	return d.key
-						+ "\nio count: " + d.value.count + " #" 
-						+ "\navg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s" 
-						+ "\ntotal io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
-						+ "\nthroughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
-						+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
-	    				+ "\n total fs: " + d.value.total_fs.toFixed(8)
-	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
-	    				+ "\n total cache: " + d.value.total_cache.toFixed(8)
-					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
-	    				+ "\n total block: " + d.value.total_block.toFixed(8)
-	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
-	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
-		})
-		.xAxis().ticks(n_rowchart_ticks);  
+// /* 		.colors(['#3182bd']) */
+// 		.label(function (d){
+// 			return d.key + ": #" + d.value.count;
+// 		})
+//     	.title(function(d){
+// 	    	return d.key
+// 						+ "\nio count: " + d.value.count + " #" 
+// 						+ "\navg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s" 
+// 						+ "\ntotal io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
+// 						+ "\nthroughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+// 						+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
+// 	    				+ "\n total fs: " + d.value.total_fs.toFixed(8)
+// 	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
+// 	    				+ "\n total cache: " + d.value.total_cache.toFixed(8)
+// 					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
+// 	    				+ "\n total block: " + d.value.total_block.toFixed(8)
+// 	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
+// 	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
+// 		})
+// 		.xAxis().ticks(n_rowchart_ticks);  
 
-    var IOCategory_eMMCLevelAvgRT_ChartDimension = ndx.dimension(function(d) {return d.class});
-  	var groupIOCategory_eMMCLevelAvgRT_ChartDimension = IOCategory_eMMCLevelAvgRT_ChartDimension.group().reduce(
-	  	//add
-	  	function (p, v) {
-		  	++p.count;
-		  	p.total_fs += v.fs; 
-		  	p.total_cache += v.cache;
-		  	p.total_block += v.block; 
-		  	p.total_storage += v.storage;
+//     var IOCategory_eMMCLevelAvgRT_ChartDimension = ndx.dimension(function(d) {return d.class});
+//   	var groupIOCategory_eMMCLevelAvgRT_ChartDimension = IOCategory_eMMCLevelAvgRT_ChartDimension.group().reduce(
+// 	  	//add
+// 	  	function (p, v) {
+// 		  	++p.count;
+// 		  	p.total_fs += v.fs; 
+// 		  	p.total_cache += v.cache;
+// 		  	p.total_block += v.block; 
+// 		  	p.total_storage += v.storage;
 
-		  	p.avg_fs = p.total_fs / p.count;
-		  	p.avg_cache = p.total_cache / p.count;
-		  	p.avg_block = p.total_block / p.count; 
-		  	p.avg_storage = p.total_storage / p.count; 
+// 		  	p.avg_fs = p.total_fs / p.count;
+// 		  	p.avg_cache = p.total_cache / p.count;
+// 		  	p.avg_block = p.total_block / p.count; 
+// 		  	p.avg_storage = p.total_storage / p.count; 
 		  	
-		  	p.total_start_end_interval += v.endtime - v.starttime;
-		  	p.avg_start_end_interval = p.total_start_end_interval/p.count;
+// 		  	p.total_start_end_interval += v.endtime - v.starttime;
+// 		  	p.avg_start_end_interval = p.total_start_end_interval/p.count;
 		  	
-			p.total_iosize += v.iosize;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+// 			p.total_iosize += v.iosize;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 		  	
-		  	return p;	  	
-	  	},
-	  	//remove
-	  	function (p, v) {
-		  	--p.count;
-		  	p.total_fs -= v.fs; 
-		  	p.total_cache -= v.cache;
-		  	p.total_block -= v.block; 
-		  	p.total_storage -= v.storage;
+// 		  	return p;	  	
+// 	  	},
+// 	  	//remove
+// 	  	function (p, v) {
+// 		  	--p.count;
+// 		  	p.total_fs -= v.fs; 
+// 		  	p.total_cache -= v.cache;
+// 		  	p.total_block -= v.block; 
+// 		  	p.total_storage -= v.storage;
 
-		  	p.avg_fs = p.count == 0 ? 0 : p.total_fs / p.count;
-		  	p.avg_cache = p.count == 0 ? 0 : p.total_cache / p.count;
-		  	p.avg_block = p.count == 0 ? 0 : p.total_block / p.count;
-		  	p.avg_storage = p.count == 0 ? 0 : p.total_storage / p.count;
+// 		  	p.avg_fs = p.count == 0 ? 0 : p.total_fs / p.count;
+// 		  	p.avg_cache = p.count == 0 ? 0 : p.total_cache / p.count;
+// 		  	p.avg_block = p.count == 0 ? 0 : p.total_block / p.count;
+// 		  	p.avg_storage = p.count == 0 ? 0 : p.total_storage / p.count;
 		  	
-			p.total_start_end_interval -= v.endtime - v.starttime;
-			p.avg_start_end_interval = p.count == 0 ? 0 : p.total_start_end_interval/p.count;
+// 			p.total_start_end_interval -= v.endtime - v.starttime;
+// 			p.avg_start_end_interval = p.count == 0 ? 0 : p.total_start_end_interval/p.count;
 			
-			p.total_iosize -= v.iosize;
-			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+// 			p.total_iosize -= v.iosize;
+// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 
 		  	
-		  	return p;	  	
-	  	},
-	  	// init
-	  	function() { 
-		  	return {
-			  	count: 0,
-			  	total_block: 0,  total_storage: 0, total_fs: 0, total_cache: 0,
-			  	avg_block: 0,  avg_storage: 0, avg_fs: 0, avg_cache: 0,
-		  		total_start_end_interval: 0, avg_start_end_interval: 0,
+// 		  	return p;	  	
+// 	  	},
+// 	  	// init
+// 	  	function() { 
+// 		  	return {
+// 			  	count: 0,
+// 			  	total_block: 0,  total_storage: 0, total_fs: 0, total_cache: 0,
+// 			  	avg_block: 0,  avg_storage: 0, avg_fs: 0, avg_cache: 0,
+// 		  		total_start_end_interval: 0, avg_start_end_interval: 0,
 		  		
-		  		total_iosize: 0, throughput: 0
-		  	};
-		}
-	);	
+// 		  		total_iosize: 0, throughput: 0
+// 		  	};
+// 		}
+// 	);	
 
-	IOCategory_eMMCLevelAvgRT_Chart
-		.width(Full_Width/4)
-		.height(IOCategoryChart_height)
-		.margins({top: 0, right: 10, bottom: 20, left: 10 })
-		.dimension(IOCategory_eMMCLevelAvgRT_ChartDimension)
-		.group(groupIOCategory_eMMCLevelAvgRT_ChartDimension)
-    	.valueAccessor(function(d) {
-	    	return d.value.count;
-    	})
+// 	IOCategory_eMMCLevelAvgRT_Chart
+// 		.width(Full_Width/4)
+// 		.height(IOCategoryChart_height)
+// 		.margins({top: 0, right: 10, bottom: 20, left: 10 })
+// 		.dimension(IOCategory_eMMCLevelAvgRT_ChartDimension)
+// 		.group(groupIOCategory_eMMCLevelAvgRT_ChartDimension)
+//     	.valueAccessor(function(d) {
+// 	    	return d.value.count;
+//     	})
 
-/* 		.colors(['#3182bd']) */
-		.label(function (d){
-			return d.key + ": #" + d.value.count;
-		})
-    	.title(function(d){
-	    	return d.key
-						+ "\nio count: " + d.value.count + " #" 
-						+ "\navg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s" 
-						+ "\ntotal io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
-						+ "\nthroughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
-						+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
-	    				+ "\n total fs: " + d.value.total_fs.toFixed(8)
-	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
-	    				+ "\n total cache: " + d.value.total_cache.toFixed(8)
-					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
-	    				+ "\n total block: " + d.value.total_block.toFixed(8)
-	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
-	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
-		})
-		.xAxis().ticks(n_rowchart_ticks);  
+// /* 		.colors(['#3182bd']) */
+// 		.label(function (d){
+// 			return d.key + ": #" + d.value.count;
+// 		})
+//     	.title(function(d){
+// 	    	return d.key
+// 						+ "\nio count: " + d.value.count + " #" 
+// 						+ "\navg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s" 
+// 						+ "\ntotal io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB" 
+// 						+ "\nthroughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+// 						+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
+// 	    				+ "\n total fs: " + d.value.total_fs.toFixed(8)
+// 	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
+// 	    				+ "\n total cache: " + d.value.total_cache.toFixed(8)
+// 					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
+// 	    				+ "\n total block: " + d.value.total_block.toFixed(8)
+// 	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
+// 	    				+ "\n total storage: " + d.value.total_storage.toFixed(8);
+// 		})
+// 		.xAxis().ticks(n_rowchart_ticks);  
                 
-	var FileCountDimension = ndx.dimension(function(d) {return d.filename});
-	var groupFileCountDimension = FileCountDimension.group()
-	/*
-.reduce(
-		function(p,v) {
-			++p.count;
-			return p;
-		},
-		funciton(p,v) {
-			--p.count;
-			return p;
-		},
-		function() {
-			return {count: 0};
-		}
-	)
-*/
-	;
+// 	var FileCountDimension = ndx.dimension(function(d) {return d.filename});
+// 	var groupFileCountDimension = FileCountDimension.group()
+// 	/*
+// .reduce(
+// 		function(p,v) {
+// 			++p.count;
+// 			return p;
+// 		},
+// 		funciton(p,v) {
+// 			--p.count;
+// 			return p;
+// 		},
+// 		function() {
+// 			return {count: 0};
+// 		}
+// 	)
+// */
+// 	;
 	
-	File_AccessCount_Chart
-		.width(Full_Width/4)
-		.height(groupFileCountDimension.size() * 30 + 20 + 20)
-		.margins({top: 0, left: 10, right: 10, bottom: 20})
-		.dimension(FileCountDimension)
-		.group(groupFileCountDimension)
-		.colors(['#3182bd'])
-		.label(function (d){
-			return d.key + ": #" + d.value;
-		})
-		.xAxis().ticks(n_rowchart_ticks);                   
+// 	File_AccessCount_Chart
+// 		.width(Full_Width/4)
+// 		.height(groupFileCountDimension.size() * 30 + 20 + 20)
+// 		.margins({top: 0, left: 10, right: 10, bottom: 20})
+// 		.dimension(FileCountDimension)
+// 		.group(groupFileCountDimension)
+// 		.colors(['#3182bd'])
+// 		.label(function (d){
+// 			return d.key + ": #" + d.value;
+// 		})
+// 		.xAxis().ticks(n_rowchart_ticks);                   
                                 
     dc.dataCount(".dc-data-count")
     	.dimension(ndx)
