@@ -18,7 +18,7 @@
 	선택된 데이터 <span class="filter-count" > </span> 개 / 전체 데이터 <span class="total-count" > </span> 개 <a href="javascript:dc.filterAll(); dc.renderAll();" > 전체 필터 및 그룹핑 초기화 </a> 
 </div>
 
-<!-- 맨위 3개 -->
+<!-- 맨위 3개 그래프, 시스템콜 레벨-->
 <div class="row" style="clear:both; " >
 	<div id="io-timeline-chart1" class="dc-chart" >
 		<h2>
@@ -67,7 +67,7 @@
 	<div id="clearfix" ></div>
 </div>
 
-<!-- 가운데 3개 -->
+<!-- 가운데 3개 그래프, 블록 레벨 -->
 <div class="row" style="clear:both; " >
 	<div id="io-timeline-chart2" class="dc-chart" >
 		<h2>
@@ -116,7 +116,7 @@
 	<div id="clearfix" ></div>
 </div>
 
-<!-- 밑 3개 그래프 -->
+<!-- 밑 3개 그래프, eMMC 레벨 -->
 <div class="row" style="clear:both; " >
 	<div id="io-timeline-chart3" class="dc-chart" >
 		<h2>
@@ -165,8 +165,50 @@
 	<div id="clearfix" ></div>
 </div>
 
-<!-- 필터들
- -->
+<!-- 최종 3개 그래프, I/O 처리 시간 그래프, 시스템콜 레벨부터, eMMC 레벨까지 연결 -->
+<div class="row" style="clear:both; " >
+	<div id="io-timeline-chart4" class="dc-chart" >
+		<h2>
+			I/O처리 평균응답시간 
+		</h2>
+		(x축: 시간축, y축: 평균응답시간(s))
+		 <a class="reset" href="javascript:Timeline_IOCount_Chart4.filterAll();dc.redrawAll();" style="display:none; " > reset  </a> <div id="clearfix" ></div>
+	</div>
+	<div id="io-volume-chart4" >
+		<h2>
+			I/O 처리량 
+		</h2>
+		(x축: 시간축, y축: 처리량(MB/s))
+		<a class="reset" href="javascript:Timeline_IOCount_Chart4.filterAll();dc.redrawAll();" style="display:none; " > reset  </a> <div id="clearfix" ></div>
+	</div>
+	
+	<div class="row" >
+		<h3>
+			<div id="nr_dataset4"> 수집된 데이터: <span class="number-display">_</span> 개</div>
+		</h3><br>
+		<h3>
+			<div id="AvgThroughtput4">평균처리량: <span class="number-display">_</span> MB/s </div>
+		</h3><br>
+		<h3>
+			<div id="AvgRTtime4">평균응답시간: <span class="number-display">_</span> s </div>
+		</h3><br>
+		<h3>
+			<div id="TotalIOSize4">총IO크기: <span class="number-display">_</span> MB </div>
+		</h3><br>
+		<h3>
+			<div id="TotalRTtime4">총IO응답시간: <span class="number-display">_</span> s </div>
+		</h3><br>
+		<h3>
+			<div id="Variance4">분산(응답시간): <span class="number-display">_</span> </div>
+		</h3><br>
+		<h3>
+			<div id="StdDeviation4">표준편차(응답시간): <span class="number-display">_</span> </div>
+		</h3><br>
+	</div>
+	<div id="clearfix" ></div>
+</div>
+
+<!-- 필터들 -->
 
  <div class="row" >
 	<div id="process_bubble_chart" class="dc-chart" >
@@ -174,7 +216,7 @@
 			<strong> PID별 I/O 특성 <br>
 			(x축: I/O 요청 개수, y축: I/O별 평균 응답 시간)</strong> 
 		</h2>
-		 <a class="reset" href="javascript:PID_IOSize_SysLevelAvgRt_BubbleChart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+		 <a class="reset" href="javascript:PID_BubbleChart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
 	<div id="rt_distribution_chart" class="dc-chart" >
 		<h2>
@@ -294,7 +336,7 @@
 <script type="text/javascript" src="/Users/elsdy/Dropbox/Development/HFIOSA/VisualizationDevelopment/js/dc/dc.js" > </script>
 <script type="text/javascript">
 
-// var PID_IOSize_SysLevelAvgRt_BubbleChart = dc.bubbleChart("#process_bubble_chart");
+// var PID_BubbleChart = dc.bubbleChart("#process_bubble_chart");
 // var RT_Distribution_Chart = dc.barChart("#rt_distribution_chart");
 // var ProcessName_IORatio_Chart = dc.pieChart("#process_chart");
 // var IOType_IORatio_Chart = dc.pieChart("#type_chart");
@@ -310,11 +352,11 @@
 /* var FileRTChart = dc.barChart("#file_rt_chart"); */
 
 /* var TimeLine_SysLevelAvgRT_Chart = dc.compositeChart("#io-timeline-chart1"); */
-var NR_Dataset1ND = dc.numberDisplay("#nr_dataset1");
 var Timeline_RT_Chart1 = dc.barChart("#io-timeline-chart1");
 var Timeline_Throughput_Chart1 = dc.barChart("#io-volume-chart1");
 var Timeline_IOCount_Chart1 = dc.barChart("#io-count-chart1");
 
+var NR_Dataset1ND = dc.numberDisplay("#nr_dataset1");
 var AvgThroughtputND1   = dc.numberDisplay("#AvgThroughtput1");
 var AvgRTtimeND1   = dc.numberDisplay("#AvgRTtime1");
 var TotalIOSizeND1   = dc.numberDisplay("#TotalIOSize1");
@@ -322,11 +364,11 @@ var TotalRTtimeND1   = dc.numberDisplay("#TotalRTtime1");
 var VarianceND1   = dc.numberDisplay("#Variance1");
 var StdDeviationND1   = dc.numberDisplay("#StdDeviation1");
 
-var NR_Dataset2ND = dc.numberDisplay("#nr_dataset2");
 var Timeline_RT_Chart2 = dc.barChart("#io-timeline-chart2");
 var Timeline_Throughput_Chart2 = dc.barChart("#io-volume-chart2");
 var Timeline_IOCount_Chart2 = dc.barChart("#io-count-chart2");
 
+var NR_Dataset2ND = dc.numberDisplay("#nr_dataset2");
 var AvgThroughtputND2   = dc.numberDisplay("#AvgThroughtput2");
 var AvgRTtimeND2   = dc.numberDisplay("#AvgRTtime2");
 var TotalIOSizeND2   = dc.numberDisplay("#TotalIOSize2");
@@ -334,17 +376,28 @@ var TotalRTtimeND2   = dc.numberDisplay("#TotalRTtime2");
 var VarianceND2   = dc.numberDisplay("#Variance2");
 var StdDeviationND2   = dc.numberDisplay("#StdDeviation2");
 
-var NR_Dataset3ND = dc.numberDisplay("#nr_dataset3");
 var Timeline_RT_Chart3 = dc.barChart("#io-timeline-chart3");
 var Timeline_Throughput_Chart3 = dc.barChart("#io-volume-chart3");
 var Timeline_IOCount_Chart3 = dc.barChart("#io-count-chart3");
 
+var NR_Dataset3ND = dc.numberDisplay("#nr_dataset3");
 var AvgThroughtputND3   = dc.numberDisplay("#AvgThroughtput3");
 var AvgRTtimeND3   = dc.numberDisplay("#AvgRTtime3");
 var TotalIOSizeND3   = dc.numberDisplay("#TotalIOSize3");
 var TotalRTtimeND3   = dc.numberDisplay("#TotalRTtime3");
 var VarianceND3   = dc.numberDisplay("#Variance3");
 var StdDeviationND3   = dc.numberDisplay("#StdDeviation3");
+
+var Timeline_RT_Chart4 = dc.barChart("#io-timeline-chart4");
+var Timeline_Throughput_Chart4 = dc.barChart("#io-volume-chart4");
+
+var NR_Dataset4ND = dc.numberDisplay("#nr_dataset4");
+var AvgThroughtputND4   = dc.numberDisplay("#AvgThroughtput4");
+var AvgRTtimeND4   = dc.numberDisplay("#AvgRTtime4");
+var TotalIOSizeND4   = dc.numberDisplay("#TotalIOSize4");
+var TotalRTtimeND4   = dc.numberDisplay("#TotalRTtime4");
+var VarianceND4   = dc.numberDisplay("#Variance4");
+var StdDeviationND4   = dc.numberDisplay("#StdDeviation4");
 
 /* var StatTable = dc.dataTable("#data-table"); */
 
@@ -433,10 +486,10 @@ d3.csv("final_result.csv", function(error, data) {
 // #define PROCESS_TYPE 4
 
   	// time_group을 dimension으로 설정, reduce 함수를 정의
-	var NewStartTimeDimension = ndx.dimension(function (d) {
+	var NewStartTimeDimension1 = ndx.dimension(function (d) {
 		return d.timeline_group;
 	});
-	var groupNewStartTimeDimension = NewStartTimeDimension.group().reduce(
+	var groupNewStartTimeDimension1 = NewStartTimeDimension1.group().reduce(
 		function (p, v) {
 			if(v.entry_type == 1)
 			{
@@ -488,8 +541,8 @@ d3.csv("final_result.csv", function(error, data) {
 		.height(height1)
 		.transitionDuration(transition_duration_delay)
 		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
-		.dimension(NewStartTimeDimension)
-		.group(groupNewStartTimeDimension)
+		.dimension(NewStartTimeDimension1)
+		.group(groupNewStartTimeDimension1)
 		.valueAccessor(function (d) {
 				return d.value.avg_rt;
 		})
@@ -533,8 +586,8 @@ d3.csv("final_result.csv", function(error, data) {
 		.height(height1)
 		.transitionDuration(transition_duration_delay)
 		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
-		.dimension(NewStartTimeDimension)
-		.group(groupNewStartTimeDimension)
+		.dimension(NewStartTimeDimension1)
+		.group(groupNewStartTimeDimension1)
 		.valueAccessor(function (d) {
 				return d.value.throughput;
 		})
@@ -577,8 +630,8 @@ d3.csv("final_result.csv", function(error, data) {
 		.height(height1)
 		.transitionDuration(transition_duration_delay)
 		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
-		.dimension(NewStartTimeDimension)
-		.group(groupNewStartTimeDimension)
+		.dimension(NewStartTimeDimension1)
+		.group(groupNewStartTimeDimension1)
 		.valueAccessor(function (d) {
 				return d.value.count;
 		})
@@ -1213,6 +1266,7 @@ d3.csv("final_result.csv", function(error, data) {
 		}
 	);
 
+// 3번째줄 그래프들
 	Timeline_RT_Chart3
 		.width(width1)
 		.height(height1)
@@ -1520,14 +1574,331 @@ d3.csv("final_result.csv", function(error, data) {
 	;
 
 	StdDeviationND3
-	.dimension(ALLIODimension2)
-	.group(groupALLIODimension2)
+	.dimension(ALLIODimension3)
+	.group(groupALLIODimension3)
 	.valueAccessor(function (p) {
 			return p.value.std_dev;
 	})
 	.formatNumber(d3.format(".8g"))
 	;
   	
+	// 4번째줄 그래프들
+	var NewStartTimeDimension4 = ndx.dimension(function (d) {
+		return d.timeline_group;
+	});
+	var groupNewStartTimeDimension4 = NewStartTimeDimension4.group().reduce(
+		function (p, v) {
+			if(v.entry_type == 1)
+			{
+				++p.count;
+						
+				if(p.start_time > v.starttime) p.start_time = v.starttime; //이거왜넣었지?
+						
+			  	p.total_rt += v.endtime - v.starttime;
+			  	p.avg_rt = p.total_rt / p.count;
+
+				p.total_iosize += v.iosize;
+				p.throughput = (p.total_iosize /  p.total_rt) / (1024*1024)  ; //MB/s
+
+			}
+			return p;		  
+		},
+	  	function (p, v) {
+		  	if(v.entry_type == 1)
+			{		  		
+			  	--p.count;
+
+			  	p.total_rt -= v.endtime - v.starttime;
+			  	p.avg_rt = p.count == 0 ? 0: p.total_rt / p.count;
+
+				p.total_iosize -= v.iosize;
+				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_rt) / (1024*1024); //MB/s
+
+			}			
+			return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
+			  	
+			  	start_time: Number.MAX_VALUE,
+			  	
+			  	total_rt: 0, 
+			  	avg_rt: 0,
+
+				total_iosize: 0,			  	
+				throughput: 0
+		  	};
+		}
+	);
+
+	Timeline_RT_Chart4
+		.width(width1)
+		.height(height1)
+		.transitionDuration(transition_duration_delay)
+		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
+		.dimension(NewStartTimeDimension4)
+		.group(groupNewStartTimeDimension4)
+		.valueAccessor(function (d) {
+				return d.value.avg_rt;
+		})
+		.centerBar(true)
+		.gap(bargap)
+		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
+// 		.xUnits(d3.time.second)
+// 		.elasticX(true)
+// 		.y(d3.scale.linear().domain([0, 100])) 
+		.elasticY(true)
+		.renderHorizontalGridLines(true)
+		.renderVerticalGridLines(true)
+		.brushOn(false)
+		.title(function (d) {
+				var ab_text = "";
+				var text = 
+				"io count: " + d.data.value.count + " #\n" +
+				"start time: " + d.data.value.start_time + " s\n" +
+ 				"avg response time: " + d.data.value.avg_rt.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
+ 				;
+				return ab_text + text;
+			})
+/*
+		.renderlet(function (chart) {
+// 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
+			TimeLine_SysLevelAvgRT_Chart.filter(chart.filter());
+		})
+		.on("filtered", function (chart) {
+			dc.events.trigger(function () {
+				TimeLine_SysLevelAvgRT_Chart.focus(chart.filter());
+			});
+		})
+*/
+		;
+
+
+	Timeline_Throughput_Chart4
+		.width(width1)
+		.height(height1)
+		.transitionDuration(transition_duration_delay)
+		.margins({top: top1, right: right1, bottom: bottom1, left: left1})
+		.dimension(NewStartTimeDimension4)
+		.group(groupNewStartTimeDimension4)
+		.valueAccessor(function (d) {
+				return d.value.throughput;
+		})
+		.centerBar(true)
+		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
+// 		.xUnits(d3.time.second) */
+// 		.elasticX(true) */
+// 		.y(d3.scale.linear().domain([0, 100])) */
+		.elasticY(true)
+		.renderHorizontalGridLines(true)
+		.renderVerticalGridLines(true)
+		.brushOn(false)
+		.title(function (d) {
+				var ab_text = "";
+				var text = 
+				"io count: " + d.data.value.count + " #\n" +
+				"start time: " + d.data.value.start_time + " s\n" +
+ 				"avg response time: " + d.data.value.avg_rt.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.data.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.data.value.throughput.toFixed(3) + "MB/s\n" 
+ 				;
+				return ab_text + text;
+			})
+/*
+		.renderlet(function (chart) {
+// 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
+			Timeline_Throughput_Chart1.filter(chart.filter());
+		})
+		.on("filtered", function (chart) {
+			dc.events.trigger(function () {
+				Timeline_Throughput_Chart1.focus(chart.filter());
+			});
+		})
+*/
+		.gap(bargap)
+		;		
+		
+	var ALLIODimension4 = ndx.dimension(function (d) {
+		return d.all;
+		});            
+
+	var groupALLIODimension4 = ALLIODimension2.group().reduce(
+		function (p, v) {
+			if(v.entry_type == 1)
+			{
+				++p.count;
+				
+				if(p.start_time > v.starttime) p.start_time = v.starttime;
+				
+				
+			  	p.total_start_end_interval += v.endtime - v.starttime
+				p.total_iosize += v.iosize;
+				
+			  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			}		  	
+		  	return p;		  
+		},
+	  	function (p, v) {
+	  		if(v.entry_type == 1)
+	  		{
+			  	--p.count;
+
+			  	p.total_start_end_interval -= v.endtime - v.starttime;
+				p.total_iosize -= v.iosize;
+				
+			  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+			}						
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
+			  	
+			  	start_time: Number.MAX_VALUE,
+			  	
+			  	total_start_end_interval: 0, 
+				total_iosize: 0,
+
+			  	avg_start_end_interval: 0,
+				throughput: 0,
+				
+				variance:0,
+				std_dev:0
+		  	};
+		}
+	);
+
+	NR_Dataset4ND
+    .dimension(ALLIODimension4)
+    .group(groupALLIODimension4)
+    .valueAccessor(function (p) { 
+    	return p.value.count; 
+    })
+    .formatNumber(d3.format("g"))
+    ;
+
+	    
+    AvgThroughtputND4
+    .dimension(ALLIODimension4)
+    .group(groupALLIODimension4)
+    .valueAccessor(function (p) { 
+    	return p.value.throughput; 
+    })
+    .formatNumber(d3.format(".8g"))
+    ;
+
+	AvgRTtimeND4
+	.dimension(ALLIODimension4)
+	.group(groupALLIODimension4)
+	.valueAccessor(function (p) {
+			return p.value.avg_start_end_interval;
+	})
+	.formatNumber(d3.format(".8g"))
+	;
+
+	TotalIOSizeND4
+	.dimension(ALLIODimension4)
+	.group(groupALLIODimension4)
+	.valueAccessor(function (p) {
+			return p.value.total_iosize;
+	})
+	.formatNumber(d3.format(".8g"))
+	;
+
+	TotalRTtimeND4
+	.dimension(ALLIODimension4)
+	.group(groupALLIODimension4)
+	.valueAccessor(function (p) {
+			return p.value.total_start_end_interval;
+	})
+	.formatNumber(d3.format(".8g"))
+	;
+
+	VarianceND4
+	.dimension(ALLIODimension4)
+	.group(groupALLIODimension4)
+	.valueAccessor(function (p) {
+			return p.value.variance;
+	})
+		    .on("preRender", function(chart){
+     //        // 1. calculating the average with the data left after filtering.
+     //        // 2. calculating the deviating with the average for each entry in the data set.
+     //        // 3. squaring the result from (2) and sum all the entry in the data set.
+     //        // 4. dividing the result from (3) with the number of the entries in the data set.
+     //        // 5. from (4) I can obtain the variance.
+     //        // 6. I want to make the result from (4) label or title of this chart.
+	    // 	// console.log(chart.dimension().group().all().forEach(d));
+
+	    	// sigma (pow((avg-e(x)),2)) / count
+	    	// squere 
+	    	// var Test = chart.dimension().group().top(Infinity);
+	    	// Test.forEach(function(d1, a1, b1) {
+	    	// 	console.log(d1.value.avg_start_end_interval);
+	    	// })
+	    	var Dim = chart.dimension().top(Infinity);
+
+	    	// var avg = 0;
+	    	// Dim.forEach(function(d1, a1, b1) {
+	    	// 	avg += d1.endtime - d1.starttime;
+	    	// });
+	    	// avg = avg / Dim.length;
+
+	    	var variance = 0;
+	    	Dim.forEach(function(d1, a1, b1) {
+	    		variance += Math.pow(d1.endtime - d1.starttime - chart.group().all()[0].value.avg_start_end_interval, 2);
+	    	});
+	    	variance = variance / Dim.length;
+
+	    	var std_dev = Math.sqrt(variance);
+
+	    	// chart.group().all()[0].value is different from chart.dimension().group().all()[0].value
+	    	// the former returns what I want, the later returns 1... which is what I dont' want.
+	    	chart.group().all()[0].value.variance = variance;
+	    	chart.group().all()[0].value.std_dev = std_dev;	  
+	    	// console.log(chart.group().all()[0].value);  	
+	    })
+		.on("preRedraw", function(chart){
+        	var Dim = chart.dimension().top(Infinity);
+
+	    	// var avg = 0;
+	    	// Dim.forEach(function(d1, a1, b1) {
+	    	// 	avg += d1.endtime - d1.starttime;
+	    	// });
+	    	// avg = avg / Dim.length;
+
+	    	var variance = 0;
+	    	Dim.forEach(function(d1, a1, b1) {
+	    		variance += Math.pow(d1.endtime - d1.starttime - chart.group().all()[0].value.avg_start_end_interval, 2);
+	    	});
+	    	variance = variance / Dim.length;
+
+	    	var std_dev = Math.sqrt(variance);
+
+	    	// chart.group().all()[0].value is different from chart.dimension().group().all()[0].value
+	    	// the former returns what I want, the later returns 1... which is what I dont' want.
+	    	chart.group().all()[0].value.variance = variance;
+	    	chart.group().all()[0].value.std_dev = std_dev;	  
+	    	// console.log(chart.group().all()[0].value);  	
+	    })
+	.formatNumber(d3.format(".8g"))
+	;
+
+	StdDeviationND4
+	.dimension(ALLIODimension4)
+	.group(groupALLIODimension4)
+	.valueAccessor(function (p) {
+			return p.value.std_dev;
+	})
+	.formatNumber(d3.format(".8g"))
+	;
+
 // 	var Process_Throughput_ChartDimension = ndx.dimension(function (d) {
 // 		return d.processname;
 // 		});            
@@ -1714,11 +2085,11 @@ d3.csv("final_result.csv", function(error, data) {
 
 // 	ProcessBubbleChart_x_low = IOTimeLineChart_x_low;
 	
-// 	var PID_IOSize_SysLevelAvgRt_BubbleChartDimension = ndx.dimension(function (d) {
+// 	var PID_BubbleChartDimension = ndx.dimension(function (d) {
 // 		// return d.processname + "-" + d.pid;
 // 		return d.pid;
 // 	});
-// 	var groupPID_IOSize_SysLevelAvgRt_BubbleChartDimension = PID_IOSize_SysLevelAvgRt_BubbleChartDimension.group().reduce(
+// 	var groupPID_BubbleChartDimension = PID_BubbleChartDimension.group().reduce(
 // 		function (p, v) {
 // 			++p.count;
 			
@@ -1766,12 +2137,12 @@ d3.csv("final_result.csv", function(error, data) {
 // 		}
 // 	);
 
-// 	PID_IOSize_SysLevelAvgRt_BubbleChart
+// 	PID_BubbleChart
 // 		.width(Full_Width*1/3)
 // 		.height(250)
 //     	.margins({top: 0, right: 60, bottom: 20, left: 60})
-// 		.dimension(PID_IOSize_SysLevelAvgRt_BubbleChartDimension)
-// 		.group(groupPID_IOSize_SysLevelAvgRt_BubbleChartDimension)
+// 		.dimension(PID_BubbleChartDimension)
+// 		.group(groupPID_BubbleChartDimension)
 // 		.transitionDuration(transition_duration_delay)
 // 		.colors(["green"])
 // /*
