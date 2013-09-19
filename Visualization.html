@@ -9,10 +9,11 @@
 <!-- label, # of recored to be analyzed -->
 
 <div class="graph_label" id="title" >
-	<h1 style="" >
+	<h2 style="" >
 		계층적 성능 분석 결과 
-	</h1>
-	<div class="dc-data-count" style="float:left; " >
+	</h2>
+</div>
+<div class="dc-data-count" style="float:left; " >
 <!--
 		<input type="file" id="thefile" onchange="alertFilename()" />		
 		<br>
@@ -20,9 +21,6 @@
 -->
 		선택된 데이터 <span class="filter-count" > </span> 개 / 전체 데이터 <span class="total-count" > </span> 개 <a href="javascript:dc.filterAll(); dc.renderAll();" > 전체 필터 및 그룹핑 초기화 </a> 
 	</div>
-	<br>
-</div>
-<div id="clearfix" ></div>
 <!--
 <div class="row" style="clear:both; " >
 	<div id="io-timeline-chart" class="dc-chart" >
@@ -291,8 +289,6 @@ var top1 = 20, bottom1 = 20, left1 = 70, right1 = 10;
 var height1 = Default_Height;
 var width1 = Full_Width / 4;
 
-var n_dataset1 = 0, n_dataset2 = 0, n_dataset3 = 0;
-
 d3.csv("final_result.csv", function(error, data) {
 
 
@@ -382,7 +378,6 @@ d3.csv("final_result.csv", function(error, data) {
 				p.total_iosize += v.iosize;
 				p.throughput = (p.total_iosize /  p.total_rt) / (1024*1024)  ; //MB/s
 
-				n_dataset1++;
 			}
 			return p;		  
 		},
@@ -397,13 +392,11 @@ d3.csv("final_result.csv", function(error, data) {
 				p.total_iosize -= v.iosize;
 				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_rt) / (1024*1024); //MB/s
 
-				n_dataset1--;
 			}			
 			return p;	  	
 	  	},
 	  	// init
 	  	function() { 
-	  		n_dataset1 = 0;
 		  	return {
 			  	count: 0,
 			  	
@@ -528,15 +521,19 @@ d3.csv("final_result.csv", function(error, data) {
 		.renderVerticalGridLines(true)
 		.renderlet(function (chart) {
 // 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
-/* 			TimeLine_SysLevelAvgRT_Chart.filter(chart.filter()); */
 			Timeline_RT_Chart1.filter(chart.filter());
 			Timeline_Throughput_Chart1.filter(chart.filter());
 		})
 		.on("filtered", function (chart) {
 			dc.events.trigger(function () {
-/* 				TimeLine_SysLevelAvgRT_Chart.focus(chart.filter()); */
 				Timeline_RT_Chart1.focus(chart.filter());
 				Timeline_Throughput_Chart1.focus(chart.filter());
+
+				Timeline_RT_Chart2.focus(chart.filter());
+				Timeline_Throughput_Chart2.focus(chart.filter());
+
+				Timeline_RT_Chart3.focus(chart.filter());
+				Timeline_Throughput_Chart3.focus(chart.filter());
 			});
 		})
 		.title(function (d) {
@@ -551,14 +548,6 @@ d3.csv("final_result.csv", function(error, data) {
 				return ab_text + text;
 			})
 		;
-	NR_Dataset1ND
-    .dimension(NewStartTimeDimension)
-    .group(groupNewStartTimeDimension)
-    .valueAccessor(function (p) { 
-    	return n_dataset1; 
-    })
-    .formatNumber(d3.format(".1g"))
-    ;
 
 	var ALLIODimension1 = ndx.dimension(function (d) {
 		return d.all;
@@ -614,6 +603,14 @@ d3.csv("final_result.csv", function(error, data) {
 		}
 	);
 	    
+    NR_Dataset1ND
+    .dimension(ALLIODimension1)
+    .group(groupALLIODimension1)
+    .valueAccessor(function (p) { 
+    	return p.value.count; 
+    })
+    .formatNumber(d3.format("g"))
+    ;
     AvgThroughtputND1
     .dimension(ALLIODimension1)
     .group(groupALLIODimension1)
@@ -746,7 +743,6 @@ d3.csv("final_result.csv", function(error, data) {
 				p.total_iosize += v.iosize;
 				p.throughput = (p.total_iosize /  p.total_rt) / (1024*1024)  ; //MB/s
 
-				n_dataset2++;
 			}
 			return p;		  
 		},
@@ -761,13 +757,11 @@ d3.csv("final_result.csv", function(error, data) {
 				p.total_iosize -= v.iosize;
 				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_rt) / (1024*1024); //MB/s
 
-				n_dataset2--;
 			}			
 			return p;	  	
 	  	},
 	  	// init
 	  	function() { 
-	  		n_dataset2 = 0;
 		  	return {
 			  	count: 0,
 			  	
@@ -892,15 +886,19 @@ d3.csv("final_result.csv", function(error, data) {
 		.renderVerticalGridLines(true)
 		.renderlet(function (chart) {
 // 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
-/* 			TimeLine_SysLevelAvgRT_Chart.filter(chart.filter()); */
 			Timeline_RT_Chart1.filter(chart.filter());
 			Timeline_Throughput_Chart1.filter(chart.filter());
 		})
 		.on("filtered", function (chart) {
 			dc.events.trigger(function () {
-/* 				TimeLine_SysLevelAvgRT_Chart.focus(chart.filter()); */
 				Timeline_RT_Chart1.focus(chart.filter());
 				Timeline_Throughput_Chart1.focus(chart.filter());
+
+				Timeline_RT_Chart2.focus(chart.filter());
+				Timeline_Throughput_Chart2.focus(chart.filter());
+
+				Timeline_RT_Chart3.focus(chart.filter());
+				Timeline_Throughput_Chart3.focus(chart.filter());
 			});
 		})
 		.title(function (d) {
@@ -915,15 +913,6 @@ d3.csv("final_result.csv", function(error, data) {
 				return ab_text + text;
 			})
 		;
-
-	NR_Dataset2ND
-    .dimension(NewStartTimeDimension2)
-    .group(groupNewStartTimeDimension2)
-    .valueAccessor(function (p) { 
-    	return n_dataset2; 
-    })
-    .formatNumber(d3.format(".1g"))
-    ;
 		
 	var ALLIODimension2 = ndx.dimension(function (d) {
 		return d.all;
@@ -978,6 +967,15 @@ d3.csv("final_result.csv", function(error, data) {
 		}
 	);
 	    
+	NR_Dataset2ND
+    .dimension(ALLIODimension2)
+    .group(groupALLIODimension2)
+    .valueAccessor(function (p) { 
+    	return p.value.count; 
+    })
+    .formatNumber(d3.format("g"))
+    ;
+
     AvgThroughtputND2
     .dimension(ALLIODimension2)
     .group(groupALLIODimension2)
@@ -1110,7 +1108,6 @@ d3.csv("final_result.csv", function(error, data) {
 				p.total_iosize += v.iosize;
 				p.throughput = (p.total_iosize /  p.total_rt) / (1024*1024)  ; //MB/s
 
-				n_dataset3++;
 			}
 			return p;		  
 		},
@@ -1125,13 +1122,11 @@ d3.csv("final_result.csv", function(error, data) {
 				p.total_iosize -= v.iosize;
 				p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_rt) / (1024*1024); //MB/s
 
-				n_dataset3--;
 			}			
 			return p;	  	
 	  	},
 	  	// init
 	  	function() { 
-	  		n_dataset3 = 0;
 		  	return {
 			  	count: 0,
 			  	
@@ -1256,15 +1251,19 @@ d3.csv("final_result.csv", function(error, data) {
 		.renderVerticalGridLines(true)
 		.renderlet(function (chart) {
 // 			chart.select("g.y").style("display", "none"); // y축 라벨 사라지게 하는 것 
-/* 			TimeLine_SysLevelAvgRT_Chart.filter(chart.filter()); */
 			Timeline_RT_Chart1.filter(chart.filter());
 			Timeline_Throughput_Chart1.filter(chart.filter());
 		})
 		.on("filtered", function (chart) {
 			dc.events.trigger(function () {
-/* 				TimeLine_SysLevelAvgRT_Chart.focus(chart.filter()); */
 				Timeline_RT_Chart1.focus(chart.filter());
 				Timeline_Throughput_Chart1.focus(chart.filter());
+
+				Timeline_RT_Chart2.focus(chart.filter());
+				Timeline_Throughput_Chart2.focus(chart.filter());
+
+				Timeline_RT_Chart3.focus(chart.filter());
+				Timeline_Throughput_Chart3.focus(chart.filter());
 			});
 		})
 		.title(function (d) {
@@ -1279,16 +1278,6 @@ d3.csv("final_result.csv", function(error, data) {
 				return ab_text + text;
 			})
 		;
-
-	NR_Dataset3ND
-    .dimension(NewStartTimeDimension3)
-    .group(groupNewStartTimeDimension3)
-    .valueAccessor(function (p) { 
-    	return n_dataset3; 
-    })
-    .formatNumber(d3.format(".1g"))
-    ;
-
 		
 	var ALLIODimension3 = ndx.dimension(function (d) {
 		return d.all;
@@ -1342,6 +1331,16 @@ d3.csv("final_result.csv", function(error, data) {
 		  	};
 		}
 	);
+
+	NR_Dataset3ND
+    .dimension(ALLIODimension3)
+    .group(groupALLIODimension3)
+    .valueAccessor(function (p) { 
+    	return p.value.count; 
+    })
+    .formatNumber(d3.format("g"))
+    ;
+
 	    
     AvgThroughtputND3
     .dimension(ALLIODimension3)
@@ -2291,12 +2290,6 @@ d3.csv("final_result.csv", function(error, data) {
 // 		})
 // 		.xAxis().ticks(n_rowchart_ticks);                   
                                 
-    dc.dataCount(".dc-data-count")
-    	.dimension(ndx)
-    	.group(all);
-
-                
-	dc.renderAll();
 
 /*
 	TimeLine_SysLevelAvgRT_Chart
@@ -2437,6 +2430,13 @@ d3.csv("final_result.csv", function(error, data) {
 		})
 		.xAxis().ticks(10);
 */      
+    dc.dataCount(".dc-data-count")
+    	.dimension(ndx)
+    	.group(all);
+
+                
+	dc.renderAll();
+
 });
 </script>
 
