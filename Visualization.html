@@ -243,6 +243,7 @@
 	</div>
 </div>
 
+
 <div class="row" >
 	<div id="process_throughput_chart" >
 		<h2>
@@ -305,18 +306,12 @@
 <script type="text/javascript" src="/Users/elsdy/Dropbox/Development/HFIOSA/VisualizationDevelopment/js/dc/dc.js" > </script>
 <script type="text/javascript">
 
-var PID_BubbleChart = dc.bubbleChart("#process_bubble_chart");
-var RT_Distribution_Chart = dc.barChart("#rt_distribution_chart");
-var ProcessName_IORatio_Chart = dc.pieChart("#process_chart");
-var IOType_IORatio_Chart = dc.pieChart("#type_chart");
-
-
-
 /* var IOCategoryAver4LayerRTChart = dc.barChart("#io_category_aver_4layer_response_time_chart"); */
 
 /* var FileRTChart = dc.barChart("#file_rt_chart"); */
 
 /* var TimeLine_SysLevelAvgRT_Chart = dc.compositeChart("#io-timeline-chart1"); */
+
 var Timeline_RT_Chart1 = dc.barChart("#io-timeline-chart1");
 var Timeline_Throughput_Chart1 = dc.barChart("#io-volume-chart1");
 var Timeline_IOCount_Chart1 = dc.barChart("#io-count-chart1");
@@ -364,11 +359,16 @@ var TotalRTtimeND4   = dc.numberDisplay("#TotalRTtime4");
 var VarianceND4   = dc.numberDisplay("#Variance4");
 var StdDeviationND4   = dc.numberDisplay("#StdDeviation4");
 
-/* var StatTable = dc.dataTable("#data-table"); */
+var PID_BubbleChart = dc.bubbleChart("#process_bubble_chart");
+var RT_Distribution_Chart = dc.barChart("#rt_distribution_chart");
+var ProcessName_IORatio_Chart = dc.pieChart("#process_chart");
+var IOType_IORatio_Chart = dc.pieChart("#type_chart");
 
-// var Process_Throughput_Chart = dc.rowChart("#process_throughput_chart");
-// var PID_Throughput_Chart = dc.rowChart("#pid_throughput_chart");
-// var File_AccessCount_Chart = dc.rowChart("#file_count_chart");
+var Process_Throughput_Chart = dc.rowChart("#process_throughput_chart");
+var PID_Throughput_Chart = dc.rowChart("#pid_throughput_chart");
+var File_AccessCount_Chart = dc.rowChart("#file_count_chart");
+
+/* var StatTable = dc.dataTable("#data-table"); */
 
 var Full_Width = 1800;
 var Default_Height = 180;
@@ -1868,188 +1868,188 @@ d3.csv("final_result.csv", function(error, data) {
 	.formatNumber(d3.format(".8g"))
 	;
 
-// 	var Process_Throughput_ChartDimension = ndx.dimension(function (d) {
-// 		return d.processname;
-// 		});            
+	var Process_Throughput_ChartDimension = ndx.dimension(function (d) {
+		return d.processname;
+		});            
 
-// 	var groupProcess_Throughput_ChartDimension = Process_Throughput_ChartDimension.group().reduce(
-// 		function (p, v) {
-// 			++p.count;
+	var groupProcess_Throughput_ChartDimension = Process_Throughput_ChartDimension.group().reduce(
+		function (p, v) {
+			++p.count;
 			
-// 			if(p.start_time > v.starttime) p.start_time = v.starttime;
+			if(p.start_time > v.starttime) p.start_time = v.starttime;
 			
-// 		  	p.total_start_end_interval += v.endtime - v.starttime
-// 			p.total_iosize += v.iosize;
+		  	p.total_start_end_interval += v.endtime - v.starttime
+			p.total_iosize += v.iosize;
 			
-// 		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
-// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 		  	
-// 		  	return p;		  
-// 		},
-// 	  	function (p, v) {
-// 		  	--p.count;
+		  	return p;		  
+		},
+	  	function (p, v) {
+		  	--p.count;
 
-// 		  	p.total_start_end_interval -= v.endtime - v.starttime;
-// 			p.total_iosize -= v.iosize;
+		  	p.total_start_end_interval -= v.endtime - v.starttime;
+			p.total_iosize -= v.iosize;
 			
-// 		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
-// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 			
-// 		  	return p;	  	
-// 	  	},
-// 	  	// init
-// 	  	function() { 
-// 		  	return {
-// 			  	count: 0,
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
 			  	
-// 			  	start_time: Number.MAX_VALUE,
+			  	start_time: Number.MAX_VALUE,
 			  	
-// 			  	total_start_end_interval: 0, 
-// 				total_iosize: 0,
+			  	total_start_end_interval: 0, 
+				total_iosize: 0,
 
-// 			  	avg_start_end_interval: 0,
-// 				throughput: 0
-// 		  	};
-// 		}
-// 	);
+			  	avg_start_end_interval: 0,
+				throughput: 0
+		  	};
+		}
+	);
 	
-// 	Process_Throughput_Chart
-// 	    .width(Full_Width/4) // (optional) define chart width, :default = 200
-// 	    .height(groupProcess_Throughput_ChartDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
-// 	    .dimension(Process_Throughput_ChartDimension) // set dimension
-// 	    .group(groupProcess_Throughput_ChartDimension) // set group
-// 	    .valueAccessor(function (p) {
-// 			return p.value.throughput;
-// 		})
-// 	    // (optional) define margins
-// 	    .margins({top: 0, left: 10, right: 10, bottom: 20})
-// 	    // (optional) define color array for slices
-// /* 	    .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb']) */
-// 	    // (optional) set gap between rows, default is 5
-// 	    .gap(7)
-// 	    // (optional) whether chart should render labels, :default = true
-// 	    .renderLabel(true)
-//     	.label(function (p) {
-// 			return p.key + ": "+ p.value.throughput.toFixed(3) + " MB/s";
-// 		})
-// 	    // (optional) by default pie chart will use group.key and group.value as its title
-// 	    // you can overwrite it with a closure
-// 		.title(function (d) {
-// 				var ab_text = "";
-// 				var text = 
-// 				"io count: " + d.value.count + " #\n" +
-// 				"start time: " + d.value.start_time + " s\n" +
-//  				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
-//  				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
-//  				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
-//  				;
-// 				return ab_text + text;
-// 			})
+	Process_Throughput_Chart
+	    .width(Full_Width/4) // (optional) define chart width, :default = 200
+	    .height(groupProcess_Throughput_ChartDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
+	    .dimension(Process_Throughput_ChartDimension) // set dimension
+	    .group(groupProcess_Throughput_ChartDimension) // set group
+	    .valueAccessor(function (p) {
+			return p.value.throughput;
+		})
+	    // (optional) define margins
+	    .margins({top: 0, left: 10, right: 10, bottom: 20})
+	    // (optional) define color array for slices
+/* 	    .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb']) */
+	    // (optional) set gap between rows, default is 5
+	    .gap(7)
+	    // (optional) whether chart should render labels, :default = true
+	    .renderLabel(true)
+    	.label(function (p) {
+			return p.key + ": "+ p.value.throughput.toFixed(3) + " MB/s";
+		})
+	    // (optional) by default pie chart will use group.key and group.value as its title
+	    // you can overwrite it with a closure
+		.title(function (d) {
+				var ab_text = "";
+				var text = 
+				"io count: " + d.value.count + " #\n" +
+				"start time: " + d.value.start_time + " s\n" +
+ 				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
+ 				;
+				return ab_text + text;
+			})
 
-// 	    // (optional) whether chart should render titles, :default = false
-// 	    .renderTitle(true)
-// 	    // (optional) specify the number of ticks for the X axis
-// 	    .xAxis().ticks(n_rowchart_ticks);
+	    // (optional) whether chart should render titles, :default = false
+	    .renderTitle(true)
+	    // (optional) specify the number of ticks for the X axis
+	    .xAxis().ticks(n_rowchart_ticks);
 
 
     
-// 	var ProcessNamePIDDimension = ndx.dimension(function (d) {
-// 		return d.processname + "-" + d.pid;
-// 		// return d.pid;
-// 	});
-// 	var groupProcessNamePIDDimension = ProcessNamePIDDimension.group().reduce(
-// 		function (p, v) {
-// 			++p.count;
+	var ProcessNamePIDDimension = ndx.dimension(function (d) {
+		return d.processname + "-" + d.pid;
+		// return d.pid;
+	});
+	var groupProcessNamePIDDimension = ProcessNamePIDDimension.group().reduce(
+		function (p, v) {
+			++p.count;
 			
-// 			if(p.start_time > v.starttime) p.start_time = v.starttime;
+			if(p.start_time > v.starttime) p.start_time = v.starttime;
 			
-// 		  	p.total_start_end_interval += v.endtime - v.starttime
-// 			p.total_iosize += v.iosize;
+		  	p.total_start_end_interval += v.endtime - v.starttime
+			p.total_iosize += v.iosize;
 			
-// 		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
-// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 		  	
-// 		  	return p;		  
-// 		},
-// 	  	function (p, v) {
-// 		  	--p.count;
+		  	return p;		  
+		},
+	  	function (p, v) {
+		  	--p.count;
 
-// 		  	p.total_start_end_interval -= v.endtime - v.starttime;
-// 			p.total_iosize -= v.iosize;
+		  	p.total_start_end_interval -= v.endtime - v.starttime;
+			p.total_iosize -= v.iosize;
 			
-// 		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
-// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 			
-// 		  	if(p.StartTime > v.starttime) p.StartTime = v.starttime;
-// 		  	if(p.EndTime < v.endtime) p.EndTime = v.endtime;
+		  	if(p.StartTime > v.starttime) p.StartTime = v.starttime;
+		  	if(p.EndTime < v.endtime) p.EndTime = v.endtime;
 
 			
-// 		  	return p;	  	
-// 	  	},
-// 	  	// init
-// 	  	function() { 
-// 		  	return {
-// 			  	count: 0,
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
 			  	
-// 			  	start_time: Number.MAX_VALUE,
+			  	start_time: Number.MAX_VALUE,
 			  	
-// 			  	total_start_end_interval: 0, 
-// 				total_iosize: 0,
+			  	total_start_end_interval: 0, 
+				total_iosize: 0,
 
-// 			  	avg_start_end_interval: 0,
-// 				throughput: 0,
+			  	avg_start_end_interval: 0,
+				throughput: 0,
 				
-// 				StartTime: Number.MAX_VALUE,
-// 				EndTime: 0
-// 		  	};
-// 		}
-// 	);
+				StartTime: Number.MAX_VALUE,
+				EndTime: 0
+		  	};
+		}
+	);
 	
-// 	PID_Throughput_Chart
-// 	    .width(Full_Width/4) // (optional) define chart width, :default = 200
-// 	    .height(groupProcessNamePIDDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
-// 	    .dimension(ProcessNamePIDDimension) // set dimension
-// 	    .group(groupProcessNamePIDDimension) // set group
-// 	    .valueAccessor(function (p) {
-// 			return p.value.throughput;
-// 		})
-// 	    // (optional) define margins
-// 	    .margins({top: 0, left: 10, right: 10, bottom: 20})
-// 	    // (optional) define color array for slices
-// /* 	    .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb']) */
-// 	    // (optional) set gap between rows, default is 5
-// 	    .gap(7)
-// 	    // (optional) whether chart should render labels, :default = true
-// 	    .renderLabel(true)
-//     	.label(function (p) {
-// 			return p.key + ": "+ p.value.throughput.toFixed(6) + " MB/s";
-// 		})
-// 	    // (optional) by default pie chart will use group.key and group.value as its title
-// 	    // you can overwrite it with a closure
-// 	    		.title(function (d) {
-// 				var ab_text = "";
-// 				var text = 
-// 				"io count: " + d.value.count + " #\n" +
-// 				"start time: " + d.value.start_time + " s\n" +
-//  				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
-//  				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
-//  				"throughput: " + d.value.throughput.toFixed(6) + "MB/s\n" 
-//  				;
-// 				return ab_text + text;
-// 			})
+	PID_Throughput_Chart
+	    .width(Full_Width/4) // (optional) define chart width, :default = 200
+	    .height(groupProcessNamePIDDimension.size() * 30 + 20 + 20) // (optional) define chart height, :default = 200
+	    .dimension(ProcessNamePIDDimension) // set dimension
+	    .group(groupProcessNamePIDDimension) // set group
+	    .valueAccessor(function (p) {
+			return p.value.throughput;
+		})
+	    // (optional) define margins
+	    .margins({top: 0, left: 10, right: 10, bottom: 20})
+	    // (optional) define color array for slices
+/* 	    .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb']) */
+	    // (optional) set gap between rows, default is 5
+	    .gap(7)
+	    // (optional) whether chart should render labels, :default = true
+	    .renderLabel(true)
+    	.label(function (p) {
+			return p.key + ": "+ p.value.throughput.toFixed(6) + " MB/s";
+		})
+	    // (optional) by default pie chart will use group.key and group.value as its title
+	    // you can overwrite it with a closure
+	    		.title(function (d) {
+				var ab_text = "";
+				var text = 
+				"io count: " + d.value.count + " #\n" +
+				"start time: " + d.value.start_time + " s\n" +
+ 				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
+ 				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
+ 				"throughput: " + d.value.throughput.toFixed(6) + "MB/s\n" 
+ 				;
+				return ab_text + text;
+			})
 
-// 	    // (optional) whether chart should render titles, :default = false
-// 	    .renderTitle(true)
-// 	    // (optional) specify the number of ticks for the X axis
-// 	    .xAxis().ticks(n_rowchart_ticks);
+	    // (optional) whether chart should render titles, :default = false
+	    .renderTitle(true)
+	    // (optional) specify the number of ticks for the X axis
+	    .xAxis().ticks(n_rowchart_ticks);
 
-// /*
-//   	var y_low = 0;
-//   	var y_high = groupProcessDimension[0].value.count;
-//   	var y_gap = Math.ceil(y_high * 0.1);
-//   	var y_low = 0 - y_gap;
-//   	var y_high = y_high + y_gap;
-// */
+/*
+  	var y_low = 0;
+  	var y_high = groupProcessDimension[0].value.count;
+  	var y_gap = Math.ceil(y_high * 0.1);
+  	var y_low = 0 - y_gap;
+  	var y_high = y_high + y_gap;
+*/
     
 
 	ProcessBubbleChart_x_low = IOTimeLineChart_x_low;
@@ -2239,7 +2239,7 @@ d3.csv("final_result.csv", function(error, data) {
 		}
 	);
 	ProcessName_IORatio_Chart
-  		.width(width2) // (optional) define chart width, :default = 200
+  		.width(width2/2) // (optional) define chart width, :default = 200
   		.height(height2) // (optional) define chart height, :default = 200
   		.transitionDuration(transition_duration_delay) // (optional) define chart transition duration, :default = 350
   		// (optional) define color array for slices .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
@@ -2279,8 +2279,8 @@ d3.csv("final_result.csv", function(error, data) {
   	var groupTypeDimension = TypeDimension.group();  	
 
 	IOType_IORatio_Chart
-	  	.width(width1) // (optional) define chart width, :default = 200
-	  	.height(height1) // (optional) define chart height, :default = 200
+	  	.width(width2/2) // (optional) define chart width, :default = 200
+	  	.height(height2) // (optional) define chart height, :default = 200
 	  	.transitionDuration(transition_duration_delay) // (optional) define chart transition duration, :default = 350
 	  	// (optional) define color array for slices
 	  	// (optional) define color domain to match your data domain if you want to bind data or color.colorDomain([-1750, 1644])
@@ -2307,99 +2307,39 @@ d3.csv("final_result.csv", function(error, data) {
 	  	// (optional) whether chart should render titles, :default = false
 	  	.renderTitle(true)
 	  	;
-	    
-		
-
                 
-// 	var FileCountDimension = ndx.dimension(function(d) {return d.filename});
-// 	var groupFileCountDimension = FileCountDimension.group()
-// 	/*
-// .reduce(
-// 		function(p,v) {
-// 			++p.count;
-// 			return p;
-// 		},
-// 		funciton(p,v) {
-// 			--p.count;
-// 			return p;
-// 		},
-// 		function() {
-// 			return {count: 0};
-// 		}
-// 	)
-// */
-// 	;
+	var FileCountDimension = ndx.dimension(function(d) {return d.filename});
+	var groupFileCountDimension = FileCountDimension.group()
+	/*
+.reduce(
+		function(p,v) {
+			++p.count;
+			return p;
+		},
+		funciton(p,v) {
+			--p.count;
+			return p;
+		},
+		function() {
+			return {count: 0};
+		}
+	)
+*/
+	;
 	
-// 	File_AccessCount_Chart
-// 		.width(Full_Width/4)
-// 		.height(groupFileCountDimension.size() * 30 + 20 + 20)
-// 		.margins({top: 0, left: 10, right: 10, bottom: 20})
-// 		.dimension(FileCountDimension)
-// 		.group(groupFileCountDimension)
-// 		.colors(['#3182bd'])
-// 		.label(function (d){
-// 			return d.key + ": #" + d.value;
-// 		})
-// 		.xAxis().ticks(n_rowchart_ticks);                   
+	File_AccessCount_Chart
+		.width(Full_Width/4)
+		.height(groupFileCountDimension.size() * 30 + 20 + 20)
+		.margins({top: 0, left: 10, right: 10, bottom: 20})
+		.dimension(FileCountDimension)
+		.group(groupFileCountDimension)
+		.colors(['#3182bd'])
+		.label(function (d){
+			return d.key + ": #" + d.value;
+		})
+		.xAxis().ticks(n_rowchart_ticks);                   
                                 
 
-/*
-	TimeLine_SysLevelAvgRT_Chart
-		.width(Full_Width)
-		.height(Default_Height)
-		.transitionDuration(transition_duration_delay)
-		.margins({top: 10, right: 50, bottom: 20, left: 70})
-		.dimension(NewStartTimeDimension)
-		.group(groupNewStartTimeDimension)
-		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
-//		.xUnits(d3.time.second)
-// 		.elasticX(true) 			// 이걸 키면 해당 크개프의 포커싱이 안되는 경우가 있다. 
-// 		.y(d3.scale.linear().domain([0, 0.0004])) 
-		.elasticY(true)
-// 		.yAxisPadding(100) 
-		.renderHorizontalGridLines(true)
-		.renderVerticalGridLines(true)
-		.brushOn(false)
-		.compose([
-			dc.lineChart(TimeLine_SysLevelAvgRT_Chart)
-			.group(groupNewStartTimeDimension)
-			.valueAccessor(function (d) {
-				return d.value.avg_start_end_interval;
-			})
-			.renderArea(true)
-			.title(function (d) {
-				var ab_text = "";
-				var text = 
-				"io count: " + d.value.count + " #\n" +
-				"start time: " + d.value.start_time + " s\n" +
- 				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
- 				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
- 				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
- 				;
-				return ab_text + text;
-			})
-			,
-			dc.barChart(TimeLine_SysLevelAvgRT_Chart)
-			.group(groupNewStartTimeDimension)
-			.valueAccessor(function (d) {
-				return d.value.throughput;
-			})
-			.title(function (d) {
-				var ab_text = "";
-				var text = 
-				"io count: " + d.value.count + " #\n" +
-				"start time: " + d.value.start_time + " s\n" +
- 				"avg response time: " + d.value.avg_start_end_interval.toFixed(6) + " s\n" +
- 				"total io size: " + (d.value.total_iosize / (1024*1024)).toFixed(3) + " MB\n" +
- 				"throughput: " + d.value.throughput.toFixed(3) + "MB/s\n" 
- 				;
-				return ab_text + text;
-			})
-
-			])
-		.xAxis()
-		;
-*/
 
 /*
 	// 데이터 원본에 대해서만 조작 가능
@@ -2430,40 +2370,6 @@ d3.csv("final_result.csv", function(error, data) {
 */
 
 	/*
-    IOCategoryAver4LayerRTChart
-    	.width(Full_Width*2/3)
-    	.height(IOCategoryChart_height)
-    	.margins({top: 0, right: 10, bottom: 20, left: 60})
-    	.dimension(IOCategoryDimension)
-    	.group(groupIOCategoryDimension)
-    	.valueAccessor(function(d) {
-	    	return d.value.avg_storage;
-    	})
-    	.stack(groupIOCategoryDimension, function(d){return d.value.avg_block;})
-    	.stack(groupIOCategoryDimension, function(d){return d.value.avg_cache;})
-    	.stack(groupIOCategoryDimension, function(d){return d.value.avg_fs;})
-
-    	.x(d3.scale.ordinal().domain(["", "R_4", "R_8", "R_16", "R_32", "R_128", "R_256", "R_512", "R_1024", "R_4096", "R_40960", 
-    	"W_4", "W_8", "W_16", "W_32", "W_128", "W_256", "W_512", "W_1024", "W_4096", "W_40960"])) // manually written in the current version with Dc 1.3, DC 1.4 will cover this automatically
-    	.xUnits(dc.units.ordinal)
-		.renderHorizontalGridLines(true)
-    	.centerBar(true)
-    	.elasticY(true)
-    	.brushOn(false)
-    	.title(function(d){
-	    	return d.key
-	    				+ "\naver. fs response time: \n" + d.value.avg_fs.toFixed(8) 
-	    				+ "\n total fs: " + d.value.total_fs.toFixed(8) + " count: " + d.value.count
-	    				+ "\naver. cache response time: \n" + d.value.avg_cache.toFixed(8) 
-	    				+ "\n total cache: " + d.value.total_cache.toFixed(8) + " count: " + d.value.count
-					    + "\naver. block response time: \n" + d.value.avg_block.toFixed(8)
-	    				+ "\n total block: " + d.value.total_block.toFixed(8) + " count: " + d.value.count
-	    				+ "\naver. storage response time: \n" + d.value.avg_storage.toFixed(8)
-	    				+ "\n total storage: " + d.value.total_storage.toFixed(8) + " count: " + d.value.counterIncrement
-	    				;
-    	})
-    	.xAxis().ticks(20)
-		;
 */
 /*
 	var FileRTDimension = ndx.dimension(function(d) {return d.filename});
