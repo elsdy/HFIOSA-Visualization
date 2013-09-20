@@ -336,7 +336,7 @@
 <script type="text/javascript" src="/Users/elsdy/Dropbox/Development/HFIOSA/VisualizationDevelopment/js/dc/dc.js" > </script>
 <script type="text/javascript">
 
-// var PID_BubbleChart = dc.bubbleChart("#process_bubble_chart");
+var PID_BubbleChart = dc.bubbleChart("#process_bubble_chart");
 // var RT_Distribution_Chart = dc.barChart("#rt_distribution_chart");
 // var ProcessName_IORatio_Chart = dc.pieChart("#process_chart");
 // var IOType_IORatio_Chart = dc.pieChart("#type_chart");
@@ -2083,116 +2083,116 @@ d3.csv("final_result.csv", function(error, data) {
 // */
     
 
-// 	ProcessBubbleChart_x_low = IOTimeLineChart_x_low;
+	ProcessBubbleChart_x_low = IOTimeLineChart_x_low;
 	
-// 	var PID_BubbleChartDimension = ndx.dimension(function (d) {
-// 		// return d.processname + "-" + d.pid;
-// 		return d.pid;
-// 	});
-// 	var groupPID_BubbleChartDimension = PID_BubbleChartDimension.group().reduce(
-// 		function (p, v) {
-// 			++p.count;
+	var PID_BubbleChartDimension = ndx.dimension(function (d) {
+		// return d.processname + "-" + d.pid;
+		return d.pid;
+	});
+	var groupPID_BubbleChartDimension = PID_BubbleChartDimension.group().reduce(
+		function (p, v) {
+			++p.count;
 			
-// 			if(p.start_time > v.starttime) p.start_time = v.starttime;
+			if(p.start_time > v.starttime) p.start_time = v.starttime;
 			
-// 		  	p.total_start_end_interval += v.endtime - v.starttime
-// 			p.total_iosize += v.iosize;
+		  	p.total_start_end_interval += v.endtime - v.starttime
+			p.total_iosize += v.iosize;
 			
-// 		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
-// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 		  	
-// 		  	return p;		  
-// 		},
-// 	  	function (p, v) {
-// 		  	--p.count;
+		  	return p;		  
+		},
+	  	function (p, v) {
+		  	--p.count;
 
-// 		  	p.total_start_end_interval -= v.endtime - v.starttime;
-// 			p.total_iosize -= v.iosize;
+		  	p.total_start_end_interval -= v.endtime - v.starttime;
+			p.total_iosize -= v.iosize;
 			
-// 		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
-// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 			
-// 		  	if(p.StartTime > v.starttime) p.StartTime = v.starttime;
-// 		  	if(p.EndTime < v.endtime) p.EndTime = v.endtime;
+		  	if(p.StartTime > v.starttime) p.StartTime = v.starttime;
+		  	if(p.EndTime < v.endtime) p.EndTime = v.endtime;
 
 			
-// 		  	return p;	  	
-// 	  	},
-// 	  	// init
-// 	  	function() { 
-// 		  	return {
-// 			  	count: 0,
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
 			  	
-// 			  	start_time: Number.MAX_VALUE,
+			  	start_time: Number.MAX_VALUE,
 			  	
-// 			  	total_start_end_interval: 0, 
-// 				total_iosize: 0,
+			  	total_start_end_interval: 0, 
+				total_iosize: 0,
 
-// 			  	avg_start_end_interval: 0,
-// 				throughput: 0,
+			  	avg_start_end_interval: 0,
+				throughput: 0,
 				
-// 				StartTime: Number.MAX_VALUE,
-// 				EndTime: 0
-// 		  	};
-// 		}
-// 	);
+				StartTime: Number.MAX_VALUE,
+				EndTime: 0
+		  	};
+		}
+	);
 
-// 	PID_BubbleChart
-// 		.width(Full_Width*1/3)
-// 		.height(250)
-//     	.margins({top: 0, right: 60, bottom: 20, left: 60})
-// 		.dimension(PID_BubbleChartDimension)
-// 		.group(groupPID_BubbleChartDimension)
-// 		.transitionDuration(transition_duration_delay)
-// 		.colors(["green"])
-// /*
-// 		.colorDomain([-12000, 12000])
-// 		.colorAccessor(function (d) {
-// 			return d.value.count;
-// 		})
-// */
-// 		.keyAccessor(function (p) {
-// 			return p.value.count;
-// 		})
-// 		.valueAccessor(function (p) {
-// 			return p.value.avg_start_end_interval;
-// 		})
-// 		.radiusValueAccessor(function (p) {
-// /* 			return p.value.count / all.value()*10000; // 원의 지름이 I/O 요청 개수에 따라서 커짐, 프로세스간의 I/O 요청 개수들을 쉽게 비교하고 싶을 때 사용 */
-// 			return 2;
-// 		})
-// 	/* 	.maxBubbleRelativeSize(30) */
-// 		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
-// 		.y(d3.scale.linear().domain([-1, 1]))
-// 		.r(d3.scale.linear().domain([0, 7000]))
-// 		.elasticY(true)
-//  		.yAxisPadding(0.5) 
-// 		.elasticX(true)
-//  		// .xAxisPadding(0.5) 
-// 		.renderHorizontalGridLines(true)
-// 		.renderVerticalGridLines(true)
-// 		.renderLabel(true)
-// 		.renderTitle(true)
-// 		.label(function (p) {
-// 			return p.key;
-// 		})
-// 		.title(function (p) {
-// 			return p.key 
-// 			+ "\nI/O #" + p.value.count 
-// 			+ "\n1st I/O at: " + p.value.StartTime
-// 			+ "\nAvg. RT: " + p.value.avg_start_end_interval.toFixed(8)
-// 			+ "\nStart time: " + p.value.StartTime.toFixed(8)
-// 			+ "\nEnd Time: " + p.value.EndTime.toFixed(8);
-// 		})
-// 		.xAxis().tickFormat(function (v) {
-// 			return "#" + v;
-// 		})
-// 		.ticks(n_bubblechart_ticks);
-// 		// the both setting (x/yAxis) aren't working at the same time
-// 		// .yAxis().tickFormat(function (v) {
-// 		// 	return v + "s";
-// 		// })
-// 		;
+	PID_BubbleChart
+		.width(Full_Width*1/3)
+		.height(250)
+    	.margins({top: 0, right: 60, bottom: 20, left: 60})
+		.dimension(PID_BubbleChartDimension)
+		.group(groupPID_BubbleChartDimension)
+		.transitionDuration(transition_duration_delay)
+		.colors(["green"])
+/*
+		.colorDomain([-12000, 12000])
+		.colorAccessor(function (d) {
+			return d.value.count;
+		})
+*/
+		.keyAccessor(function (p) {
+			return p.value.count;
+		})
+		.valueAccessor(function (p) {
+			return p.value.avg_start_end_interval;
+		})
+		.radiusValueAccessor(function (p) {
+/* 			return p.value.count / all.value()*10000; // 원의 지름이 I/O 요청 개수에 따라서 커짐, 프로세스간의 I/O 요청 개수들을 쉽게 비교하고 싶을 때 사용 */
+			return 2;
+		})
+	/* 	.maxBubbleRelativeSize(30) */
+		.x(d3.scale.linear().domain([IOTimeLineChart_x_low, IOTimeLineChart_x_high]))
+		.y(d3.scale.linear().domain([-1, 1]))
+		.r(d3.scale.linear().domain([0, 7000]))
+		.elasticY(true)
+ 		.yAxisPadding(0.5) 
+		.elasticX(true)
+ 		// .xAxisPadding(0.5) 
+		.renderHorizontalGridLines(true)
+		.renderVerticalGridLines(true)
+		.renderLabel(true)
+		.renderTitle(true)
+		.label(function (p) {
+			return p.key;
+		})
+		.title(function (p) {
+			return p.key 
+			+ "\nI/O #" + p.value.count 
+			+ "\n1st I/O at: " + p.value.StartTime
+			+ "\nAvg. RT: " + p.value.avg_start_end_interval.toFixed(8)
+			+ "\nStart time: " + p.value.StartTime.toFixed(8)
+			+ "\nEnd Time: " + p.value.EndTime.toFixed(8);
+		})
+		.xAxis().tickFormat(function (v) {
+			return "#" + v;
+		})
+		.ticks(n_bubblechart_ticks);
+		// the both setting (x/yAxis) aren't working at the same time
+		// .yAxis().tickFormat(function (v) {
+		// 	return v + "s";
+		// })
+		;
 
 //  	var fluctuation = ndx.dimension(function (d) {
 //                 return (d.endtime - d.starttime).toFixed(4);
