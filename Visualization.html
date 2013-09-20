@@ -2379,7 +2379,10 @@ d3.csv("final_result.csv", function(error, data) {
 		.group(groupIOSizeGroupDimension)
 		.colors(['#3182bd'])
 		.label(function (d){
-			return d.key + " byte: #" + d.value;
+			if(d.key == 0)
+				return "above " + iogroup_size[iogroup_size.length-1] + " bytes: #" + d.value;
+			else
+				return "~ " + d.key + " bytes: #" + d.value;
 		})
 		.xAxis().ticks(n_rowchart_ticks);                   
 
