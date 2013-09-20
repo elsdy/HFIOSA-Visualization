@@ -338,8 +338,8 @@
 
 var PID_BubbleChart = dc.bubbleChart("#process_bubble_chart");
 var RT_Distribution_Chart = dc.barChart("#rt_distribution_chart");
-// var ProcessName_IORatio_Chart = dc.pieChart("#process_chart");
-// var IOType_IORatio_Chart = dc.pieChart("#type_chart");
+var ProcessName_IORatio_Chart = dc.pieChart("#process_chart");
+var IOType_IORatio_Chart = dc.pieChart("#type_chart");
 
 // var IOCategory_Count_Chart = dc.rowChart("#io_category_chart");
 // var IOCategory_SysLevelAvgRT_Chart = dc.rowChart("#io_category_aver_response_time_chart");
@@ -2229,119 +2229,119 @@ d3.csv("final_result.csv", function(error, data) {
             return v + "s";
         });
 
-// 	var ProcessNameDimension = ndx.dimension(function (d) {
-// 		return d.processname;
-// 		});            
+	var ProcessNameDimension = ndx.dimension(function (d) {
+		return d.processname;
+		});            
 
-// 	var groupProcessNameDimension = ProcessNameDimension.group().reduce(
-// 		function (p, v) {
-// 			++p.count;
+	var groupProcessNameDimension = ProcessNameDimension.group().reduce(
+		function (p, v) {
+			++p.count;
 			
-// 			if(p.start_time > v.starttime) p.start_time = v.starttime;
+			if(p.start_time > v.starttime) p.start_time = v.starttime;
 			
-// 		  	p.total_start_end_interval += v.endtime - v.starttime
-// 			p.total_iosize += v.iosize;
+		  	p.total_start_end_interval += v.endtime - v.starttime
+			p.total_iosize += v.iosize;
 			
-// 		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
-// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	p.avg_start_end_interval = p.total_start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 		  	
-// 		  	return p;		  
-// 		},
-// 	  	function (p, v) {
-// 		  	--p.count;
+		  	return p;		  
+		},
+	  	function (p, v) {
+		  	--p.count;
 
-// 		  	p.total_start_end_interval -= v.endtime - v.starttime;
-// 			p.total_iosize -= v.iosize;
+		  	p.total_start_end_interval -= v.endtime - v.starttime;
+			p.total_iosize -= v.iosize;
 			
-// 		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
-// 			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
+		  	p.avg_start_end_interval = p.count == 0 ? 0: p.total_start_end_interval / p.count;
+			p.throughput = p.count == 0 ? 0: (p.total_iosize /  p.total_start_end_interval) / (1024*1024);
 			
-// 		  	return p;	  	
-// 	  	},
-// 	  	// init
-// 	  	function() { 
-// 		  	return {
-// 			  	count: 0,
+		  	return p;	  	
+	  	},
+	  	// init
+	  	function() { 
+		  	return {
+			  	count: 0,
 			  	
-// 			  	start_time: Number.MAX_VALUE,
+			  	start_time: Number.MAX_VALUE,
 			  	
-// 			  	total_start_end_interval: 0, 
-// 				total_iosize: 0,
+			  	total_start_end_interval: 0, 
+				total_iosize: 0,
 
-// 			  	avg_start_end_interval: 0,
-// 				throughput: 0
-// 		  	};
-// 		}
-// 	);
-// 	ProcessName_IORatio_Chart
-//   		.width(Full_Width*1/6) // (optional) define chart width, :default = 200
-//   		.height(250) // (optional) define chart height, :default = 200
-//   		.transitionDuration(transition_duration_delay) // (optional) define chart transition duration, :default = 350
-//   		// (optional) define color array for slices .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
-//   		// (optional) define color domain to match your data domain if you want to bind data or color.colorDomain([-1750, 1644])
-//   		// (optional) define color value accessor
-// /*
-//   		.colorAccessor(function(d, i){return d.data.value;})
-//   		.radius(90) // define pie radius
-// */
-// 		// (optional) if inner radius is used then a donut chart will
-// 		// be generated instead of pie chart
-// 		.innerRadius(20)
-// 		.dimension(ProcessNameDimension) // set dimension
-// 		.group(groupProcessNameDimension) // set group
-// 		// (optional) by default pie chart will use group.key as it's label
-// 		// but you can overwrite it with a closure
-// 		.label(function(d) { return d.data.key + "(" + Math.floor(d.data.value.count / all.value() * 100) + "%)"; })
-// 		// (optional) whether chart should render labels, :default = true
-// /* 		.renderLabel(true) */
-// 		// (optional) by default pie chart will use group.key and group.value as its title
-// 		// you can overwrite it with a closure
-// /*
-// 		.title(function(d) { return d.data.key + ": "+ Math.floor(d.data.value / all.value() * 100) + "%\n"	
-// 			+ "The number of I/O = " + d..value + "\n";
-// 		})
-// */
-// 		.title(function(d) { return d.data.key + ": "+ Math.floor(d.data.value.count / all.value() * 100) + "%\n"	
-// 			+ "The number of I/O = " + d.data.value.count + "\n";
-// 		})		
-//     	.valueAccessor(function(d) {
-// 	    	return d.value.count;
-//     	})
-// 		// (optional) whether chart should render titles, :default = false
-// 		.renderTitle(true);
+			  	avg_start_end_interval: 0,
+				throughput: 0
+		  	};
+		}
+	);
+	ProcessName_IORatio_Chart
+  		.width(width2) // (optional) define chart width, :default = 200
+  		.height(height2) // (optional) define chart height, :default = 200
+  		.transitionDuration(transition_duration_delay) // (optional) define chart transition duration, :default = 350
+  		// (optional) define color array for slices .colors(['#3182bd', '#6baed6', '#9ecae1', '#c6dbef', '#dadaeb'])
+  		// (optional) define color domain to match your data domain if you want to bind data or color.colorDomain([-1750, 1644])
+  		// (optional) define color value accessor
+/*
+  		.colorAccessor(function(d, i){return d.data.value;})
+  		.radius(90) // define pie radius
+*/
+		// (optional) if inner radius is used then a donut chart will
+		// be generated instead of pie chart
+		.innerRadius(20)
+		.dimension(ProcessNameDimension) // set dimension
+		.group(groupProcessNameDimension) // set group
+		// (optional) by default pie chart will use group.key as it's label
+		// but you can overwrite it with a closure
+		.label(function(d) { return d.data.key + "(" + Math.floor(d.data.value.count / all.value() * 100) + "%)"; })
+		// (optional) whether chart should render labels, :default = true
+/* 		.renderLabel(true) */
+		// (optional) by default pie chart will use group.key and group.value as its title
+		// you can overwrite it with a closure
+/*
+		.title(function(d) { return d.data.key + ": "+ Math.floor(d.data.value / all.value() * 100) + "%\n"	
+			+ "The number of I/O = " + d..value + "\n";
+		})
+*/
+		.title(function(d) { return d.data.key + ": "+ Math.floor(d.data.value.count / all.value() * 100) + "%\n"	
+			+ "The number of I/O = " + d.data.value.count + "\n";
+		})		
+    	.valueAccessor(function(d) {
+	    	return d.value.count;
+    	})
+		// (optional) whether chart should render titles, :default = false
+		.renderTitle(true);
 
-//   	var TypeDimension = ndx.dimension(function(d) {return d.type});
-//   	var groupTypeDimension = TypeDimension.group();  	
+  	var TypeDimension = ndx.dimension(function(d) {return d.rw});
+  	var groupTypeDimension = TypeDimension.group();  	
 
-// 	IOType_IORatio_Chart
-// 	  	.width(Full_Width*1/6) // (optional) define chart width, :default = 200
-// 	  	.height(250) // (optional) define chart height, :default = 200
-// 	  	.transitionDuration(transition_duration_delay) // (optional) define chart transition duration, :default = 350
-// 	  	// (optional) define color array for slices
-// 	  	// (optional) define color domain to match your data domain if you want to bind data or color.colorDomain([-1750, 1644])
-// 	  	// (optional) define color value accessor
-// /*
-// 	  	.colorAccessor(function(d, i){return d.data.value;})
-// 	  	.radius(90) // define pie radius
-// */
-// 	  	// (optional) if inner radius is used then a donut chart will
-// 	  	// be generated instead of pie chart
-// 	  	.innerRadius(20)
-// 	  	.dimension(TypeDimension) // set dimension
-// 	  	.group(groupTypeDimension) // set group)
-// 	  	// (optional) by default pie chart will use group.key as it's label
-// 	  	// but you can overwrite it with a closure
-// 	  	.label(function(d) { return d.data.key + "(" + Math.floor(d.data.value / all.value() * 100) + "%)"; })
-// 	  	// (optional) whether chart should render labels, :default = true
-// 	  	.renderLabel(true)
-// 	  	// (optional) by default pie chart will use group.key and group.value as its title
-// 	  	// you can overwrite it with a closure
-// 	  	.title(function(d) { return d.data.key + "\n"	
-// 		  	+ ": " + d.data.value + "\n"; 
-// 	  	})
-// 	  	// (optional) whether chart should render titles, :default = false
-// 	  	.renderTitle(true)
-// 	  	;
+	IOType_IORatio_Chart
+	  	.width(width1) // (optional) define chart width, :default = 200
+	  	.height(height1) // (optional) define chart height, :default = 200
+	  	.transitionDuration(transition_duration_delay) // (optional) define chart transition duration, :default = 350
+	  	// (optional) define color array for slices
+	  	// (optional) define color domain to match your data domain if you want to bind data or color.colorDomain([-1750, 1644])
+	  	// (optional) define color value accessor
+/*
+	  	.colorAccessor(function(d, i){return d.data.value;})
+	  	.radius(90) // define pie radius
+*/
+	  	// (optional) if inner radius is used then a donut chart will
+	  	// be generated instead of pie chart
+	  	.innerRadius(20)
+	  	.dimension(TypeDimension) // set dimension
+	  	.group(groupTypeDimension) // set group)
+	  	// (optional) by default pie chart will use group.key as it's label
+	  	// but you can overwrite it with a closure
+	  	.label(function(d) { return d.data.key + "(" + Math.floor(d.data.value / all.value() * 100) + "%)"; })
+	  	// (optional) whether chart should render labels, :default = true
+	  	.renderLabel(true)
+	  	// (optional) by default pie chart will use group.key and group.value as its title
+	  	// you can overwrite it with a closure
+	  	.title(function(d) { return d.data.key + "\n"	
+		  	+ ": " + d.data.value + "\n"; 
+	  	})
+	  	// (optional) whether chart should render titles, :default = false
+	  	.renderTitle(true)
+	  	;
 	    
 		
 //     var IOCategoryDimension = ndx.dimension(function(d) {return d.class});
