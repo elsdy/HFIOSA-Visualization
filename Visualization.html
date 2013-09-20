@@ -266,6 +266,13 @@
 		</h2>
 		 <a class="reset" href="javascript:File_AccessCount_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
+	<div id="iosizegroup_chart" class="dc-chart" >
+		<h2>
+			<strong> I/O 크기 별 개수 <br>
+			(x축: 개수, y축: 크기)</strong> 
+		</h2>
+		 <a class="reset" href="javascript:IOSizeGroupt_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
+	</div>
 
 </div>
 
@@ -370,6 +377,7 @@ var IOType_IORatio_Chart = dc.pieChart("#type_chart");
 var Process_Throughput_Chart = dc.rowChart("#process_throughput_chart");
 var PID_Throughput_Chart = dc.rowChart("#pid_throughput_chart");
 var File_AccessCount_Chart = dc.rowChart("#file_count_chart");
+var IOSizeGroupt_Chart = dc.rowChart("#iosizegroup_chart");
 
 /* var StatTable = dc.dataTable("#data-table"); */
 
@@ -386,14 +394,19 @@ var top2 = 20, bottom2 = 20, left2 = 70, right2 = 10;
 var height2 = Default_Height;
 var width2 = Full_Width / 4;
 
-var iogroup_size = new Array (4,8,16,32,64,128,256,512,1024,2048,4096);
+var iogroup_size = new Array (4,8,16,32,64,128,256,512,1024,2048,4096,40960);
 
 function classifyIoSize(d)
 {
-	for (var i in iogroup_size) {
-		if(d < i)
-			return i;
+	for (var i = 0; i < iogroup_size.length; i++)
+	{
+		if(d <= iogroup_size[i])
+		{
+			return iogroup_size[i];
+		}
 	}
+
+	return 0;
 }
 
 d3.csv("final_result.csv", function(error, data) {
@@ -2352,6 +2365,24 @@ d3.csv("final_result.csv", function(error, data) {
 			return d.key + ": #" + d.value;
 		})
 		.xAxis().ticks(n_rowchart_ticks);                   
+
+	var IOSizeGroupDimension = ndx.dimension(function(d) {return d.iosizegroup});
+
+	var groupIOSizeGroupDimension = IOSizeGroupDimension.group()
+	;
+
+	IOSizeGroupt_Chart
+		.width(Full_Width/4)
+		.height(groupFileCountDimension.size() * 5)
+		.margins({top: 0, left: 10, right: 10, bottom: 20})
+		.dimension(IOSizeGroupDimension)
+		.group(groupIOSizeGroupDimension)
+		.colors(['#3182bd'])
+		.label(function (d){
+			return d.key + " byte: #" + d.value;
+		})
+		.xAxis().ticks(n_rowchart_ticks);                   
+
                                 
 
 
