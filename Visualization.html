@@ -266,6 +266,7 @@
 		</h2>
 		 <a class="reset" href="javascript:File_AccessCount_Chart.filterAll();dc.redrawAll();" style="display:none; " > 해당 필터 및 그룹핑 초기화  </a> <div id="clearfix" ></div>
 	</div>
+
 </div>
 
 <!-- anchor div for data table -->
@@ -306,7 +307,7 @@
 <script type="text/javascript" src="/Users/elsdy/Dropbox/Development/HFIOSA/VisualizationDevelopment/js/dc/dc.js" > </script>
 <script type="text/javascript">
 
-document.body.style.zoom=0.9;
+document.body.style.zoom=0.88;
 
 /* var IOCategoryAver4LayerRTChart = dc.barChart("#io_category_aver_4layer_response_time_chart"); */
 
@@ -385,6 +386,16 @@ var top2 = 20, bottom2 = 20, left2 = 70, right2 = 10;
 var height2 = Default_Height;
 var width2 = Full_Width / 4;
 
+var iogroup_size = new Array (4,8,16,32,64,128,256,512,1024,2048,4096);
+
+function classifyIoSize(d)
+{
+	for (var i in iogroup_size) {
+		if(d < i)
+			return i;
+	}
+}
+
 d3.csv("final_result.csv", function(error, data) {
 
 
@@ -420,6 +431,7 @@ d3.csv("final_result.csv", function(error, data) {
 	  	d.endtime = +d.endtime;
 	  	// d.rw  
 	  	d.iosize = +d.iosize;
+	  	d.iosizegroup = classifyIoSize(d.iosize);
 	  	// d.filename
 	  	d.inode = +d.inode;
 	  	d.mapped_syscall_io = +d.mapped_syscall_io;
